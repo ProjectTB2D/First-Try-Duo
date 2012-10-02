@@ -1,0 +1,66 @@
+----------------------------------------
+BEHAVIOR
+----------------------------------------
+
+FREESTYLE
+COLLECT
+EQUIPE
+ATTACK
+DEFENSE
+DRIVE ATTACK
+DRIVE DEFENSE
+
+----------------------------------------
+AI STATE
+----------------------------------------
+
+Idle
+Collecting 
+Crafting
+Equipping  
+Defending
+Attacking Enemy 
+Attacking Building
+Taking Drop 
+Covering Emperor
+Attacking Tank Enemy
+Attacking Tank Building
+Defending Tank
+
+----------------------------------------
+AI STATE TRIGGER
+----------------------------------------
+
+Idle				-> [after an other state end]
+Collecting 			-> [O:COLLECT	]			OR [O:FS (If a ressource is missing)] 
+Crafting			-> [O:EQUIPE (if an item is missing)]	OR [O:FS:Priority Task (if an item is missing)]
+Equipping 			-> [O:EQUIPE (if an item is available)] OR [O:FS:Priority Task (if an item is available)]
+Defending			-> [O:DEFENSE]				OR [O:FS:Priority Task]
+Attacking Enemy 		-> [O:ATTACK/DEF (if an enemy is seen)]	OR [O:FS:Priority Task (if an enemy is seen)]	OR [ALL:If being Attacked by enemy]
+Attacking Building		-> [O:ATTACK (if no enemy is seen)]	OR [O:FS:Priority Task (if an enemy is seen)]	OR [ALL:If being Attacked by turret]
+Taking Drop 			-> [ALL (\*Tank*)]			OR [weapon < DROP]
+Covering Emperor		-> [O:COVER]				OR [O:FS:EmpororLife < 25 %]
+Attacking Tank Enemy		-> [O:ATTACK/DEF (if an enemy is seen)]	OR [[O:FS:Priority Task (if an enemy is seen)]
+Attacking Tank Building
+Defending Tank
+
+----------------------------------------
+TASK PRIORITY
+----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
