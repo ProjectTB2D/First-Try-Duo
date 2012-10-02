@@ -1,0 +1,29 @@
+﻿
+Le programme ouvrira lors de son lancement une grille.
+
+(Taille a définir : 50 x 50 ?)
+
+AUCUNES action possible lorsque l'application est lancé, on peut SEULEMENT
+observer les déplacements et les collisions ou non.
+
+Une multitude de point se déplacera sur la grille en ayant 2 points ou plusieurs 
+sur lesquels ils feront leur allez retours.
+
+Deux points ne peuvent pas passer au travers l'un de l'autre, ils se poussent comme
+les unitées dans Command & Conquer.
+
+Caractéristiques :
+	Pour aller d'un point A a un point B, le personnage ira toujours tout droit
+	sauf en cas d'obstacles, et il se mettra alors sur des "rails" tout autour de 
+	l'obstacle et il en sortira lorsqu'il sera le plus proche possible du point B.
+	
+	Question : Combien de personnages peuvent etre sur les "rails" d'un meme objet ?
+			   Il n'y a toujours pas de collisions possible entre les joueurs ?
+			   Le nombre de personne autour d'un meme objet sera limité dans ce cas la. (A RESOUDRE)
+			   
+			   Les obstacles ne sont pas forcement des formes rentrant dans une grille, cela peut etre
+			   des polygones et donc il ne sera surement pas possible d'appliquer une sorte de A* autour
+			   d'eux. Il faudra placer des Nodes autour de chaque objets.
+	
+	Question : Comment le contournement marche autour d'objet dynamique tel qu'un char ou un autre 
+				personnage ?
