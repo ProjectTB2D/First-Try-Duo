@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1349278573 source:c:\users\jordan-titan\documents\github\testia\main.cpp
+	<iostream>
+	<SFML/system.hpp>
+
+1349278744 source:c:\users\jordan-titan\documents\github\first-try-duo\testia\main.cpp
+	<sstream>
+	<fstream>
+	<iostream>
+	<cmath>
+	<string>
+	<vector>
+	<SFML/System.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+
