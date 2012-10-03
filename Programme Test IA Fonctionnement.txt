@@ -3,27 +3,41 @@ Le programme ouvrira lors de son lancement une grille.
 
 (Taille a définir : 50 x 50 ?)
 
-AUCUNES action possible lorsque l'application est lancé, on peut SEULEMENT
-observer les déplacements et les collisions ou non.
+Un nombre définit de personnage au début (Sans chemin prédéfinis)
+On peut cliquer sur un personnage pour le selectionner et pour le donner un ordre
+de déplacement.
 
-Une multitude de point se déplacera sur la grille en ayant 2 points ou plusieurs 
-sur lesquels ils feront leur allez retours.
-
-Deux points ne peuvent pas passer au travers l'un de l'autre, ils se poussent comme
-les unitées dans Command & Conquer.
+On ne test pas les collisions.
 
 Caractéristiques :
 	Pour aller d'un point A a un point B, le personnage ira toujours tout droit
 	sauf en cas d'obstacles, et il se mettra alors sur des "rails" tout autour de 
-	l'obstacle et il en sortira lorsqu'il sera le plus proche possible du point B.
+	l'obstacle et il en sortira lorsqu'il arrivera sur la Node la plus proche possible du point B.
 	
-	Question : Combien de personnages peuvent etre sur les "rails" d'un meme objet ?
-			   Il n'y a toujours pas de collisions possible entre les joueurs ?
-			   Le nombre de personne autour d'un meme objet sera limité dans ce cas la. (A RESOUDRE)
-			   
-			   Les obstacles ne sont pas forcement des formes rentrant dans une grille, cela peut etre
-			   des polygones et donc il ne sera surement pas possible d'appliquer une sorte de A* autour
-			   d'eux. Il faudra placer des Nodes autour de chaque objets.
+	Les personnages se "poussent" lorsquelles sont sur la Rail d'un obstacle.
+		   
+	Il y a des Nodes autour de chaque Obstables.
 	
-	Question : Comment le contournement marche autour d'objet dynamique tel qu'un char ou un autre 
-				personnage ?
+	
+Systeme de Nodes :
+
+	Quand un personnage entre dans un polygone formé par le réseau de Nodes (Rail), une
+	nouvelle Node est créée sur la position du personnage et est raccordé au réseau.
+	Il effectuera alors le calcul du chemin le plus court (Pas forcément Dishtra) avec la
+	nouvelle Node.
+
+Class Node 
+
+	Vector2f position;
+	node * prev;
+	node * next;
+	float * distance_prev;
+	float * distance_next;
+
+
+
+
+
+
+
+
