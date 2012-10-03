@@ -29,16 +29,32 @@ int main()
 
 
 
+    Texture rock;
+
+    if (!rock.loadFromFile("images/rocher.png")) // Si le chargement a échoué
+    {
+        cerr<<"Erreur durant le chargement de l'image"<<endl;
+    }
+
+
+
 	Clock clockFrame; // Permettra de calculer les FPS
 
 	RectangleShape background(Vector2f((int)WINDOW_SIZE.x, (int)WINDOW_SIZE.y));
     background.setFillColor(sf::Color(100,125,180));
 
+    // Création d'un rocher
+
+    RectangleShape rocher(Vector2f(144.0f, 135.0f));
+    rocher.setTexture(&rock);
+    rocher.setPosition(350.0f, 250.0f);
+    //rocher.setTextureRect(IntRect(0, 0, 50, 50));
+
     // Création des personnages (cercles)
 
     vector<CircleShape*> vectorCharacter;
 
-    CircleShape * selection;
+    CircleShape * selection = NULL;
 
     CircleShape c1(10.0f);
     CircleShape c2(10.0f);
@@ -128,9 +144,11 @@ int main()
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
         {
+            selection = NULL; // On supprime le pointeur de cercle
+
             for(int unsigned i = 0; i < vectorCharacter.size(); i++){
 
-                vectorCharacter[i]->setFillColor(sf::Color::Blue);
+                vectorCharacter[i]->setFillColor(sf::Color::Blue); // On met tous les cercles en bleu (deselectionne)
             }
         }
 
@@ -150,11 +168,12 @@ int main()
                 {
                     if(souris.y >= vectorCharacter[i]->getPosition().y && souris.y <= (vectorCharacter[i]->getPosition().y + 20.0f))
                     {
-                        cout << "Collision" << endl;
+                        if(selection != NULL) // On change la couleur du précédent selectionné
+                            selection->setFillColor(sf::Color::Blue);
 
-                        selection = vectorCharacter[i];
+                        selection = vectorCharacter[i]; // On SAVE le pointeur du cercle
 
-                        selection->setFillColor(sf::Color::Red);
+                        selection->setFillColor(sf::Color::Red); // On le met en Rouge
                     }
                 }
 
@@ -171,6 +190,8 @@ int main()
         app.draw(c2);
         app.draw(c3);
         app.draw(c4);
+
+        app.draw(rocher);
 
         // Affichage de la fenêtre à l'écran
         app.display();
