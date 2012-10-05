@@ -14,7 +14,7 @@
 using namespace std;
 using namespace sf;
 
-
+const float vitesseChara = 1.0f;
 const Vector2f WINDOW_SIZE(800,600);
 
 
@@ -54,11 +54,11 @@ int main()
 
     // Création des personnages (cercles)
 
-    vector<CircleShape*> vectorCharacter;
+    vector<Character*> vectorCharacter;
 
-    CircleShape * selection = NULL;
+    Character * selection = NULL;
 
-    CircleShape c1(10.0f);
+    /*CircleShape c1(10.0f);
     CircleShape c2(10.0f);
     CircleShape c3(10.0f);
     CircleShape c4(10.0f);
@@ -73,8 +73,12 @@ int main()
     c3.setPosition(75.0f, 250.0f);
 
     c4.setFillColor(sf::Color::Blue);
-    c4.setPosition(150.0f, 350.0f);
+    c4.setPosition(150.0f, 350.0f);*/
 
+    Character c1(25.0f, 50.0f);
+    Character c2(50.0f, 150.0f);
+    Character c3(75.0f, 250.0f);
+    Character c4(150.0f, 350.0f);
     Character c5(200.0f, 375.0f);
 
 
@@ -82,6 +86,7 @@ int main()
     vectorCharacter.push_back(&c2);
     vectorCharacter.push_back(&c3);
     vectorCharacter.push_back(&c4);
+    vectorCharacter.push_back(&c5);
 
 
 
@@ -151,7 +156,7 @@ int main()
 
             if(selection != NULL)
             {
-                selection->setFillColor(sf::Color::Blue);
+                selection->getShape().setFillColor(sf::Color::Blue);
                 selection = NULL; // On supprime le pointeur de cercle
             }
 
@@ -169,38 +174,104 @@ int main()
 
             Vector2i souris = Mouse::getPosition(app);
 
-            cout << "X : " << souris.x << " Y : " << souris.y << endl;
+            //cout << "X : " << souris.x << " Y : " << souris.y << endl;
 
 
             for(int unsigned i = 0; i < vectorCharacter.size(); i++){
 
-                if(souris.x >= vectorCharacter[i]->getPosition().x && souris.x <= (vectorCharacter[i]->getPosition().x + 20.0f))
+                // Selection
+
+                if(selection == NULL)
                 {
-                    if(souris.y >= vectorCharacter[i]->getPosition().y && souris.y <= (vectorCharacter[i]->getPosition().y + 20.0f))
+                    if(souris.x >= vectorCharacter[i]->getShape().getPosition().x && souris.x <= (vectorCharacter[i]->getShape().getPosition().x + 20.0f))
                     {
-                        if(selection != NULL) // On change la couleur du précédent selectionné
-                            selection->setFillColor(sf::Color::Blue);
+                        if(souris.y >= vectorCharacter[i]->getShape().getPosition().y && souris.y <= (vectorCharacter[i]->getShape().getPosition().y + 20.0f))
+                        {
 
-                        selection = vectorCharacter[i]; // On SAVE le pointeur du cercle
+                            selection = vectorCharacter[i]; // On SAVE le pointeur du cercle
 
-                        selection->setFillColor(sf::Color::Red); // On le met en Rouge
+                            selection->getShape().setFillColor(sf::Color::Red); // On le met en Rouge
+                        }
                     }
                 }
 
+                /*
+                =====================================
+                Que se passe t'il si l'on clique pour un déplacement sur une zone non atteignable ? (genre obstacle)
+                =====================================
+                */
+
+                // On définit la destination avec un clique gauche
+
+                if(selection != NULL) // cad un objet selectioné
+                {
+                    for(int unsigned j = 0; j < vectorCharacter.size(); j++){
+
+                        if(souris.x < vectorCharacter[j]->getShape().getPosition().x || souris.x > (vectorCharacter[j]->getShape().getPosition().x + 20.0f))
+                        {
+                            if(souris.y < vectorCharacter[j]->getShape().getPosition().y || souris.y > (vectorCharacter[j]->getShape().getPosition().y + 20.0f))
+                            {
+                                Vector2f desti(souris.x, souris.y);
+                                selection->setDestination(desti);
+                                selection->setDeplacement(true);
+                            }
+                        }
+                    }
+                }
 
             }
         }
+
+        for(int unsigned i = 0; i < vectorCharacter.size(); i++)
+        {
+            // Deplacement
+
+            if(vectorCharacter[i]->getPositionActuelle() == vectorCharacter[i]->getDestination())
+            {
+                vectorCharacter[i]->setDeplacement(false);
+                //cout << "ERROR" << endl;
+            }
+
+            if(vectorCharacter[i]->getDeplacement())
+            {
+                // x act  y act  x des  y des
+                float xMove = 0.0f, yMove = 0.0f;
+
+                if(vectorCharacter[i]->getPositionActuelle().x < vectorCharacter[i]->getDestination().x)
+                {
+                    xMove = 1.0f;
+                }
+                else if(vectorCharacter[i]->getPositionActuelle().x > vectorCharacter[i]->getDestination().x)
+                {
+                    xMove = -1.0f;
+                }
+
+                if(vectorCharacter[i]->getPositionActuelle().y < vectorCharacter[i]->getDestination().y)
+                {
+                    yMove = 1.0f;
+                }
+                else if(vectorCharacter[i]->getPositionActuelle().y > vectorCharacter[i]->getDestination().y)
+                {
+                    yMove = -1.0f;
+                }
+
+                vectorCharacter[i]->getShape().move(xMove * vitesseChara, yMove * vitesseChara);
+
+                //cout << "Je suis l'objet " << i << " et ma destination est " << vectorCharacter[i]->getDestination().x << " " << vectorCharacter[i]->getDestination().y << endl;
+            }
+        }
+
+
 
 
 		app.setView(app.getDefaultView());
 
         app.draw(background);
 
-        app.draw(c1);
-        app.draw(c2);
-        app.draw(c3);
-        app.draw(c4);
-
+        app.draw(c1.getShape());
+        app.draw(c2.getShape());
+        app.draw(c3.getShape());
+        app.draw(c4.getShape());
         app.draw(c5.getShape());
 
         app.draw(rocher);

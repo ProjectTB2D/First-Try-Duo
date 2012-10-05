@@ -3,7 +3,7 @@
 	<iostream>
 	<SFML/system.hpp>
 
-1349429819 source:c:\users\jordan-titan\documents\github\first-try-duo\testia\main.cpp
+1349464545 source:c:\users\jordan-titan\documents\github\first-try-duo\testia\main.cpp
 	<sstream>
 	<fstream>
 	<iostream>
@@ -15,12 +15,12 @@
 	<SFML/Window.hpp>
 	"include/character.hpp"
 
-1349430304 c:\users\jordan-titan\documents\github\first-try-duo\testia\include\character.hpp
+1349462787 c:\users\jordan-titan\documents\github\first-try-duo\testia\include\character.hpp
 	<SFML/System.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 
-1349430226 source:c:\users\jordan-titan\documents\github\first-try-duo\testia\src\character.cpp
+1349462822 source:c:\users\jordan-titan\documents\github\first-try-duo\testia\src\character.cpp
 	"../include/Character.hpp"
 	<iostream>
 

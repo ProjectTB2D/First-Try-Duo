@@ -13,7 +13,14 @@ class Character
 
         Character(float, float);
 
-        sf::CircleShape getShape();
+        sf::CircleShape & getShape(); // pas de const pour pas rajouter des methodes inutilement (Pour un test evidemment)
+
+        bool getDeplacement() const ;
+        sf::Vector2f getPositionActuelle() const;
+        sf::Vector2f getDestination() const;
+
+        void setDeplacement(bool);
+        void setDestination(sf::Vector2f);
 
     protected:
 
