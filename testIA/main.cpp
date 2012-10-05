@@ -9,6 +9,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
+#include "include/character.hpp"
+
 using namespace std;
 using namespace sf;
 
@@ -72,6 +74,8 @@ int main()
 
     c4.setFillColor(sf::Color::Blue);
     c4.setPosition(150.0f, 350.0f);
+
+    Character c5(200.0f, 375.0f);
 
 
     vectorCharacter.push_back(&c1);
@@ -144,12 +148,18 @@ int main()
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
         {
-            selection = NULL; // On supprime le pointeur de cercle
 
-            for(int unsigned i = 0; i < vectorCharacter.size(); i++){
+            if(selection != NULL)
+            {
+                selection->setFillColor(sf::Color::Blue);
+                selection = NULL; // On supprime le pointeur de cercle
+            }
+
+
+            /*for(int unsigned i = 0; i < vectorCharacter.size(); i++){
 
                 vectorCharacter[i]->setFillColor(sf::Color::Blue); // On met tous les cercles en bleu (deselectionne)
-            }
+            }*/
         }
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -190,6 +200,8 @@ int main()
         app.draw(c2);
         app.draw(c3);
         app.draw(c4);
+
+        app.draw(c5.getShape());
 
         app.draw(rocher);
 
