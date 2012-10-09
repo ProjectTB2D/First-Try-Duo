@@ -1,9 +1,14 @@
 # depslib dependency file v1.0
-1349278573 source:c:\users\jordan-titan\documents\github\testia\main.cpp
+1349810670 source:c:\users\jordan-titan\documents\github\first-try-duo\testia\src\character.cpp
+	"Character.hpp"
 	<iostream>
-	<SFML/system.hpp>
 
-1349464545 source:c:\users\jordan-titan\documents\github\first-try-duo\testia\main.cpp
+1349462787 c:\users\jordan-titan\documents\github\first-try-duo\testia\src\character.hpp
+	<SFML/System.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+
+1349810656 source:c:\users\jordan-titan\documents\github\first-try-duo\testia\main.cpp
 	<sstream>
 	<fstream>
 	<iostream>
@@ -13,14 +18,5 @@
 	<SFML/System.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
-	"include/character.hpp"
-
-1349462787 c:\users\jordan-titan\documents\github\first-try-duo\testia\include\character.hpp
-	<SFML/System.hpp>
-	<SFML/Graphics.hpp>
-	<SFML/Window.hpp>
-
-1349462822 source:c:\users\jordan-titan\documents\github\first-try-duo\testia\src\character.cpp
-	"../include/Character.hpp"
-	<iostream>
+	"src/character.hpp"
 

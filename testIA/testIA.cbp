@@ -46,9 +46,9 @@
 			<Add library="sfml-system-d" />
 			<Add library="sfml-window-d" />
 		</Linker>
-		<Unit filename="include\character.hpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src\character.cpp" />
+		<Unit filename="src\character.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

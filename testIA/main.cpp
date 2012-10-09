@@ -9,7 +9,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
-#include "include/character.hpp"
+#include "src/character.hpp"
 
 using namespace std;
 using namespace sf;
@@ -195,11 +195,7 @@ int main()
                     }
                 }
 
-                /*
-                =====================================
-                Que se passe t'il si l'on clique pour un déplacement sur une zone non atteignable ? (genre obstacle)
-                =====================================
-                */
+
 
                 // On définit la destination avec un clique gauche
 
