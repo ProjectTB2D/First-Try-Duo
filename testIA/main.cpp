@@ -33,7 +33,7 @@ int main()
 
     Texture rock;
 
-    if (!rock.loadFromFile("images/rocher.png")) // Si le chargement a échoué
+    if (!rock.loadFromFile("ressource/images/rocher.png")) // Si le chargement a échoué
     {
         cerr<<"Erreur durant le chargement de l'image"<<endl;
     }
