@@ -31,8 +31,8 @@ class Node
 
   // other
 
-  void computeDistance();
-  void autoPath();
+  void computeDistance(); // définie automatiquement la distance entre 2 nodes
+  void autoPath(); // définie automatiquement quelles nodes relier
 
  protected:
 
