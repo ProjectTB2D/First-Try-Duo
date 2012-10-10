@@ -222,36 +222,30 @@ int main()
         {
             // Deplacement
 
-            if(vectorCharacter[i]->getPositionActuelle() == vectorCharacter[i]->getDestination())
-            {
-                vectorCharacter[i]->setDeplacement(false);
-                //cout << "ERROR" << endl;
-            }
 
             if(vectorCharacter[i]->getDeplacement())
             {
-                // x act  y act  x des  y des
-                float xMove = 0.0f, yMove = 0.0f;
+	      
+	      // calcul de deplacement selon 2 points 
 
-                if(vectorCharacter[i]->getPositionActuelle().x < vectorCharacter[i]->getDestination().x)
-                {
-                    xMove = 1.0f;
-                }
-                else if(vectorCharacter[i]->getPositionActuelle().x > vectorCharacter[i]->getDestination().x)
-                {
-                    xMove = -1.0f;
-                }
+	      float disx = vectorCharacter[i]->getPositionActuelle().x - vectorCharacter[i]->getDestination().x;
+	      float disy = vectorCharacter[i]->getPositionActuelle().y - vectorCharacter[i]->getDestination().y;
+	      
+	      float angle_rad = atan2(disy, disx);
+	      
+	      //cout << "angle rad = " << angle_rad << endl;
+	      //cout << "angle deg = " << angle_rad*180/3.14 << endl;
+	      
+	      vectorCharacter[i]->getShape().move(-vitesseChara*cos(angle_rad), -vitesseChara*sin(angle_rad));
+		
+	      float distance = sqrt((disx*disx) + (disy*disy));
 
-                if(vectorCharacter[i]->getPositionActuelle().y < vectorCharacter[i]->getDestination().y)
-                {
-                    yMove = 1.0f;
-                }
-                else if(vectorCharacter[i]->getPositionActuelle().y > vectorCharacter[i]->getDestination().y)
-                {
-                    yMove = -1.0f;
-                }
+	      if(distance <  1.f)
+		vectorCharacter[i]->setDeplacement(false);
 
-                vectorCharacter[i]->getShape().move(xMove * vitesseChara, yMove * vitesseChara);
+	      cout << "distance left = " << distance << endl;
+
+                //vectorCharacter[i]->getShape().move(xMove * vitesseChara, yMove * vitesseChara);
 
                 //cout << "Je suis l'objet " << i << " et ma destination est " << vectorCharacter[i]->getDestination().x << " " << vectorCharacter[i]->getDestination().y << endl;
             }
