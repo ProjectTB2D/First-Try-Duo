@@ -10,6 +10,8 @@
 #include <SFML/Window.hpp>
 
 #include "src/character.hpp"
+#include "src/Node.h"
+#include "src/Obstacle.h"
 
 using namespace std;
 using namespace sf;
@@ -50,6 +52,9 @@ int main()
     RectangleShape rocher(Vector2f(144.0f, 135.0f));
     rocher.setTexture(&rock);
     rocher.setPosition(350.0f, 250.0f);
+
+    Obstacle obs(rock, sf::Vector2f(144,135));
+
     //rocher.setTextureRect(IntRect(0, 0, 50, 50));
 
     // Création des personnages (cercles)
@@ -264,7 +269,7 @@ int main()
         app.draw(c4.getShape());
         app.draw(c5.getShape());
 
-        app.draw(rocher);
+        obs.display(app);
 
         // Affichage de la fenêtre à l'écran
         app.display();
