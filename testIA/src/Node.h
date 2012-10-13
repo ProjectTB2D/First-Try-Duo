@@ -8,13 +8,14 @@ class Node
 
  public:
 
-  Node(sf::Vector2f, Node*, Node*);
+  Node();
+  Node(sf::Vector2f, Node* = NULL, Node* = NULL);
 
 
   // for every frame
 
   void update();
-  void display();
+  void display(sf::RenderWindow &);
 
   // setter
 
@@ -32,7 +33,10 @@ class Node
   // other
 
   void computeDistance(); // définie automatiquement la distance entre 2 nodes
-  void autoPath(); // définie automatiquement quelles nodes relier
+
+  // destructor
+
+  ~Node();
 
  protected:
 
