@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="220" topLine="0" />
+	<File name="main.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="4838" topLine="174" />
 	</File>
-	<File name="src\character.cpp" open="1" top="1" tabpos="2">
-		<Cursor position="274" topLine="0" />
+	<File name="src\Node.cpp" open="1" top="0" tabpos="7">
+		<Cursor position="707" topLine="54" />
+	</File>
+	<File name="src\Node.h" open="1" top="0" tabpos="6">
+		<Cursor position="670" topLine="6" />
+	</File>
+	<File name="src\Obstacle.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="924" topLine="51" />
+	</File>
+	<File name="src\Obstacle.h" open="1" top="0" tabpos="5">
+		<Cursor position="652" topLine="18" />
+	</File>
+	<File name="src\character.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="1484" topLine="61" />
+	</File>
+	<File name="src\character.hpp" open="1" top="0" tabpos="3">
+		<Cursor position="68" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

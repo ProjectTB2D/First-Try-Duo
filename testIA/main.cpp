@@ -16,7 +16,7 @@
 using namespace std;
 using namespace sf;
 
-const float vitesseChara = 1.0f;
+const float vitesseChara = 2.0f;
 const Vector2f WINDOW_SIZE(800,600);
 
 
@@ -49,11 +49,12 @@ int main()
 
     // Création d'un rocher
 
-    RectangleShape rocher(Vector2f(144.0f, 135.0f));
-    rocher.setTexture(&rock);
-    rocher.setPosition(350.0f, 250.0f);
+    //RectangleShape rocher(Vector2f(144.0f, 135.0f));
+    //rocher.setTexture(&rock);
+    //rocher.setOutlineColor(sf::Color(255,0,0));
+    //rocher.setPosition(350.0f, 250.0f);
 
-    Obstacle obs(rock, sf::Vector2f(144,135));
+    Obstacle obs(rock, sf::Vector2f(350, 250));
 
     //rocher.setTextureRect(IntRect(0, 0, 50, 50));
 
@@ -92,8 +93,6 @@ int main()
     vectorCharacter.push_back(&c3);
     vectorCharacter.push_back(&c4);
     vectorCharacter.push_back(&c5);
-
-
 
     // Boucle principale
     while (app.isOpen())
@@ -188,9 +187,9 @@ int main()
 
                 if(selection == NULL)
                 {
-                    if(souris.x >= vectorCharacter[i]->getShape().getPosition().x && souris.x <= (vectorCharacter[i]->getShape().getPosition().x + 20.0f))
+                    if(souris.x >= (vectorCharacter[i]->getShape().getPosition().x - 10.0f) && souris.x <= (vectorCharacter[i]->getShape().getPosition().x + 10.0f))
                     {
-                        if(souris.y >= vectorCharacter[i]->getShape().getPosition().y && souris.y <= (vectorCharacter[i]->getShape().getPosition().y + 20.0f))
+                        if(souris.y >= (vectorCharacter[i]->getShape().getPosition().y - 10.0f) && souris.y <= (vectorCharacter[i]->getShape().getPosition().y + 10.0f))
                         {
 
                             selection = vectorCharacter[i]; // On SAVE le pointeur du cercle
@@ -230,32 +229,69 @@ int main()
 
             if(vectorCharacter[i]->getDeplacement())
             {
-	      
-	      // calcul de deplacement selon 2 points 
 
-	      float disx = vectorCharacter[i]->getPositionActuelle().x - vectorCharacter[i]->getDestination().x;
-	      float disy = vectorCharacter[i]->getPositionActuelle().y - vectorCharacter[i]->getDestination().y;
-	      
-	      float angle_rad = atan2(disy, disx);
-	      
-	      //cout << "angle rad = " << angle_rad << endl;
-	      //cout << "angle deg = " << angle_rad*180/3.14 << endl;
-	      
-	      vectorCharacter[i]->getShape().move(-vitesseChara*cos(angle_rad), -vitesseChara*sin(angle_rad));
-		
-	      float distance = sqrt((disx*disx) + (disy*disy));
+              // calcul de deplacement selon 2 points
 
-	      if(distance <  1.f)
-		vectorCharacter[i]->setDeplacement(false);
+              float disx = vectorCharacter[i]->getPositionActuelle().x - vectorCharacter[i]->getDestination().x;
+              float disy = vectorCharacter[i]->getPositionActuelle().y - vectorCharacter[i]->getDestination().y;
 
-	      cout << "distance left = " << distance << endl;
+              float angle_rad = atan2(disy, disx);
 
-                //vectorCharacter[i]->getShape().move(xMove * vitesseChara, yMove * vitesseChara);
+              //cout << "angle rad = " << angle_rad << endl;
+              //cout << "angle deg = " << angle_rad*180/3.14 << endl;
 
-                //cout << "Je suis l'objet " << i << " et ma destination est " << vectorCharacter[i]->getDestination().x << " " << vectorCharacter[i]->getDestination().y << endl;
+              vectorCharacter[i]->getShape().move(-vitesseChara*cos(angle_rad), -vitesseChara*sin(angle_rad));
+
+              float distance = sqrt((disx*disx) + (disy*disy));
+
+              if(distance <  3.0f)
+              {
+                  if(vectorCharacter[i]->getNbDestination() > 1)
+                  {
+                    vectorCharacter[i]->destinationSuivante();
+                  }
+                  else
+                  {
+                    vectorCharacter[i]->setDeplacement(false);
+                  }
+              }
+
+
+              //cout << "distance left = " << distance << endl;
+
+                    //vectorCharacter[i]->getShape().move(xMove * vitesseChara, yMove * vitesseChara);
+
+                    //cout << "Je suis l'objet " << i << " et ma destination est " << vectorCharacter[i]->getDestination().x << " " << vectorCharacter[i]->getDestination().y << endl;
             }
-        }
 
+
+
+            // Collision
+
+            if(vectorCharacter[i]->getRect().intersects(obs.getRect()))
+            {
+               //cout << "COLLISION " << i << " : " << vectorCharacter[i]->getShape().getLocalBounds().left << endl;
+
+                // Calcul du chemin a prendre (On ne le fait que a la premiere collision
+               if(!vectorCharacter[i]->getInObstacle())
+               {
+                obs.makeRoad(vectorCharacter[i]);
+
+                vectorCharacter[i]->setInObstacle(true);
+               }
+
+            }
+            else
+            {
+                if(vectorCharacter[i]->getInObstacle())
+                    vectorCharacter[i]->setInObstacle(false);
+            }
+
+
+
+
+
+        }
 
 
 

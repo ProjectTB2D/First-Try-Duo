@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Node.h"
+#include "Character.hpp"
 
 class Obstacle
 {
@@ -24,16 +25,18 @@ class Obstacle
   // setter
 
   void setPos(sf::Vector2f);
-  
+
   // getter
 
   sf::Vector2f getPos() const;
-  
+  sf::FloatRect getRect() const;
+
   Node* getNodeList();
-  
+  Node* getNodeProcheDe(sf::Vector2f); // Plus proche du player ET plus proche de la destination
 
   // other
 
+  void makeRoad(Character*);
   void computeNodeDistance();
   void autoNodeLinking();
   void displayNodeMap();
@@ -45,7 +48,7 @@ class Obstacle
  protected:
 
   sf::Sprite _spr;
- 
+
   Node* _nodeList;
   int _nb_node;
 

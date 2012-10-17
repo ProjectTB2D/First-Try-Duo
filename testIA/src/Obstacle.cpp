@@ -15,13 +15,13 @@ Obstacle::Obstacle(sf::Vector2f pos)
 Obstacle::Obstacle(sf::Texture& img, sf::Vector2f pos)
 {
 
-  
+
   std::cout << "[0] pos x = " << pos.x << std::endl;
 
   _spr.setTexture(img);
 
   _spr.setPosition(pos);
-  _spr.setOrigin(144/2, 135/2);
+  //_spr.setOrigin(144/2, 135/2);
 
   initNodes();
 
@@ -37,15 +37,15 @@ void Obstacle::initNodes(){
   _nb_node = 12;
 
   _nodeList = new Node[_nb_node];
-  
-  for(unsigned int i = 0; i < _nb_node; i++){
 
-    _nodeList[i].setPos(sf::Vector2f(getPos().x + 100*cos(i*1.04f/2), getPos().y + 100*sin(i*1.04f/2)));
-    
- 
+  for( int i = 0; i < _nb_node; i++){
+
+    _nodeList[i].setPos(sf::Vector2f((getPos().x + 144/2) + 85*cos(i*1.04f/2), (getPos().y + 135/2) + 85*sin(i*1.04f/2)));
+
+
 
   }
-  
+
   autoNodeLinking();
   computeNodeDistance();
   displayNodeMap();
@@ -56,7 +56,7 @@ void Obstacle::initNodes(){
 
 void Obstacle::update(){
 
-  
+
 }
 
 void Obstacle::display(sf::RenderWindow & app){
@@ -90,9 +90,95 @@ sf::Vector2f Obstacle::getPos() const{
 
 }
 
+sf::FloatRect Obstacle::getRect() const
+{
+    sf::FloatRect box((_spr.getPosition().x - 30), (_spr.getPosition().y - 40), (_spr.getLocalBounds().width + 60), (_spr.getLocalBounds().height + 80));
+    // J'ai fais qql ajustements pour augmenter la taille
+
+    return box;
+}
+
 Node* Obstacle::getNodeList(){
 
   return _nodeList;
+
+}
+
+Node* Obstacle::getNodeProcheDe(sf::Vector2f pos)
+{
+    float disx, disy, distance, plusPetiteDist;
+    Node* nodePlusProche;
+
+    disx = pos.x - _nodeList[0].getPos().x;
+    disy = pos.y - _nodeList[0].getPos().y;
+    plusPetiteDist = sqrt((disx*disx) + (disy*disy));
+    nodePlusProche = &_nodeList[0];
+
+    for(unsigned int i = 0; i < _nb_node; i++){
+
+        disx = pos.x - _nodeList[i].getPos().x;
+        disy = pos.y - _nodeList[i].getPos().y;
+        distance = sqrt((disx*disx) + (disy*disy));
+
+        if(distance < plusPetiteDist)
+        {
+            plusPetiteDist = distance;
+            nodePlusProche = &_nodeList[i];
+        }
+    }
+
+    return nodePlusProche;
+}
+
+void Obstacle::makeRoad(Character* perso)
+{
+    Node* depart = getNodeProcheDe(perso->getPositionActuelle());
+    Node* arrive = getNodeProcheDe(perso->getDestination());
+
+    Node* test = depart;
+    Node* test2 = depart;
+
+    float distance1 = 0, distance2 = 0;
+
+    int i = 0;
+
+    while(test != arrive)
+    {
+        distance1 += test->getDistanceNode(1);
+        test = test->getNode(1);
+        i++;
+        std::cout << " i : " << i << " distance :  " << test->getDistanceNode(1) << std::endl;
+    }
+
+    while(test2 != arrive)
+    {
+        distance2 += test2->getDistanceNode(2);
+        test2 = test2->getNode(2);
+    }
+
+    std::cout << "d1 : " << distance1 << std::endl;
+    std::cout << "d2 : " << distance2 << std::endl;
+
+    if(distance1 < distance2) // Chemin 1
+    {
+        while(arrive != depart) // chemin inverse car on empile dans un vector par la fin, le dernier element sera le point de depart
+        {
+            perso->ajoutDest(arrive->getPos());
+            arrive = arrive->getNode(2); // sens inverse
+        }
+
+        perso->ajoutDest(depart->getPos());
+    }
+    else // chemin 2
+    {
+        while(arrive != depart) // chemin inverse car on empile dans un vector par la fin, le dernier element sera le point de depart
+        {
+            perso->ajoutDest(arrive->getPos());
+            arrive = arrive->getNode(1); // sens inverse
+        }
+
+        perso->ajoutDest(depart->getPos());
+    }
 
 }
 
@@ -116,7 +202,7 @@ void Obstacle::autoNodeLinking() {
   for(unsigned int i = 0; i < _nb_node - 1; i++){
 
     _nodeList[i].defineNode1(&_nodeList[i+1]);
-    
+
   }
 
    _nodeList[_nb_node - 1].defineNode1(&_nodeList[0]);
@@ -126,7 +212,7 @@ void Obstacle::autoNodeLinking() {
    for(unsigned int i = _nb_node - 1; i > 0; i--){
 
      _nodeList[i].defineNode2(&_nodeList[i-1]);
-    
+
    }
 
    _nodeList[0].defineNode2(&_nodeList[_nb_node - 1]);
@@ -136,8 +222,8 @@ void Obstacle::autoNodeLinking() {
 void Obstacle::displayNodeMap() {
 
   std::cout << "---------------------------P1--------------------------" << std::endl;
-   
- 
+
+
   for(unsigned int i = 0; i < _nb_node; i++){
 
     Node* mthis = _nodeList[i].getNode(0);
@@ -146,7 +232,7 @@ void Obstacle::displayNodeMap() {
     float dist1 = _nodeList[i].getDistanceNode(1);
 
     printf("node : %p linked to %p | dist : %f\n", mthis, n1, dist1);
- 
+
   }
 
   std::cout << "---------------------------P2--------------------------" << std::endl;
