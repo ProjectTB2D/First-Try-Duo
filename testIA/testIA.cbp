@@ -47,6 +47,10 @@
 			<Add library="sfml-window-d" />
 		</Linker>
 		<Unit filename="main.cpp" />
+		<Unit filename="src\Node.cpp" />
+		<Unit filename="src\Node.h" />
+		<Unit filename="src\Obstacle.cpp" />
+		<Unit filename="src\Obstacle.h" />
 		<Unit filename="src\character.cpp" />
 		<Unit filename="src\character.hpp" />
 		<Extensions>

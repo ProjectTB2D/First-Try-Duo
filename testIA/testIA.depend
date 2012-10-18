@@ -1,14 +1,14 @@
 # depslib dependency file v1.0
-1349810670 source:c:\users\jordan-titan\documents\github\first-try-duo\testia\src\character.cpp
-	"Character.hpp"
+1350494041 source:c:\users\jordan-titan\documents\github\first-try-duo\testia\src\character.cpp
+	"character.hpp"
 	<iostream>
 
-1349462787 c:\users\jordan-titan\documents\github\first-try-duo\testia\src\character.hpp
+1350422058 c:\users\jordan-titan\documents\github\first-try-duo\testia\src\character.hpp
 	<SFML/System.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 
-1349810656 source:c:\users\jordan-titan\documents\github\first-try-duo\testia\main.cpp
+1350493865 source:c:\users\jordan-titan\documents\github\first-try-duo\testia\main.cpp
 	<sstream>
 	<fstream>
 	<iostream>
@@ -19,4 +19,25 @@
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 	"src/character.hpp"
+	"src/Node.h"
+	"src/Obstacle.h"
+
+1350401162 source:c:\users\jordan-titan\documents\github\first-try-duo\testia\src\node.cpp
+	<iostream>
+	"Node.h"
+	<math.h>
+
+1350401162 c:\users\jordan-titan\documents\github\first-try-duo\testia\src\node.h
+	<SFML/Graphics.hpp>
+
+1350493744 source:c:\users\jordan-titan\documents\github\first-try-duo\testia\src\obstacle.cpp
+	"Obstacle.h"
+	<math.h>
+	<iostream>
+	<stdio.h>
+
+1350421691 c:\users\jordan-titan\documents\github\first-try-duo\testia\src\obstacle.h
+	<SFML/Graphics.hpp>
+	"Node.h"
+	"Character.hpp"
 
