@@ -40,7 +40,7 @@ void Obstacle::initNodes(){
   
   for(unsigned int i = 0; i < _nb_node; i++){
 
-    _nodeList[i].setPos(sf::Vector2f(getPos().x + 100*cos(i*1.04f/2), getPos().y + 100*sin(i*1.04f/2)));
+    _nodeList[i].setPos(sf::Vector2f(getPos().x + 90*cos(i*1.04f/2), getPos().y + 90*sin(i*1.04f/2)));
     
  
 

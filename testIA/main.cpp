@@ -248,7 +248,6 @@ int main()
 	      if(distance <  1.f)
 		vectorCharacter[i]->setDeplacement(false);
 
-	      cout << "distance left = " << distance << endl;
 
                 //vectorCharacter[i]->getShape().move(xMove * vitesseChara, yMove * vitesseChara);
 
