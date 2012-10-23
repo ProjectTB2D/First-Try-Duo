@@ -34,6 +34,9 @@ class Obstacle
   Node* getNodeList();
   Node* getNodeProcheDe(sf::Vector2f); // Plus proche du player ET plus proche de la destination
 
+  bool  collisionCircle(sf::Vector2f, float) const;
+  bool  collisionPoint(sf::Vector2f) const;
+
   // other
 
   void makeRoad(Character*);
@@ -51,6 +54,10 @@ class Obstacle
 
   Node* _nodeList;
   int _nb_node;
+
+  // Collision
+
+  float _radius;
 
 };
 #endif
