@@ -1,9 +1,9 @@
-#ifndef _included_actor_h
-#define _included_actor_h
+#ifndef _included_build_h
+#define _included_build_h
 
 #include <SFML/Graphics.hpp>
 
-class Actor : public Entity
+class HQ : public Entity
 {
 
  public:
@@ -13,7 +13,7 @@ class Actor : public Entity
 
 };
 
-class Player : public Actor
+class Crafter : public Entity
 {
 
  public:
@@ -23,7 +23,7 @@ class Player : public Actor
 
 };
 
-class NPC : public Actor
+class Spot : public Entity
 {
 
  public:
@@ -33,7 +33,7 @@ class NPC : public Actor
 
 };
 
-class Mob : public Entity
+class Turret : public Entity
 {
 
  public:
