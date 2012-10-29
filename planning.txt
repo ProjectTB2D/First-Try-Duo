@@ -1,0 +1,35 @@
+
+Taches :
+
+0) Se mettre au point sur GIT avant de commencer
+
+1) Finir le comportement de l'IA
+
+1b) Trouver l'algo de pathfinding que l'on va utiliser
+
+1 Bis) Faire un projet Test pour la tester
+
+2) Valider / modifier tout l'aspect Interface
+
+3) Finir le diagramme de classe (Objets & Core)
+
+4) Définir les différentes vector (objet, personnages, etc ...) 
+
+
+
+
+5) Implanter les différentes classes (Les .h et les .cpp)
+
+
+
+
+
+
+
+
+
+
+
+
+Future) Faire un projet 2 test pour tester l'aspect multijoueur (Lan)
+
