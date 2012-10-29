@@ -1,0 +1,163 @@
+# depslib dependency file v1.0
+1351364108 source:d:\dropbox\monslugcbproject\monslugv2\main.cpp
+	"include/Function.h"
+
+1351363513 d:\dropbox\monslugcbproject\monslugv2\include\function.h
+	<SFML/System.hpp>
+	<SFML/Graphics.hpp>
+	"../include/Player.h"
+	"../include/Ennemi.h"
+	"../include/Character.h"
+	"../include/Bullet.h"
+	"../include/Object.h"
+	"../include/LifeBonus.h"
+	"../include/Interrupteur.h"
+	"../include/Door.h"
+	"../include/Block.h"
+	"../include/Launcher.h"
+	"../include/Reward.h"
+	"../include/tinyxml.h"
+	<sstream>
+	<fstream>
+	<iostream>
+	<cmath>
+	<string>
+	<vector>
+
+1349125033 d:\dropbox\monslugcbproject\monslugv2\include\player.h
+	<SFML/Graphics.hpp>
+	"../include/Character.h"
+
+1349127163 d:\dropbox\monslugcbproject\monslugv2\include\character.h
+	<SFML/Graphics.hpp>
+
+1349128002 d:\dropbox\monslugcbproject\monslugv2\include\ennemi.h
+	<SFML/Graphics.hpp>
+	"../include/Character.h"
+
+1349125067 d:\dropbox\monslugcbproject\monslugv2\include\bullet.h
+	<SFML/Graphics.hpp>
+
+1349128543 d:\dropbox\monslugcbproject\monslugv2\include\object.h
+	<SFML/Graphics.hpp>
+
+1349128651 d:\dropbox\monslugcbproject\monslugv2\include\lifebonus.h
+	<SFML/Graphics.hpp>
+	"../include/Object.h"
+
+1349128366 d:\dropbox\monslugcbproject\monslugv2\include\interrupteur.h
+	<SFML/Graphics.hpp>
+	"../include/Object.h"
+
+1349128455 d:\dropbox\monslugcbproject\monslugv2\include\door.h
+	<SFML/Graphics.hpp>
+	"../include/Object.h"
+
+1349128244 d:\dropbox\monslugcbproject\monslugv2\include\block.h
+	<SFML/Graphics.hpp>
+	"../include/Object.h"
+
+1349128321 d:\dropbox\monslugcbproject\monslugv2\include\launcher.h
+	<SFML/Graphics.hpp>
+	"../include/Object.h"
+
+1349128425 d:\dropbox\monslugcbproject\monslugv2\include\reward.h
+	<SFML/Graphics.hpp>
+	"../include/Object.h"
+
+1305393898 d:\dropbox\monslugcbproject\monslugv2\include\tinyxml.h
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<string>
+	<iostream>
+	<sstream>
+	"tinystr.h"
+
+1305393898 d:\dropbox\monslugcbproject\monslugv2\include\tinystr.h
+	<assert.h>
+	<string.h>
+
+1341997826 source:d:\dropbox\monslugcbproject\monslugv2\src\arme.cpp
+	"../include/Arme.h"
+
+1341997814 d:\dropbox\monslugcbproject\monslugv2\include\arme.h
+
+1349987607 source:d:\dropbox\monslugcbproject\monslugv2\src\bullet.cpp
+	"../include/Bullet.h"
+	<cmath>
+	<iostream>
+
+1350633454 source:d:\dropbox\monslugcbproject\monslugv2\src\character.cpp
+	"../include/Character.h"
+	<cmath>
+	<iostream>
+
+1349127984 source:d:\dropbox\monslugcbproject\monslugv2\src\ennemi.cpp
+	"../include/Ennemi.h"
+	<cmath>
+	<iostream>
+
+1351364004 source:d:\dropbox\monslugcbproject\monslugv2\src\function.cpp
+	"../include/Function.h"
+
+1349987831 source:d:\dropbox\monslugcbproject\monslugv2\src\interrupteur.cpp
+	"../include/Interrupteur.h"
+	<cmath>
+	<iostream>
+
+1349128643 source:d:\dropbox\monslugcbproject\monslugv2\src\lifebonus.cpp
+	"../include/LifeBonus.h"
+	<cmath>
+	<iostream>
+
+1349128680 source:d:\dropbox\monslugcbproject\monslugv2\src\object.cpp
+	"../include/Object.h"
+	<cmath>
+	<iostream>
+
+1349125037 source:d:\dropbox\monslugcbproject\monslugv2\src\player.cpp
+	"../include/Player.h"
+	<cmath>
+	<iostream>
+
+1349987882 source:d:\dropbox\monslugcbproject\monslugv2\src\reward.cpp
+	"../include/Reward.h"
+	<cmath>
+	<iostream>
+
+1350035074 source:d:\dropbox\monslugcbproject\monslugv2\src\block.cpp
+	"../include/block.h"
+	<cmath>
+	<iostream>
+
+1349987958 source:d:\dropbox\monslugcbproject\monslugv2\src\door.cpp
+	"../include/Door.h"
+	<cmath>
+	<iostream>
+
+1349987983 source:d:\dropbox\monslugcbproject\monslugv2\src\launcher.cpp
+	"../include/launcher.h"
+	<cmath>
+	<iostream>
+
+1342196358 source:d:\dropbox\monslugcbproject\monslugv2\src\tinystr.cpp
+	"../include/tinystr.h"
+
+1342196372 source:d:\dropbox\monslugcbproject\monslugv2\src\tinyxml.cpp
+	<ctype.h>
+	<sstream>
+	<iostream>
+	"../include/tinyxml.h"
+
+1342196377 source:d:\dropbox\monslugcbproject\monslugv2\src\tinyxmlerror.cpp
+	"../include/tinyxml.h"
+
+1342196382 source:d:\dropbox\monslugcbproject\monslugv2\src\tinyxmlparser.cpp
+	<ctype.h>
+	<stddef.h>
+	"../include/tinyxml.h"
+	<windows.h>
+

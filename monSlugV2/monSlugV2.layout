@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="include\Arme.h" open="0" top="0" tabpos="10">
+		<Cursor position="143" topLine="0" />
+	</File>
+	<File name="include\Bullet.h" open="0" top="0" tabpos="9">
+		<Cursor position="270" topLine="0" />
+	</File>
+	<File name="include\Character.h" open="0" top="0" tabpos="5">
+		<Cursor position="1959" topLine="99" />
+	</File>
+	<File name="include\Function.h" open="1" top="0" tabpos="3">
+		<Cursor position="4431" topLine="83" />
+	</File>
+	<File name="include\LifeBonus.h" open="0" top="0" tabpos="8">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="include\Object.h" open="0" top="0" tabpos="4">
+		<Cursor position="390" topLine="57" />
+	</File>
+	<File name="include\Reward.h" open="0" top="0" tabpos="7">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="include\door.h" open="0" top="0" tabpos="5">
+		<Cursor position="405" topLine="0" />
+	</File>
+	<File name="include\tinystr.h" open="0" top="0" tabpos="6">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="include\tinyxml.h" open="0" top="0" tabpos="0">
+		<Cursor position="34081" topLine="930" />
+	</File>
+	<File name="main.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="1646" topLine="48" />
+	</File>
+	<File name="src\Bullet.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="822" topLine="19" />
+	</File>
+	<File name="src\Character.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="9834" topLine="508" />
+	</File>
+	<File name="src\Function.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="44034" topLine="1525" />
+	</File>
+	<File name="src\Interrupteur.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="755" topLine="23" />
+	</File>
+	<File name="src\Reward.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="623" topLine="16" />
+	</File>
+	<File name="src\block.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="1176" topLine="24" />
+	</File>
+	<File name="src\door.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="667" topLine="19" />
+	</File>
+	<File name="src\launcher.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="935" topLine="19" />
+	</File>
+</CodeBlocks_layout_file>
