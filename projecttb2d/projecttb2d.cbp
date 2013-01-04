@@ -53,6 +53,18 @@
 			<Add library="sfml-network-d" />
 		</Linker>
 		<Unit filename="main.cpp" />
+		<Unit filename="src\Actor.h" />
+		<Unit filename="src\Core.cpp" />
+		<Unit filename="src\Core.h" />
+		<Unit filename="src\Entity.cpp" />
+		<Unit filename="src\Entity.h" />
+		<Unit filename="src\ImageManager.cpp" />
+		<Unit filename="src\ImageManager.h" />
+		<Unit filename="src\Player.h" />
+		<Unit filename="src\World.cpp" />
+		<Unit filename="src\World.h" />
+		<Unit filename="src\global.cpp" />
+		<Unit filename="src\global.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

@@ -1,7 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
-	<File name="main.cpp" open="1" top="1" tabpos="0">
-		<Cursor position="79" topLine="0" />
+	<File name="main.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="231" topLine="0" />
+	</File>
+	<File name="src\Actor.h" open="0" top="0" tabpos="0">
+		<Cursor position="96" topLine="0" />
+	</File>
+	<File name="src\Core.cpp" open="1" top="1" tabpos="2">
+		<Cursor position="4806" topLine="45" />
+	</File>
+	<File name="src\Core.h" open="1" top="0" tabpos="5">
+		<Cursor position="923" topLine="55" />
+	</File>
+	<File name="src\Entity.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="369" topLine="9" />
+	</File>
+	<File name="src\Entity.h" open="1" top="0" tabpos="4">
+		<Cursor position="94" topLine="0" />
+	</File>
+	<File name="src\ImageManager.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="1166" topLine="0" />
+	</File>
+	<File name="src\ImageManager.h" open="1" top="0" tabpos="3">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="src\Player.h" open="0" top="0" tabpos="0">
+		<Cursor position="154" topLine="0" />
+	</File>
+	<File name="src\World.cpp" open="1" top="0" tabpos="9">
+		<Cursor position="2319" topLine="109" />
+	</File>
+	<File name="src\World.h" open="1" top="0" tabpos="8">
+		<Cursor position="1471" topLine="80" />
+	</File>
+	<File name="src\global.cpp" open="1" top="0" tabpos="7">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="src\global.h" open="1" top="0" tabpos="10">
+		<Cursor position="0" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>
