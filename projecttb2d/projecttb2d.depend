@@ -1,0 +1,65 @@
+# depslib dependency file v1.0
+1357320405 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\main.cpp
+	<iostream>
+	<SFML/System.hpp>
+	<SFML/Graphics.hpp>
+	"src/global.h"
+	"src/Core.h"
+
+1357326889 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\core.cpp
+	<math.h>
+	"global.h"
+	"Core.h"
+	"World.h"
+
+1351178965 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\global.h
+
+1357326014 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\core.h
+	<SFML/Graphics.hpp>
+	"ImageManager.h"
+	<iostream>
+	<fstream>
+
+1351178965 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\imagemanager.h
+	<SFML/Graphics.hpp>
+	<iostream>
+
+1357326767 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\world.h
+	<SFML/Graphics.hpp>
+	<stdio.h>
+	<string.h>
+	<list>
+	"Actor.h"
+	"Player.h"
+
+1357320358 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\imagemanager.cpp
+	"ImageManager.h"
+
+1351178965 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\global.cpp
+	"global.h"
+	"Core.h"
+
+1357325103 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\entity.cpp
+	<math.h>
+	"global.h"
+	"Core.h"
+	"World.h"
+	"Entity.h"
+
+1357319550 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\entity.h
+	<SFML/Graphics.hpp>
+
+1357325773 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\actor.h
+	<SFML/Graphics.hpp>
+	"Entity.h"
+
+1357325752 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\player.h
+	<SFML/Graphics.hpp>
+	"Actor.h"
+
+1357326648 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\world.cpp
+	<fstream>
+	"Core.h"
+	"global.h"
+	"World.h"
+
