@@ -20,7 +20,7 @@ Taches :
 
 5) Implanter les différentes classes (Les .h et les .cpp)
 
-
+suite) Classe à faire => Entity, Actor, (NPC, PLAYER), (HQ, CRAFTER)
 
 
 
