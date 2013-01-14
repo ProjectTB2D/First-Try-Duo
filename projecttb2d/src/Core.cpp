@@ -23,8 +23,11 @@ Core::Core()
 
 void Core::initApp(int x, int y){
 
+sf::VideoMode DesktopMode = sf::VideoMode::getDesktopMode();
 
-_app = new sf::RenderWindow(sf::VideoMode(x,y,32), "jorbienEngine");
+_app = new sf::RenderWindow(DesktopMode, "jorbienEngine", sf::Style::Fullscreen);
+
+//_app = new sf::RenderWindow(sf::VideoMode(x,y,32), "jorbienEngine");
 
 _app->setFramerateLimit(FPS);
 
@@ -76,6 +79,10 @@ while(_app->isOpen()){
             //if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::A)){
 
             //}
+
+            if(Event.type == sf::Event::KeyReleased && Event.key.code == sf::Keyboard::Escape){
+				_app->close();
+			}
 
     }
 

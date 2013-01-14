@@ -46,6 +46,7 @@ World();
 // --------- CREATE FUNCTIONS -------------
 
 void        createWorld(const char*);
+//void        parseMapTmx(string, tile***, std::vector<Obstacle*>)
 void        createPlayer();
 void        createNPC();
 void        createItem();

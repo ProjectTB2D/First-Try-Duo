@@ -46,6 +46,13 @@ void World::createWorld(const char* lvlname){
 
 }
 
+/*
+void parseMapTmx(string map, tile*** Matrice, std::vector<Obstacle*> &obstacle){
+
+
+
+}*/
+
 void World::createPlayer() {
 
     printf("s1\n");
