@@ -1,0 +1,228 @@
+
+<< Weapon >>
+
+|short range| 
+
+bat : knock back
+katana : increase movement speed
+chainsaw : faster dmg/sec (need ammo [fuel])
+Throw Axe : can be thrown
+
+|medium range|
+
+shotgun : no feature
+lighteningGun : electric beam jump to nearby enemies
+
+|long range|
+
+pistol : No features
+SMG : No features
+Plasma-Gun : Has a chance to ignite the enemy
+Rocket-Launcher : Knock back
+
+<< Ammunition >> :
+
+Can be grab from ammo on the ground
+Can be create by breaking some material
+Can be craft
+
+<< Armor >>
+
+kevlar vest
+
+<< Vehicle >> 
+
+keyboard for moving / mouse for aiming
+
+|Tank|
+
+2 seats :
+
+* Driver + cannon 
+* Machine gunner
+
+|Carrier|
+
+8 seats :
+
+* Driver
+* Gunner
+* 6 seats
+
+<< Builder >>
+
+InPut Zone
+
+display on the HUD
+
+OutPut Zone
+
+No display
+
+|| RESSOURCES ||
+
+- Pop max -
+
+10 / team
+
+1 player + 9 NPC
+
+- raw material -
+
+* (super)iron
+* (super)gold
+* (super)ruby
+
+- spot -
+
+9 raw materiel at once
+(a spot can spawn a super RawMat instead of a basic one)
+
+-----------------------------------------------------------------------
+
+Character :
+
+inventory (belt) :
+
+Weapon : 1
+Ammo slot : 1
+Non-craftable-passive-item : 3
+
+inventory (hand) :
+
+Weapon OR RawMat OR Bag : 1
+
+kevlar vest (chest) :
+
+YES / NO
+
+
+
+------------------------------------------------------------------------
+
+GRAB & DROP
+
+Grab weapon (on ground) ammo = USE
+Grab weapon (on ground) = LONG USE
+
+------------------------------------------------------------------------
+
+NPC TYPE :
+
+Soldier : (dmg + accuracy)
+Medic : (Life regen AOE)
+Peasant : (speed when carrying a block/bag)
+Cyborg : (dmg + resistance)
+
+Dégat (du plus faible au plus fort) : 
+
+- Ouvrier
+- Medic 
+- Soldat
+- Cyborg
+
+Vie (du plus faible au plus fort) :
+
+- Ouvrier
+- Medic 
+- Soldat
+- Cyborg
+
+Vitesse ( du plus faible au plus fort ){
+
+- Cyborg
+- Soldat
+- Medic
+- Ouvrier
+
+}
+
+---------------------------------------------------------------------------------
+				BUILDER
+---------------------------------------------------------------------------------
+ 
+
+/ weapons \
+
+T1 : bat, pistol throw axe 		: 2 iron
+
+T2 : Chainsaw, shotgun, SMG 		: 4 iron + 2 gold
+
+T3 : Katana, Plasma, Rocket 	: 6 iron + 2 gold + 1 gem
+
+
+/ vehicles \
+
+Tank 					: 10 iron + 5 gold + 3 gem
+
+Carrier 				: 14 iron + 7 gold + 6 gem
+
+/ NPC \
+
+Soldier					: 4 iron
+
+Medic					: 5 iron + 3 gold
+
+Peasant					: 7 iron + 1 gold
+
+Cyborg 					: 8 iron + 5 gold + 2 gems
+
+/ ammo \
+
+1 Stack of StandarAmmo 			: 1 iron
+
+/ Misc \
+
+Bag (can hold 3 RawMat)			: 10 iron + 10 gold + 10 gems
+
+
+//////////////////////////////////////////////////////////////////////////////////////:
+
+			IN GAME MODIFICATION
+
+
+Dammage : 	Stat & Craft & MobDrop
+Speed : 	N/A
+lifetime :	N/A
+spread : 	N/A
+AOE :		N/A
+rate of fire :	MobDrop
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+			ITEM MODIFICATION
+
+PV, regen vie, armure (si ia toujours), fire rate, degat, vitesse de deplacement
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+			BUILDING 
+
+
+HQ
+
+BUILDER
+
+TURRET
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+Weapon values
+
+
+bat					1   CAC
+pistol 				2	DIST
+throw axe 			3	DIST 
+
+Chainsaw			1 	CAC
+shotgun				2	DIST
+SMG 				3	DIST
+
+Katana				1	CAC
+Plasma				2	DIST
+Rocket 				3	DIST
+
+
+

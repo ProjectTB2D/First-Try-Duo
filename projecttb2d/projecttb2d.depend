@@ -6,7 +6,7 @@
 	"src/global.h"
 	"src/Core.h"
 
-1357326889 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\core.cpp
+1358176225 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\core.cpp
 	<math.h>
 	"global.h"
 	"Core.h"
@@ -14,32 +14,33 @@
 
 1351178965 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\global.h
 
-1357326014 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\core.h
+1358173758 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\core.h
 	<SFML/Graphics.hpp>
 	"ImageManager.h"
 	<iostream>
 	<fstream>
 
-1351178965 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\imagemanager.h
+1358185233 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\imagemanager.h
 	<SFML/Graphics.hpp>
 	<iostream>
 
-1357326767 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\world.h
+1358185359 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\world.h
 	<SFML/Graphics.hpp>
 	<stdio.h>
 	<string.h>
 	<list>
 	"Actor.h"
 	"Player.h"
+	"Bullet.h"
 
-1357320358 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\imagemanager.cpp
+1358185250 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\imagemanager.cpp
 	"ImageManager.h"
 
 1351178965 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\global.cpp
 	"global.h"
 	"Core.h"
 
-1357325103 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\entity.cpp
+1358178631 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\entity.cpp
 	<math.h>
 	"global.h"
 	"Core.h"
@@ -49,17 +50,41 @@
 1357319550 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\entity.h
 	<SFML/Graphics.hpp>
 
-1357325773 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\actor.h
+1358181684 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\actor.h
 	<SFML/Graphics.hpp>
 	"Entity.h"
 
-1357325752 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\player.h
+1358185690 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\player.h
 	<SFML/Graphics.hpp>
 	"Actor.h"
 
-1357326648 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\world.cpp
+1358185573 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\world.cpp
 	<fstream>
 	"Core.h"
 	"global.h"
 	"World.h"
+	"Bullet.h"
+
+1358181874 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\actor.cpp
+	"Actor.h"
+	"Core.h"
+	"global.h"
+
+1358185687 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\player.cpp
+	"Player.h"
+	"global.h"
+	"Core.h"
+	"Actor.h"
+	"Entity.h"
+	<math.h>
+
+1358185531 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\bullet.h
+	<SFML/Graphics.hpp>
+	"Entity.h"
+
+1358185699 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\bullet.cpp
+	"Bullet.h"
+	"Core.h"
+	"global.h"
+	<math.h>
 

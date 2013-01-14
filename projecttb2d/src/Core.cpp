@@ -55,7 +55,7 @@ _world->createPlayer();
 
 void Core::initView(){
 
-    _view = new sf::View(sf::Vector2f(0,0), sf::Vector2f(_win_W/2, _win_H/2));
+    _view = new sf::View(sf::Vector2f(0,0), sf::Vector2f(_win_W, _win_H));
 
 }
 

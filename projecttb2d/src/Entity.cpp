@@ -4,7 +4,6 @@
 #include "World.h"
 #include "Entity.h"
 
-#define PI 3.14159265358979323846
 
 Entity::Entity()
 {
@@ -17,15 +16,18 @@ Entity::Entity(int idImage, sf::Vector2f pos, sf::Vector2f ipos, sf::Vector2f id
 	_angle(0),
 	_killed(false)
 {
+    printf("Construction Entity \n");
 	_id = g_core->getWorld()->generateUniqueID();
 	_spr.setTexture(*(g_core->getImageManager()->getImage(idImage)));
 	_spr.setPosition(pos);
 	_spr.setTextureRect(sf::IntRect(ipos.x, ipos.y, ipos.x + _frameW, ipos.y + _frameH));
+	_spr.setOrigin(idim.x / 2, idim.y / 2);
+
 }
 
 Entity::~Entity(){
 
-printf("entity deleted\n");
+printf("entity deleted !\n");
 
 }
 

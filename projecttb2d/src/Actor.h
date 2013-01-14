@@ -10,7 +10,8 @@ class Actor : public Entity
  public:
 
     Actor();
-    Actor(Entity&, int, float);
+    Actor(const Entity&, int, float);
+    virtual ~Actor();
 
 	virtual void render();
 	virtual void update();
@@ -44,7 +45,7 @@ class Actor : public Entity
     void rollItem(); // naviguer entre les items de la ceinture et de la main
     void use(); // Ramasser, utiliser, conduire, action...
     void putItemToCrafter(); // Transfert d'un item de la main au crafter (QUE si c'est un bloc)
-    //void takeItemFromCrafter(Item*);
+    //void takeItemFromCrafter(Item_t);
     //void testCollisionWorld(Obstacle*);
     //void testCollisionBullet(Bullet*);
 
@@ -59,7 +60,7 @@ class Actor : public Entity
     //Item *_hand;
     //Item *_belt[3];
 
-    int selectedItem;
+    int _selectedItem;
 
 };
 

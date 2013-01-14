@@ -13,29 +13,13 @@ ImageManager::ImageManager()
         _storage[i]->setSmooth(false);
     }
 
-/*
-    _storage[0]->loadFromFile("image/hero3_v4_stand.png");
-    //_storage[0]->createMaskFromColor(sf::Color(255,0,255));
+
+    _storage[0]->loadFromFile("images/character.png");
+    _storage[1]->loadFromFile("images/tileTest.png");
+    _storage[2]->loadFromFile("images/bullet1.png");
+    //_storage[0]->createMaskFromColor(sf::Color(255,255,255));
 
 
-    _storage[1]->loadFromFile("image/bricksheet2.png");
-    //_storage[1]->createMaskFromColor(sf::Color(255,0,255));
-
-    _storage[2]->loadFromFile("image/enemie2_v4_stand.png");
-    //_storage[2]->createMaskFromColor(sf::Color(255,0,255));
-
-    _storage[3]->loadFromFile("image/magic_sheet.png");
-    //_storage[3]->createMaskFromColor(sf::Color(0,0,0));
-
-    _storage[4]->loadFromFile("image/button_v2.png");
-    //_storage[4]->createMaskFromColor(sf::Color(0,0,0));
-
-    _storage[5]->loadFromFile("image/electricfence_v3.png");
-    //_storage[5]->createMaskFromColor(sf::Color(0,0,0));
-
-    _storage[6]->loadFromFile("image/effectsheet2.png");
-    //_storage[6]->createMaskFromColor(sf::Color(255,0,255));
-*/
 
 }
 

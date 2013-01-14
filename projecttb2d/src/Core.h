@@ -47,7 +47,6 @@ void                initApp(int, int);
 void                initWorld(const char*);
 void                initView();
 void                run();
-void                runEditor();
 void                render();
 
 // -------- GENERIC  ----------

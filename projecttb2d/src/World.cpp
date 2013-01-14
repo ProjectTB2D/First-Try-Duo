@@ -2,13 +2,15 @@
 #include "Core.h"
 #include "global.h"
 #include "World.h"
-
+#include "Bullet.h"
 
 
 
 World::World()
 : _nextUniqueID(0)
 {
+
+
 
 
 }
@@ -23,12 +25,41 @@ int World::generateUniqueID() {
 
 void World::createWorld(const char* lvlname){
 
+    int nbColonnes = 20;
+    int nbLignes = 20;
+
+    _matrice = new tile*[nbColonnes];
+
+	for(int i=0; i<nbColonnes; i++)
+		_matrice[i] = new tile[nbLignes];
+
+    for(int i = 0; i < nbColonnes; i++)
+        for(int j = 0; j < nbLignes; j ++){
+
+            _matrice[i][j].spr.setTexture(*(g_core->getImageManager()->getImage(1)));
+            _matrice[i][j].spr.setPosition(i*100, j*100);
+            //spr.setTextureRect(sf::IntRect(ipos.x, ipos.y, ipos.x + _frameW, ipos.y + _frameH));
+            //spr.setOrigin(idim.x / 2, idim.y / 2);
+
+        }
+
 
 }
 
 void World::createPlayer() {
 
+    printf("s1\n");
 
+    _team1.p = NULL;
+
+
+
+
+    _team1.p = new Player(Actor(Entity(0, sf::Vector2f(0, 0), sf::Vector2f(0,0), sf::Vector2f(50,50)),
+                                100,
+                               3));
+
+    _team1.b = new Bullet(Entity(2, sf::Vector2f(0, 0), sf::Vector2f(0,0), sf::Vector2f(25,25)), B_PISTOL, 0, 0.5, 1, 1);
 
 }
 
@@ -37,6 +68,8 @@ void World::createPlayer() {
 
 void World::update(){
 
+    _team1.p->update();
+    _team1.b->update();
 }
 
 //////////////////////////////////////////////////////////////// PURGE THE UNDEAD //////////////////////////////////////////////////////////////////////////:
@@ -60,19 +93,28 @@ void World::disolve_dead_drop(){
 
 void World::render(){
 
-
+    renderWorld();
+    _team1.p->render();
+    _team1.b->render();
+    centerCamera();
 }
 
 
 void World::renderWorld() {
 
+    for(int i = 0; i < 20; i++)
+        for(int j = 0; j < 20; j ++){
+
+            g_core->getApp()->draw(_matrice[i][j].spr);
+
+        }
 
 }
 
 
 void World::centerCamera() {
 
-//g_core->getView()->setCenter(getPlayer()->getPos());
+g_core->getView()->setCenter(getTeam1()->p->getPos());
 
 }
 
@@ -116,7 +158,7 @@ bool World::insideScreen(int x, int y, int w, int h, int margin) const
  Player*         World::getPlayerTeam1(){return NULL;}
  Player*         World::getPlayerTeam2(){return NULL;}
 
- team*   World::getTeam1(){return NULL;}
+ team*   World::getTeam1(){return &_team1;}
  team*   World::getTeam2(){return NULL;}
 
  NPC*   World::getNPCTeam1(int a){return NULL;}
@@ -125,6 +167,9 @@ bool World::insideScreen(int x, int y, int w, int h, int margin) const
 
 
 World::~World(){
+
+    delete _team1.p;
+
 
 
 }

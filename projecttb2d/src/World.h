@@ -7,6 +7,7 @@
 #include <list>
 #include "Actor.h"
 #include "Player.h"
+#include "Bullet.h"
 
 #define MAXNPC 10
 
@@ -14,11 +15,20 @@ class Bullet;
 class Drop;
 class Obstacle;
 
+struct tile{
+
+    sf::Sprite spr;
+    int num;
+
+};
+
 struct team{
 
     int id;
     Player * p;
     NPC * ai[MAXNPC];
+    Bullet* b;
+
     // HQ base;
     // Crafter craft;
     //std::list<Bullet> proj;
@@ -72,8 +82,8 @@ void            disolve_dead_bullet();
 
  int             generateUniqueID();
 
- team*         getTeam1();
- team*         getTeam2();
+ team*           getTeam1();
+ team*           getTeam2();
 
  Player*         getPlayerTeam1();
  Player*         getPlayerTeam2();
@@ -86,7 +96,8 @@ void            disolve_dead_bullet();
 protected:
 
 int                 _nextUniqueID;
-// tile...
+
+tile**              _matrice;
 team                _team1;
 team                _team2;
 //vector<Drop>        _drop;

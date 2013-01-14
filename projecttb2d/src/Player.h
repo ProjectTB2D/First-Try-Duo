@@ -10,7 +10,8 @@ class Player : public Actor
  public:
 
     Player();
-    Player(Actor&);
+    Player(const Actor&);
+    ~Player();
 
 	virtual void render();
 	virtual void update();
@@ -24,6 +25,8 @@ class Player : public Actor
 
 
  protected:
+
+float   _leftAngle;
 
 };
 
