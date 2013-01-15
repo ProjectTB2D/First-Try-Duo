@@ -4,6 +4,7 @@
 #include "World.h"
 #include "Bullet.h"
 
+#define zoneAffichable 5
 
 
 World::World()
@@ -64,19 +65,48 @@ void World::createPlayer() {
 
     _team1.p = new Player(Actor(Entity(0, sf::Vector2f(0, 0), sf::Vector2f(0,0), sf::Vector2f(50,50)),
                                 100,
-                               3));
+                               200));
 
-    _team1.b = new Bullet(Entity(2, sf::Vector2f(0, 0), sf::Vector2f(0,0), sf::Vector2f(25,25)), B_PISTOL, 0, 0.5, 1, 1);
+
 
 }
 
+/////////////////////////////////// ADD ////////////////////////////////////////
+
+void World::addBullet(Item_t it,sf::Vector2f pos,  float angle, float dmgmult){
+
+    int img_id;
+
+    switch(it){
+
+        case IT_PISTOL : img_id = 2; break;
+        case IT_THROW_AXE : img_id = 2; break;
+        case IT_SHOTGUN : img_id = 2; break;
+        case IT_SMG : img_id = 2; break;
+        case IT_PLASMA : img_id = 2; break;
+        case IT_RPG : img_id = 2; break;
+
+        default : img_id = 2;
+    }
+
+    _team1.proj.push_back(Bullet(Entity(img_id, pos, sf::Vector2f(0,0), sf::Vector2f(25,25)), it, angle, dmgmult));
+
+}
 
 
 
 void World::update(){
 
     _team1.p->update();
-    _team1.b->update();
+
+    // UPDATE BULLET
+
+    for (list<Bullet>::iterator it = _team1.proj.begin(); it != _team1.proj.end(); ++it){
+
+        it->update();
+
+    }
+
 }
 
 //////////////////////////////////////////////////////////////// PURGE THE UNDEAD //////////////////////////////////////////////////////////////////////////:
@@ -102,19 +132,55 @@ void World::render(){
 
     renderWorld();
     _team1.p->render();
-    _team1.b->render();
-    centerCamera();
+
+        centerCamera();
+
+    for (list<Bullet>::iterator it = _team1.proj.begin(); it != _team1.proj.end(); ++it){
+
+        it->render();
+
+    }
+
+
 }
 
+    int convertToIndex(float a, int LARGEUR_TILE){
+        return((int)(a/LARGEUR_TILE));
+    }
+
+    int convertToView(int a, int LARGEUR_TILE){
+        return(a*LARGEUR_TILE);
+    }
 
 void World::renderWorld() {
 
-    for(int i = 0; i < 20; i++)
-        for(int j = 0; j < 20; j ++){
+    int indexPlayerI = convertToIndex(_team1.p->getPos().x, 100);
+    int indexPlayerJ = convertToIndex(_team1.p->getPos().y, 100);
 
-            g_core->getApp()->draw(_matrice[i][j].spr);
+    /* Les nombre en dessous permettent de déterminer la distance ou lon affiche la map autour du héro */
 
-        }
+    float visionI = zoneAffichable, visionJ = zoneAffichable;
+
+    int idPImoins = indexPlayerI - visionI;
+    int idPIplus = indexPlayerI + visionI;
+    int idPJmoins = indexPlayerJ - visionJ;
+    int idPJplus = indexPlayerJ + visionJ;
+
+    if(idPImoins < 0)
+        idPImoins = 0;
+
+    if(idPIplus > 20)
+        idPIplus = 20;
+
+    if(idPJmoins < 0)
+        idPJmoins = 0;
+
+    if(idPJplus > 20)
+        idPJplus = 20;
+
+    for(int j=idPJmoins; j<idPJplus; j++)
+            for(int i=idPImoins; i<idPIplus; i++)
+                    g_core->getApp()->draw(_matrice[i][j].spr);
 
 }
 

@@ -17,6 +17,7 @@ ImageManager::ImageManager()
     _storage[0]->loadFromFile("images/character.png");
     _storage[1]->loadFromFile("images/tileTest.png");
     _storage[2]->loadFromFile("images/bullet1.png");
+    _storage[3]->loadFromFile("images/plasmaGun.png");
     //_storage[0]->createMaskFromColor(sf::Color(255,255,255));
 
 

@@ -8,6 +8,7 @@
 #include "Actor.h"
 #include "Player.h"
 #include "Bullet.h"
+#include "Item.h"
 
 #define MAXNPC 10
 
@@ -27,11 +28,10 @@ struct team{
     int id;
     Player * p;
     NPC * ai[MAXNPC];
-    Bullet* b;
-
+    std::list<Bullet> proj;
     // HQ base;
     // Crafter craft;
-    //std::list<Bullet> proj;
+
 };
 
 class World
@@ -54,7 +54,7 @@ void        createItem();
 
 // --------- ADD FUNCTIONS -------------
 
-
+void        addBullet(Item_t, sf::Vector2f, float, float);
 
 // -------- UPDATE FUNCTIONS -----------
 

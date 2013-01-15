@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Actor.h"
+#include "Item.h"
 
 class Player : public Actor
 {
@@ -27,6 +28,9 @@ class Player : public Actor
  protected:
 
 float   _leftAngle;
+
+Item*   _hand;
+
 
 };
 

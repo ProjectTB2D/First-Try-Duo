@@ -65,8 +65,12 @@
 		<Unit filename="src\HQ.h" />
 		<Unit filename="src\ImageManager.cpp" />
 		<Unit filename="src\ImageManager.h" />
+		<Unit filename="src\Item.cpp" />
+		<Unit filename="src\Item.h" />
 		<Unit filename="src\Player.cpp" />
 		<Unit filename="src\Player.h" />
+		<Unit filename="src\Weapon.cpp" />
+		<Unit filename="src\Weapon.h" />
 		<Unit filename="src\World.cpp" />
 		<Unit filename="src\World.h" />
 		<Unit filename="src\global.cpp" />

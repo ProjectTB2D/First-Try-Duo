@@ -8,22 +8,25 @@
 		<Cursor position="78" topLine="21" />
 	</File>
 	<File name="src\Actor.h" open="0" top="0" tabpos="9">
-		<Cursor position="136" topLine="69" />
+		<Cursor position="233" topLine="0" />
 	</File>
-	<File name="src\Bullet.cpp" open="0" top="0" tabpos="10">
-		<Cursor position="158" topLine="80" />
+	<File name="src\Bullet.cpp" open="1" top="1" tabpos="6">
+		<Cursor position="129" topLine="0" />
 	</File>
-	<File name="src\Core.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="196" topLine="153" />
+	<File name="src\Bullet.h" open="1" top="0" tabpos="5">
+		<Cursor position="415" topLine="3" />
 	</File>
-	<File name="src\Core.h" open="0" top="0" tabpos="5">
-		<Cursor position="1306" topLine="0" />
+	<File name="src\Core.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="550" topLine="17" />
+	</File>
+	<File name="src\Core.h" open="1" top="0" tabpos="2">
+		<Cursor position="1351" topLine="0" />
 	</File>
 	<File name="src\Crafter.h" open="0" top="0" tabpos="12">
-		<Cursor position="787" topLine="0" />
+		<Cursor position="126" topLine="0" />
 	</File>
 	<File name="src\Entity.cpp" open="0" top="0" tabpos="8">
-		<Cursor position="2714" topLine="0" />
+		<Cursor position="123" topLine="6" />
 	</File>
 	<File name="src\Entity.h" open="0" top="0" tabpos="5">
 		<Cursor position="724" topLine="0" />
@@ -31,23 +34,35 @@
 	<File name="src\HQ.h" open="0" top="0" tabpos="0">
 		<Cursor position="144" topLine="0" />
 	</File>
-	<File name="src\ImageManager.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="698" topLine="9" />
+	<File name="src\ImageManager.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="513" topLine="3" />
 	</File>
 	<File name="src\ImageManager.h" open="0" top="0" tabpos="3">
-		<Cursor position="256" topLine="15" />
+		<Cursor position="134" topLine="0" />
 	</File>
-	<File name="src\Player.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="225" topLine="6" />
+	<File name="src\Item.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="301" topLine="21" />
 	</File>
-	<File name="src\Player.h" open="0" top="0" tabpos="4">
-		<Cursor position="108" topLine="0" />
+	<File name="src\Item.h" open="1" top="0" tabpos="3">
+		<Cursor position="646" topLine="18" />
 	</File>
-	<File name="src\World.cpp" open="1" top="1" tabpos="3">
-		<Cursor position="954" topLine="34" />
+	<File name="src\Player.cpp" open="1" top="0" tabpos="9">
+		<Cursor position="1808" topLine="63" />
 	</File>
-	<File name="src\World.h" open="1" top="0" tabpos="4">
-		<Cursor position="641" topLine="38" />
+	<File name="src\Player.h" open="1" top="0" tabpos="10">
+		<Cursor position="442" topLine="15" />
+	</File>
+	<File name="src\Weapon.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="1915" topLine="64" />
+	</File>
+	<File name="src\Weapon.h" open="0" top="0" tabpos="0">
+		<Cursor position="225" topLine="0" />
+	</File>
+	<File name="src\World.cpp" open="1" top="0" tabpos="8">
+		<Cursor position="2744" topLine="128" />
+	</File>
+	<File name="src\World.h" open="1" top="0" tabpos="7">
+		<Cursor position="881" topLine="18" />
 	</File>
 	<File name="src\global.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="61" topLine="0" />

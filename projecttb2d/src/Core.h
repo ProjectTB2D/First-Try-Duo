@@ -4,6 +4,7 @@
 #include "ImageManager.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -21,6 +22,8 @@ sf::View*           _view;
 sf::RenderWindow*   _app;
 World*              _world;
 ImageManager*       _imgMan;
+sf::Clock           _clockFrame;
+float               _frameTime;
 
 // ----------------------------------
 
@@ -68,6 +71,7 @@ ImageManager*       getImageManager();
 void                getInfo();
 sf::Vector2f        getRotatedVector(sf::Vector2f, float) const;
 sf::Vector2i        getWinSize() const;
+float               getFrameTime() const;
 
 //  --------- DEBBUGER -------------------
 

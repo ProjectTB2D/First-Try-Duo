@@ -3,7 +3,7 @@
 #include "Core.h"
 #include "World.h"
 
-#define FPS 60
+#define FPSLIMIT 60
 
 #define DISPLAY_COLLISION 0
 
@@ -23,13 +23,13 @@ Core::Core()
 
 void Core::initApp(int x, int y){
 
-sf::VideoMode DesktopMode = sf::VideoMode::getDesktopMode();
+//sf::VideoMode DesktopMode = sf::VideoMode::getDesktopMode();
 
-_app = new sf::RenderWindow(DesktopMode, "jorbienEngine", sf::Style::Fullscreen);
+//_app = new sf::RenderWindow(DesktopMode, "jorbienEngine", sf::Style::Fullscreen);
 
-//_app = new sf::RenderWindow(sf::VideoMode(x,y,32), "jorbienEngine");
+_app = new sf::RenderWindow(sf::VideoMode(x,y,32), "jorbienEngine");
 
-_app->setFramerateLimit(FPS);
+_app->setFramerateLimit(FPSLIMIT);
 
 _win_H = y;
 _win_W = x;
@@ -70,6 +70,8 @@ void Core::run() {
 
 
 while(_app->isOpen()){
+
+    _frameTime = _clockFrame.restart().asSeconds();
 
     sf::Event Event;
     while (_app->pollEvent(Event)){
@@ -118,7 +120,19 @@ while(_app->isOpen()){
 
     // DISPLAY FPS
 
-//    _app->draw(texte);
+    sf::Text fpsMessage;
+    int FPS;
+    ostringstream oss;
+
+    FPS = 1 / _frameTime;
+    oss << "FPS : " << FPS;
+
+    fpsMessage.setPosition(50.0f, 100.0f);
+    fpsMessage.setColor(sf::Color(255,0,0,255));
+    fpsMessage.setString(oss.str());
+    fpsMessage.setCharacterSize(14);
+
+    _app->draw(fpsMessage);
 
 
     // DISPLAY COMPLETE BUFFER
@@ -262,6 +276,12 @@ sf::Vector2i Core::getWinSize() const{
 
 }
 
+float Core::getFrameTime() const{
+
+    return _frameTime;
+
+}
+
 Core::~Core(){
 
 delete _app;
@@ -281,6 +301,7 @@ delete _imgMan;
 cout << "_imgMan ------------ [DELETED] " << endl;
 
 }
+
 
 // ////////////////////////////////////////// DEBUG //////////////////////////////////////////
 

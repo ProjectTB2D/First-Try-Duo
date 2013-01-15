@@ -2,10 +2,11 @@
 #define _included_Craft_h
 #include <SFML/Graphics.hpp>
 #include "src/Entity.h"
+#include "Item.h"
 
 #define NBITEM 50;
 
-enum Item_t {IT_IRON = 0, IT_GOLD = 1, IT_RUBY = 2, IT_BAG = 3, IT_AXE = 4};
+
 
 struct recipe{
 
