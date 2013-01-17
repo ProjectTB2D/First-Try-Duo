@@ -4,6 +4,7 @@
 #include "Actor.h"
 #include "Entity.h"
 #include "Weapon.h"
+#include "World.h"
 #include <math.h>
 
 #define PI 3.14159265359
@@ -14,19 +15,20 @@ Player::Player()
 }
 
 Player::Player(const Actor& act)
-:   Actor(act),
-    _hand(NULL)
+:   Actor(act)
 {
 
     _leftAngle = 90 * PI / 180;
-    _hand = new Weapon(Entity(3, getPos(), sf::Vector2f(0,0), sf::Vector2f(30,10)),
-    IT_PLASMA);
+
 
 }
 
 Player::~Player(){
 
 printf("joueur deleted !\n");
+if(_hand != NULL){
+    delete _hand;
+}
 
 }
 
@@ -43,49 +45,73 @@ _angle = atan2(distance_y, distance_x);
 
 
 
-if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)){
 
     _spr.move(-_speed*ft*cos(_angle), -_speed*ft*sin(_angle));
     //printf("angle = %f\n | speed = %f\n", _angle*180/PI, _speed);
 
 }
 else
-if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
 
     _spr.move(_speed*ft*cos(_angle), _speed*ft*sin(_angle));
     //printf("angle = %f\n | speed = %f\n", _angle*180/PI, _speed);
 
 }
 
-if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
  {
     _spr.move(_speed*ft*cos(_angle + _leftAngle), _speed*ft*sin(_angle + _leftAngle));
     //printf("angle = %f\n | speed = %f\n", _angle*180/PI, _speed);
 
  }
  else
- if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+ if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
  {
     _spr.move(_speed*ft*cos(_angle - _leftAngle), _speed*ft*sin(_angle - _leftAngle));
     //printf("angle = %f\n | speed = %f\n", _angle*180/PI, _speed);
 
  }
 
- if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
  {
-    _hand->use();
-    printf("pan !\n");
+    drop();
+
 
  }
-_hand->setInfo(_angle, getPos());
-_hand->update();
+ else
+ if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && _clock_use.getElapsedTime().asSeconds() > 0.5)
+ {
+    use();
+    _clock_use.restart();
+        /*printf("-----------------\n");
+        for(unsigned int i = 0; i < g_core->getWorld()->getDrop()->size(); i++){
+
+            printf("id = %p\n", &(*g_core->getWorld()->getDrop())[i]);
+
+        }
+*/
+ }
+
+if(_hand){
+
+     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+     {
+        _hand->use();
+
+     }
+    _hand->setInfo(_angle, getPos());
+    _hand->update();
+}
 
 }
 
 void Player::render(){
 
     _spr.setRotation(_angle*180/PI);
+    if(_hand)
+        _hand->render();
     g_core->getApp()->draw(_spr);
-    _hand->render();
+
 
 }

@@ -7,7 +7,7 @@
 
 Entity::Entity()
 {
-	printf("Construction Entity default\n");
+	//printf("Construction Entity default\n");
 }
 
 Entity::Entity(int idImage, sf::Vector2f pos, sf::Vector2f ipos, sf::Vector2f idim)
@@ -16,7 +16,7 @@ Entity::Entity(int idImage, sf::Vector2f pos, sf::Vector2f ipos, sf::Vector2f id
 	_angle(0),
 	_killed(false)
 {
-    printf("Construction Entity \n");
+    //printf("Construction Entity \n");
 	_id = g_core->getWorld()->generateUniqueID();
 	_spr.setTexture(*(g_core->getImageManager()->getImage(idImage)));
 	_spr.setPosition(pos);
@@ -27,18 +27,12 @@ Entity::Entity(int idImage, sf::Vector2f pos, sf::Vector2f ipos, sf::Vector2f id
 
 Entity::~Entity(){
 
-printf("entity deleted !\n");
+//printf("entity deleted !\n");
 
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void Entity::render(){
-
-}
-void Entity::update(){
-
-}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////                             GETTERS                                                                            //////////////////////////
@@ -116,4 +110,5 @@ void Entity::setAngle(float a){
 void Entity::kill(){
 
  _killed = true;
+ printf("je vais etre kill\n");
 }

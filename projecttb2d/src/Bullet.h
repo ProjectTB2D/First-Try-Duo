@@ -10,7 +10,7 @@ class Bullet : public Entity
  public:
 
 	Bullet();
-	Bullet(const Entity&, Item_t, float, float);
+	Bullet(int, sf::Vector2f, sf::Vector2f, sf::Vector2f, Item_t, float, float);
 	~Bullet();
 
 	virtual void render();

@@ -1,6 +1,7 @@
 #include "Bullet.h"
 #include "Core.h"
 #include "global.h"
+#include "World.h"
 #include <math.h>
 
 #define PI 3.14159265359
@@ -12,24 +13,30 @@ Bullet::Bullet()
 
 }
 
-Bullet::Bullet(const Entity& ent, Item_t it, float angle, float damage)
-:   Entity(ent),
+Bullet::Bullet(int a, sf::Vector2f b, sf::Vector2f c, sf::Vector2f d, Item_t it, float angle, float damage)
+:   Entity(a,b,c,d),
     _tb(it),
     _damage(damage)
 {
 
-    printf("init get pos x = %f, pos y = %f\n", getPos().x, getPos().y);
+    //printf("init get pos x = %f, pos y = %f\n", getPos().x, getPos().y);
 
     _angle = angle;
 
     switch(it){
 
         case IT_PISTOL : _damage = 5; _speed = 1000; break;
+        case IT_PISTOL_SUPER : _damage = 5; _speed = 1000; break;
         case IT_THROW_AXE : _damage = 13; _speed = 800; break;
+        case IT_THROW_AXE_SUPER : _damage = 13; _speed = 800; break;
         case IT_SHOTGUN : _damage = 5; _speed = 1000; break;
+        case IT_SHOTGUN_SUPER : _damage = 5; _speed = 1000; break;
         case IT_SMG : _damage = 4; _speed = 1000; break;
+        case IT_SMG_SUPER : _damage = 4; _speed = 1000; break;
         case IT_PLASMA : _damage = 20; _speed = 900; break;
+        case IT_PLASMA_SUPER : _damage = 20; _speed = 900; break;
         case IT_RPG : _damage = 90; _speed = 800; break;
+        case IT_RPG_SUPER : _damage = 90; _speed = 800; break;
 
         default : _damage = 0; _speed = 0;
     }
@@ -39,6 +46,8 @@ Bullet::Bullet(const Entity& ent, Item_t it, float angle, float damage)
 }
 
 Bullet::~Bullet(){
+
+    //printf("bullet destroyed !\n");
 
 }
 
@@ -56,8 +65,10 @@ void Bullet::update(){
 void Bullet::render(){
 
     //printf("pos x = %f, pos y = %f\n", getPos().x, getPos().y);
-    _spr.setRotation(_angle*180/PI);
-    g_core->getApp()->draw(_spr);
+    if(g_core->getWorld()->insideScreenPoint(getPos().x, getPos().y, 2)){
+        _spr.setRotation(_angle*180/PI);
+        g_core->getApp()->draw(_spr);
+    }
     //system("pause");
 }
 

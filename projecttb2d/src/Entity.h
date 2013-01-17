@@ -8,12 +8,12 @@ class Entity
 
 	Entity();
 	Entity(int, sf::Vector2f, sf::Vector2f, sf::Vector2f); // int passé a l'image manager
-    virtual ~Entity();
+    virtual ~Entity() = 0;
 
 	// ???
 
-	virtual void render();
-	virtual void update();
+	virtual void render() = 0;
+	virtual void update() = 0;
 
 	// getter
 

@@ -10,7 +10,7 @@ class Weapon : public Item
  public:
 
     Weapon();
-    Weapon(const Entity&, Item_t, bool = false, float = 1.0f, float = 1.0f, float = 1.0f);
+    Weapon(int, sf::Vector2f, sf::Vector2f, sf::Vector2f, Item_t, float = 1.0f, float = 1.0f, float = 1.0f);
     virtual ~Weapon();
 
 

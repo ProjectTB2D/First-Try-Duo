@@ -17,6 +17,8 @@ class Player : public Actor
 	virtual void render();
 	virtual void update();
 
+	//
+
     // action
 
     void moveForward();
@@ -27,9 +29,10 @@ class Player : public Actor
 
  protected:
 
-float   _leftAngle;
+float       _leftAngle;
+sf::Clock   _clock_use;
 
-Item*   _hand;
+
 
 
 };

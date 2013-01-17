@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Entity.h"
+#include "Item.h"
 
 class Actor : public Entity
 {
@@ -10,7 +11,7 @@ class Actor : public Entity
  public:
 
     Actor();
-    Actor(const Entity&, int, float);
+    Actor(int, sf::Vector2f, sf::Vector2f, sf::Vector2f, int, float);
     virtual ~Actor();
 
 	virtual void render();
@@ -57,10 +58,12 @@ class Actor : public Entity
     float _speed;
     float _speedMax;
 
-    //Item *_hand;
+    Item *_hand;
     //Item *_belt[3];
 
     int _selectedItem;
+
+    void    setHandItem(Item*);
 
 };
 

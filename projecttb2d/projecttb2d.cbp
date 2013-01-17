@@ -62,6 +62,7 @@
 		<Unit filename="src\Crafter.h" />
 		<Unit filename="src\Entity.cpp" />
 		<Unit filename="src\Entity.h" />
+		<Unit filename="src\HQ.cpp" />
 		<Unit filename="src\HQ.h" />
 		<Unit filename="src\ImageManager.cpp" />
 		<Unit filename="src\ImageManager.h" />
@@ -75,6 +76,12 @@
 		<Unit filename="src\World.h" />
 		<Unit filename="src\global.cpp" />
 		<Unit filename="src\global.h" />
+		<Unit filename="src\tinystr.cpp" />
+		<Unit filename="src\tinystr.h" />
+		<Unit filename="src\tinyxml.cpp" />
+		<Unit filename="src\tinyxml.h" />
+		<Unit filename="src\tinyxmlerror.cpp" />
+		<Unit filename="src\tinyxmlparser.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

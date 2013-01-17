@@ -31,7 +31,7 @@ class HQ : public Entity
  public:
 
 	Crafter();
-	Crafter(Entity&);
+	Crafter(int, sf::Vector2f, sf::Vector2f, sf::Vector2f);
 
 	virtual void    render();
 	virtual void    update();

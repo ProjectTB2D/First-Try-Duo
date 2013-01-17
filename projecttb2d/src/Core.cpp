@@ -159,11 +159,11 @@ bool Core::dot_in_box(sf::Vector2f a, float b[4]){
     sf::Shape rectb(sf::Shape::Rectangle(b[0],b[1],b[2],b[3],sf::Color::Blue,3,sf::Color::Yellow));
     rectb.EnableFill(false);
     getApp()->Draw(rectb);
-*/
-
 
     return (a.x >= b[0] && a.x <= b[2] && a.y >= b[1] && a.y <= b[3]);
+*/
 
+return true;
 }
 
 /*
@@ -172,33 +172,32 @@ bool Core::dot_in_box(sf::Vector2f a, float b[4]){
  * r[4] = x1, y1, x2(=x1+w), y2(=y1+h)
  */
 bool Core::bounding_box(float a[4], float b[4], bool debug){
-/*
+
     if(debug){
 
-    sf::Shape recta(sf::Shape::Rectangle(a[0],a[1],a[2],a[3],sf::Color::Blue,3,sf::Color::Red));
-    recta.EnableFill(false);
-    getApp()->Draw(recta);
+    sf::RectangleShape r1;
+    r1.setSize(sf::Vector2f(a[2] - a[0], a[3] - a[1]));
+    r1.setOutlineColor(sf::Color::Blue);
+    r1.setPosition(a[0], a[1]);
 
-    sf::Shape rectb(sf::Shape::Rectangle(b[0],b[1],b[2],b[3],sf::Color::Blue,3,sf::Color::Blue));
-    rectb.EnableFill(false);
-    getApp()->Draw(rectb);
+    sf::RectangleShape r2;
+    r2.setSize(sf::Vector2f(b[2] - b[0], b[3] - b[1]));
+    r2.setOutlineColor(sf::Color::Green);
+    r2.setPosition(b[0], b[1]);
 
+    getApp()->draw(r1);
+
+    getApp()->draw(r2);
+
+/*
     cout << "-----------------------------------------------------" << endl;
     cout << "a[0] = " << a[0] << " < b[2] = " << b[2] << endl;
     cout << "a[2] = " << a[2] << " > b[0] = " << b[0] << endl;
     cout << "a[1] = " << a[0] << " < b[2] = " << b[2] << endl;
     cout << "b[3] = " << a[2] << " > b[0] = " << b[0] << endl;
-
+*/
 
     }
-
-*/
-    //if(a[0]<b[2] && a[2]>b[0] && a[1]<b[3] && a[3]>b[1]){
-
-/*        ((box2.x >= box1.x + box1.w)      // trop à droite
-	|| (box2.x + box2.w <= box1.x) // trop à gauche
-	|| (box2.y >= box1.y + box1.h) // trop en bas
-	|| (box2.y + box2.h <= box1.y))  // trop en haut */
 
 
     if(a[0]<b[2] && a[2]>b[0] && a[1]<b[3] && a[3]>b[1]){

@@ -3,6 +3,8 @@
 #include "global.h"
 #include "World.h"
 #include "Bullet.h"
+#include "tinyxml.h"
+#include "Weapon.h"
 
 #define zoneAffichable 5
 
@@ -26,7 +28,7 @@ int World::generateUniqueID() {
 
 void World::createWorld(const char* lvlname){
 
-    int nbColonnes = 20;
+   /* int nbColonnes = 20;
     int nbLignes = 20;
 
     _matrice = new tile*[nbColonnes];
@@ -42,17 +44,12 @@ void World::createWorld(const char* lvlname){
             //spr.setTextureRect(sf::IntRect(ipos.x, ipos.y, ipos.x + _frameW, ipos.y + _frameH));
             //spr.setOrigin(idim.x / 2, idim.y / 2);
 
-        }
+        }*/
 
+    printf("test1\n");
+    parseMapTmx("map/Map1.tmx", &_matrice);
 
 }
-
-/*
-void parseMapTmx(string map, tile*** Matrice, std::vector<Obstacle*> &obstacle){
-
-
-
-}*/
 
 void World::createPlayer() {
 
@@ -63,10 +60,11 @@ void World::createPlayer() {
 
 
 
-    _team1.p = new Player(Actor(Entity(0, sf::Vector2f(0, 0), sf::Vector2f(0,0), sf::Vector2f(50,50)),
+    _team1.p = new Player(Actor(0, sf::Vector2f(0, 0), sf::Vector2f(0,0), sf::Vector2f(50,50),
                                 100,
                                200));
 
+    _r_spawner[0] = new RessourceSpawner(0, sf::Vector2f(-200, -200), sf::Vector2f(0,0), sf::Vector2f(50,50), IT_PLASMA, 0);
 
 
 }
@@ -89,10 +87,15 @@ void World::addBullet(Item_t it,sf::Vector2f pos,  float angle, float dmgmult){
         default : img_id = 2;
     }
 
-    _team1.proj.push_back(Bullet(Entity(img_id, pos, sf::Vector2f(0,0), sf::Vector2f(25,25)), it, angle, dmgmult));
+    _team1.proj.push_back(Bullet(img_id, pos, sf::Vector2f(0,0), sf::Vector2f(25,25), it, angle, dmgmult));
 
 }
 
+void World::addDrop(const sf::Vector2f& pos, const Item_t& it){
+
+    _drop.push_back(Drop(3, pos, sf::Vector2f(0,0), sf::Vector2f(30,10), it));
+
+}
 
 
 void World::update(){
@@ -100,6 +103,10 @@ void World::update(){
     _team1.p->update();
 
     // UPDATE BULLET
+
+    for (unsigned int i = 0; i < _drop.size(); i++)
+        _drop[i].update();
+
 
     for (list<Bullet>::iterator it = _team1.proj.begin(); it != _team1.proj.end(); ++it){
 
@@ -111,7 +118,34 @@ void World::update(){
 
 //////////////////////////////////////////////////////////////// PURGE THE UNDEAD //////////////////////////////////////////////////////////////////////////:
 
+void World::disolve(){
+
+  ////////////////////////////////////
+  //          PURGE                 //
+  ////////////////////////////////////
+
+  disolve_dead_drop();
+disolve_dead_NPC();
+disolve_dead_bullet();
+
+
+
+}
+
 void World::disolve_dead_bullet(){
+
+
+    for (list<Bullet>::iterator it = _team1.proj.begin(); it != _team1.proj.end();){
+
+        if(it->getKilled()){
+
+            it = _team1.proj.erase(it);
+
+        }
+        else
+        ++it;
+
+    }
 
 
 }
@@ -123,6 +157,20 @@ void World::disolve_dead_NPC(){
 
 void World::disolve_dead_drop(){
 
+    for (unsigned int i = 0; i < _drop.size();){
+
+        if(_drop[i].getKilled()){
+
+            printf("drop deleted, pos : %d\n", i);
+            _drop.erase(_drop.begin() + i);
+
+        }
+        else
+        ++i;
+
+  }
+
+
 }
 
 
@@ -133,13 +181,27 @@ void World::render(){
     renderWorld();
     _team1.p->render();
 
-        centerCamera();
+    for (unsigned int i = 0; i < _drop.size(); i++)
+        _drop[i].render();
+
+    centerCamera();
+
+    //////////////////// Mini update (doit être fait avant render de bullet)/////////////////////
+
+ _b[0] = g_core->getView()->getCenter().x - g_core->getWinSize().x/2 - 2;
+ _b[1] = g_core->getView()->getCenter().y - g_core->getWinSize().y/2 - 2;
+ _b[2] = g_core->getView()->getCenter().x + g_core->getWinSize().x/2 + 2;
+ _b[3] = g_core->getView()->getCenter().y + g_core->getWinSize().y/2 + 2;
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
 
     for (list<Bullet>::iterator it = _team1.proj.begin(); it != _team1.proj.end(); ++it){
 
         it->render();
 
     }
+
+
 
 
 }
@@ -191,19 +253,7 @@ g_core->getView()->setCenter(getTeam1()->p->getPos());
 
 }
 
-void World::disolve(){
 
-        ////////////////////////////////////
-  //          PURGE                 //
-  ////////////////////////////////////
-
-  disolve_dead_drop();
-disolve_dead_NPC();
-disolve_dead_bullet();
-
-
-
-}
 
 ///////////////////////////////////////////////////////////// EPURAGE /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -227,6 +277,16 @@ bool World::insideScreen(int x, int y, int w, int h, int margin) const
     return g_core->bounding_box(a,b);
 }
 
+bool World::insideScreenPoint(int x, int y, int mar) const{
+
+    if(x > _b[0] && x < _b[2] && y > _b[1] && y < _b[3]){
+
+        return true;
+
+    }
+    return false;
+
+}
 
  Player*         World::getPlayerTeam1(){return NULL;}
  Player*         World::getPlayerTeam2(){return NULL;}
@@ -237,11 +297,168 @@ bool World::insideScreen(int x, int y, int w, int h, int margin) const
  NPC*   World::getNPCTeam1(int a){return NULL;}
  NPC*   World::getNPCTeam2(int a){return NULL;}
 
+Item*   World::getItemFromIT(const Item_t& it){
 
+sf::Vector2f p(0,0);
+
+switch(it){
+
+case IT_BAT : return new Weapon(3, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_BAT);
+case IT_BAT_SUPER : return new Weapon(3, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_BAT);
+case IT_PISTOL : return new Weapon(3, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_PISTOL);
+case IT_PISTOL_SUPER : return new Weapon(3, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_PISTOL);
+case IT_THROW_AXE : return new Weapon(3, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_THROW_AXE);
+case IT_THROW_AXE_SUPER : return new Weapon(3, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_THROW_AXE);
+case IT_CHAINSAW : return new Weapon(3, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_CHAINSAW);
+case IT_CHAINSAW_SUPER : return new Weapon(3, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_CHAINSAW);
+case IT_SHOTGUN : return new Weapon(3, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_SHOTGUN);
+case IT_SHOTGUN_SUPER : return new Weapon(3, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_SHOTGUN);
+case IT_SMG : return new Weapon(3, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_SMG);
+case IT_SMG_SUPER : return new Weapon(3, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_SMG);
+case IT_KATANA : return new Weapon(3, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_KATANA);
+case IT_KATANA_SUPER : return new Weapon(3, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_KATANA);
+case IT_PLASMA : return new Weapon(3, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_PLASMA);
+case IT_PLASMA_SUPER : return new Weapon(3, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_PLASMA);
+case IT_RPG : return new Weapon(3, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_RPG);
+case IT_RPG_SUPER : return new Weapon(3, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_RPG);
+
+default : return NULL;
+
+}
+
+}
+
+
+void World::parseMapTmx(string map, tile*** Matrice){
+
+    // Récupération des données dans le fichier TMX (Tiled Map Editor) / Traitement XML
+
+
+    // ================= OUVERTURE ======================
+
+    TiXmlDocument document(map.c_str());
+    if(!document.LoadFile()){//si on n'arrive pas à charger le fichier
+        cout << "error : N°" << document.ErrorId() << " : " << document.ErrorDesc() << endl;
+        //return 1;
+    }
+    else{
+        cout << " Ouverture reussie " << endl;
+    }
+
+
+    TiXmlHandle handle(&document);
+    string source, elemName, colonnes, lignes, largeur, hauteur;
+
+    int nbColonnes = 0, nbLignes = 0, largeurTile = 0, hauteurTile = 0;
+
+    // on recherche les enfants Direct de Map
+    TiXmlElement *element = handle.FirstChildElement().FirstChildElement().Element();
+
+
+    // ==== On récupère les informations sur la Map (colonnes, lignes) et les tiles (taille) =====
+
+    int i = 0;
+    while (element){
+        //cout << element->Value() << endl; //l'atribut nom
+        //cout << element->GetText() << endl;//Le texte entre les balises
+
+        elemName = element->Value();
+
+        if(elemName == "layer"){
+
+            colonnes = element->Attribute("width");
+            lignes = element->Attribute("height");
+
+            nbColonnes = atoi(colonnes.c_str());
+            nbLignes = atoi(lignes.c_str());
+
+        }
+        else if(elemName == "tileset"){
+
+            largeur = element->Attribute("tilewidth");
+            hauteur = element->Attribute("tileheight");
+
+            largeurTile = atoi(largeur.c_str());
+            hauteurTile = atoi(hauteur.c_str());
+
+        }
+
+        element = element->NextSiblingElement(); // aller à l'élément suivant
+        i++;
+
+    }
+
+    // On crée la Matrice avec le nb de colonnes et de lignes déterminés précédemment
+
+    cout << "nb colonnes : " << nbColonnes << " nb lignes : " << nbLignes << endl;
+
+    (*Matrice) = 0;
+
+    (*Matrice) = new tile*[nbColonnes];
+
+	for(int i=0; i<nbColonnes; i++)
+		(*Matrice)[i] = new tile[nbLignes];
+
+    // ----------------------------------------------------------------------------
+
+
+    // ======== On recherche les enfants de Data (donc toutes les tiles) ==========
+    element = handle.FirstChildElement().FirstChildElement("layer").FirstChildElement("data").FirstChildElement().Element();
+
+    i = 0;
+    int j = 0;
+
+    while (element){
+
+        if(i < nbColonnes){
+
+            string value = element->Attribute("gid"); // Numéro de la Tile
+
+            (*Matrice)[i][j].num = atoi(value.c_str());
+
+            i++; // On passe a la tile suivante
+            element = element->NextSiblingElement(); // aller à l'élément suivant
+        }
+        else{
+
+            i = 0; // On repart a la premiere Tile de la ligne
+            j++; // On passe a la ligne suivante
+
+        }
+    }
+
+
+
+    for(int j=0; j<nbLignes; j++){
+		for(int i=0; i<nbColonnes; i++){
+
+		    (*Matrice)[i][j].spr.setTexture(*(g_core->getImageManager()->getImage(4)));
+		    (*Matrice)[i][j].spr.setPosition(i*largeurTile, j*hauteurTile);
+
+			if ((*Matrice)[i][j].num == 1){
+
+				(*Matrice)[i][j].spr.setTextureRect(sf::IntRect(0,0,100,100));
+			}
+			else if ((*Matrice)[i][j].num == 2){
+
+				(*Matrice)[i][j].spr.setTextureRect(sf::IntRect(100,0,100,100));
+			}
+			else if ((*Matrice)[i][j].num == 3){
+
+				(*Matrice)[i][j].spr.setTextureRect(sf::IntRect(200,0,100,100));
+			}
+		}
+    }
+
+}
 
 World::~World(){
 
+    printf("current drop number : %d\n", _drop.size());
+
     delete _team1.p;
+    delete _r_spawner;
+
 
 
 
