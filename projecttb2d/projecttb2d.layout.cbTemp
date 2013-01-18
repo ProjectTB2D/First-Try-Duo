@@ -5,7 +5,7 @@
 		<Cursor position="131" topLine="0" />
 	</File>
 	<File name="src\Actor.cpp" open="1" top="1" tabpos="7">
-		<Cursor position="3021" topLine="138" />
+		<Cursor position="2663" topLine="135" />
 	</File>
 	<File name="src\Actor.h" open="0" top="0" tabpos="9">
 		<Cursor position="1400" topLine="51" />
@@ -25,14 +25,14 @@
 	<File name="src\Crafter.h" open="0" top="0" tabpos="12">
 		<Cursor position="472" topLine="21" />
 	</File>
-	<File name="src\Entity.cpp" open="1" top="0" tabpos="10">
+	<File name="src\Entity.cpp" open="1" top="0" tabpos="11">
 		<Cursor position="710" topLine="83" />
 	</File>
 	<File name="src\Entity.h" open="0" top="0" tabpos="5">
 		<Cursor position="240" topLine="0" />
 	</File>
 	<File name="src\HQ.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="528" topLine="12" />
+		<Cursor position="786" topLine="30" />
 	</File>
 	<File name="src\HQ.h" open="1" top="0" tabpos="5">
 		<Cursor position="113" topLine="0" />
@@ -43,13 +43,13 @@
 	<File name="src\ImageManager.h" open="0" top="0" tabpos="10">
 		<Cursor position="134" topLine="0" />
 	</File>
-	<File name="src\Item.cpp" open="1" top="0" tabpos="11">
+	<File name="src\Item.cpp" open="1" top="0" tabpos="12">
 		<Cursor position="1289" topLine="64" />
 	</File>
 	<File name="src\Item.h" open="1" top="0" tabpos="8">
 		<Cursor position="777" topLine="39" />
 	</File>
-	<File name="src\Player.cpp" open="1" top="0" tabpos="12">
+	<File name="src\Player.cpp" open="1" top="0" tabpos="13">
 		<Cursor position="308" topLine="12" />
 	</File>
 	<File name="src\Player.h" open="1" top="0" tabpos="9">
@@ -61,8 +61,8 @@
 	<File name="src\Weapon.h" open="1" top="0" tabpos="4">
 		<Cursor position="231" topLine="0" />
 	</File>
-	<File name="src\World.cpp" open="0" top="0" tabpos="10">
-		<Cursor position="121" topLine="303" />
+	<File name="src\World.cpp" open="1" top="0" tabpos="10">
+		<Cursor position="3187" topLine="0" />
 	</File>
 	<File name="src\World.h" open="1" top="0" tabpos="1">
 		<Cursor position="2109" topLine="102" />
