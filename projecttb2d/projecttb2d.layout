@@ -4,37 +4,40 @@
 	<File name="main.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="131" topLine="0" />
 	</File>
-	<File name="src\Actor.cpp" open="1" top="1" tabpos="7">
-		<Cursor position="3021" topLine="138" />
+	<File name="src\Actor.cpp" open="1" top="0" tabpos="10">
+		<Cursor position="270" topLine="159" />
 	</File>
-	<File name="src\Actor.h" open="0" top="0" tabpos="9">
-		<Cursor position="1400" topLine="51" />
+	<File name="src\Actor.h" open="1" top="0" tabpos="8">
+		<Cursor position="743" topLine="0" />
 	</File>
-	<File name="src\Bullet.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="1067" topLine="9" />
+	<File name="src\Bullet.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="350" topLine="42" />
 	</File>
-	<File name="src\Bullet.h" open="1" top="0" tabpos="3">
+	<File name="src\Bullet.h" open="0" top="0" tabpos="3">
 		<Cursor position="281" topLine="3" />
 	</File>
-	<File name="src\Core.cpp" open="0" top="0" tabpos="8">
-		<Cursor position="3292" topLine="173" />
+	<File name="src\Core.cpp" open="0" top="0" tabpos="13">
+		<Cursor position="2284" topLine="122" />
 	</File>
 	<File name="src\Core.h" open="0" top="0" tabpos="2">
 		<Cursor position="202" topLine="2" />
 	</File>
-	<File name="src\Crafter.h" open="0" top="0" tabpos="12">
-		<Cursor position="472" topLine="21" />
+	<File name="src\Crafter.cpp" open="1" top="1" tabpos="11">
+		<Cursor position="659" topLine="77" />
 	</File>
-	<File name="src\Entity.cpp" open="1" top="0" tabpos="10">
-		<Cursor position="710" topLine="83" />
+	<File name="src\Crafter.h" open="1" top="0" tabpos="13">
+		<Cursor position="886" topLine="36" />
 	</File>
-	<File name="src\Entity.h" open="0" top="0" tabpos="5">
+	<File name="src\Entity.cpp" open="0" top="0" tabpos="10">
+		<Cursor position="710" topLine="0" />
+	</File>
+	<File name="src\Entity.h" open="1" top="0" tabpos="9">
 		<Cursor position="240" topLine="0" />
 	</File>
 	<File name="src\HQ.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="528" topLine="12" />
+		<Cursor position="528" topLine="27" />
 	</File>
-	<File name="src\HQ.h" open="1" top="0" tabpos="5">
+	<File name="src\HQ.h" open="0" top="0" tabpos="5">
 		<Cursor position="113" topLine="0" />
 	</File>
 	<File name="src\ImageManager.cpp" open="0" top="0" tabpos="9">
@@ -43,29 +46,29 @@
 	<File name="src\ImageManager.h" open="0" top="0" tabpos="10">
 		<Cursor position="134" topLine="0" />
 	</File>
-	<File name="src\Item.cpp" open="1" top="0" tabpos="11">
-		<Cursor position="1289" topLine="64" />
+	<File name="src\Item.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="1289" topLine="0" />
 	</File>
-	<File name="src\Item.h" open="1" top="0" tabpos="8">
-		<Cursor position="777" topLine="39" />
+	<File name="src\Item.h" open="1" top="0" tabpos="3">
+		<Cursor position="677" topLine="7" />
 	</File>
-	<File name="src\Player.cpp" open="1" top="0" tabpos="12">
-		<Cursor position="308" topLine="12" />
+	<File name="src\Player.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="313" topLine="12" />
 	</File>
-	<File name="src\Player.h" open="1" top="0" tabpos="9">
-		<Cursor position="460" topLine="21" />
+	<File name="src\Player.h" open="1" top="0" tabpos="12">
+		<Cursor position="231" topLine="5" />
 	</File>
-	<File name="src\Weapon.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="2622" topLine="77" />
+	<File name="src\Weapon.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="721" topLine="21" />
 	</File>
-	<File name="src\Weapon.h" open="1" top="0" tabpos="4">
-		<Cursor position="231" topLine="0" />
+	<File name="src\Weapon.h" open="1" top="0" tabpos="7">
+		<Cursor position="326" topLine="0" />
 	</File>
-	<File name="src\World.cpp" open="0" top="0" tabpos="10">
-		<Cursor position="121" topLine="303" />
+	<File name="src\World.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="7049" topLine="58" />
 	</File>
 	<File name="src\World.h" open="1" top="0" tabpos="1">
-		<Cursor position="2109" topLine="102" />
+		<Cursor position="2109" topLine="13" />
 	</File>
 	<File name="src\global.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="61" topLine="0" />

@@ -6,11 +6,13 @@
 	"src/global.h"
 	"src/Core.h"
 
-1358440399 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\core.cpp
+1358644691 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\core.cpp
 	<math.h>
 	"global.h"
 	"Core.h"
 	"World.h"
+	<string>
+	<iostream>
 
 1351178965 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\global.h
 
@@ -72,7 +74,7 @@
 	"tinyxml.h"
 	"Weapon.h"
 
-1358453976 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\actor.cpp
+1358454524 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\actor.cpp
 	"Actor.h"
 	"Core.h"
 	"global.h"
@@ -165,7 +167,7 @@
 1351523739 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\drop.h
 	<SFML/Graphics.hpp>
 
-1358452807 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\hq.cpp
+1358454388 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\hq.cpp
 	"HQ.h"
 	"Core.h"
 	"global.h"

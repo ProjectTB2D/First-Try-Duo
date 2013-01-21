@@ -1,20 +1,20 @@
 #ifndef _included_Craft_h
 #define _included_Craft_h
 #include <SFML/Graphics.hpp>
-#include "src/Entity.h"
+#include "Entity.h"
 #include "Item.h"
 
-#define NBITEM 50;
+#define NBITEM 50
 
 
 
 struct recipe{
 
+    Item_t result;
     int nbIron;
     int nbGold;
     int nbRuby;
 
-    Item_t result;
 };
 
 struct storedItem{
@@ -26,7 +26,7 @@ struct storedItem{
 
 };
 
-class HQ : public Entity
+class Crafter : public Entity
 {
  public:
 
@@ -36,11 +36,15 @@ class HQ : public Entity
 	virtual void    render();
 	virtual void    update();
 
-    //        void    putIn(Item*);
+    //void            putIn(Item*); // SUREMENT a faire dans Actor
     //void            putOut(Item*);
-    bool            craft(Item_t);
+    bool            craft(Item_t); // true si le craft a réussi
+    bool            craftSuper(Item_t); // DEBATTRE si on ne fait pas que les emerald ne sont plus des blocs JOKER mais seulement un bloc supplémentaire pr créer un super objet
 
-    sf::Vector3i&    getRessources() const;
+    //sf::Vector3i&    getRessources() const;
+    sf::Vector3i    getRessources() const;
+    int             getEmerald() const;
+    recipe          getRecipe(Item_t) const;
 
 
 
@@ -48,9 +52,10 @@ class HQ : public Entity
 
  protected:
 
-    int nbIron;
-    int nbGold;
-    int nbRuby;
+    int _nbIron;
+    int _nbGold;
+    int _nbRuby;
+    int _nbEmerald;
 
     std::vector<storedItem> _output;
 

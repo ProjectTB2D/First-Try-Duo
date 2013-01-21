@@ -3,6 +3,9 @@
 #include "Core.h"
 #include "World.h"
 
+#include <string>
+#include <iostream>
+
 #define FPSLIMIT 60
 
 #define DISPLAY_COLLISION 0

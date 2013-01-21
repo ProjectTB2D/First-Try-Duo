@@ -59,6 +59,7 @@
 		<Unit filename="src\Bullet.h" />
 		<Unit filename="src\Core.cpp" />
 		<Unit filename="src\Core.h" />
+		<Unit filename="src\Crafter.cpp" />
 		<Unit filename="src\Crafter.h" />
 		<Unit filename="src\Entity.cpp" />
 		<Unit filename="src\Entity.h" />
