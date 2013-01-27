@@ -24,6 +24,7 @@ Weapon::Weapon(int a, sf::Vector2f b, sf::Vector2f c, sf::Vector2f d, Item_t it,
 
     _spread = 0;
     _icat = IC_WEAPON;
+    _cac = false;
 
     switch(it){
 
@@ -61,15 +62,27 @@ srand ( time(NULL) );
 void Weapon::update(){
 
     // 0.78539;
-
+    if(!_cac){
     float ang = _carrier_angle + 0.58539;
 
     _spr.setPosition(_carrier_pos.x - 30*cos(ang), _carrier_pos.y - 30*sin(ang));
-    _spr.setRotation(_carrier_angle);
+    //_spr.setRotation(_carrier_angle);
+    }
+    else{
+
+    float ang = _carrier_angle + 0.58539;
+    _spr.setPosition(_carrier_pos.x - 20*cos(ang), _carrier_pos.y - 20*sin(ang));
+
+    }
+
+    //float ang = _carrier_angle + 1.57;
+    //_spr.setPosition(_carrier_pos.x - 25*cos(ang), _carrier_pos.y - 25*sin(ang));
 
 }
 
 void Weapon::render(){
+
+    if(_cac) _carrier_angle+=1.17;
 
     _spr.setRotation(_carrier_angle * 180 / PI);
     g_core->getApp()->draw(_spr);
@@ -119,6 +132,7 @@ void Weapon::use(){
                     g_core->getWorld()->addBullet(_it , getPos() , ang, 1);
                 }
         }
+
 
         _rate.restart();
     }

@@ -65,7 +65,7 @@ void World::createPlayer() {
                                 100,
                                200));
 
-    _r_spawner[0] = new RessourceSpawner(19, sf::Vector2f(-200, -200), sf::Vector2f(0,0), sf::Vector2f(32,13), IT_IRON, 0);
+    _r_spawner[0] = new RessourceSpawner(23, sf::Vector2f(-200, -200), sf::Vector2f(0,0), sf::Vector2f(140,140), IT_IRON, 0);
 
 printf("--- vector ----- \n");
 
@@ -231,6 +231,7 @@ void World::disolve_dead_drop(){
 void World::render(){
 
     renderWorld();
+    _r_spawner[0]->render();
     for (unsigned int i = 0; i < _drop.size(); i++)
         _drop[i]->render();
 
@@ -358,20 +359,20 @@ case IT_IRON : return new Ressource(19, p, sf::Vector2f(0,0), sf::Vector2f(32,13
 case IT_GOLD : return new Ressource(20, p, sf::Vector2f(0,0), sf::Vector2f(32,13),IT_GOLD);
 case IT_RUBY : return new Ressource(21, p, sf::Vector2f(0,0), sf::Vector2f(32,13),IT_RUBY);
 case IT_EMERALD : return new Ressource(22, p, sf::Vector2f(0,0), sf::Vector2f(32,13),IT_EMERALD);
-case IT_BAT : return new Weapon(8, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_BAT);
-case IT_BAT_SUPER : return new Weapon(8, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_BAT);
+case IT_BAT : return new Weapon(8, p, sf::Vector2f(0,0), sf::Vector2f(97,14),IT_BAT);
+case IT_BAT_SUPER : return new Weapon(8, p, sf::Vector2f(0,0), sf::Vector2f(97,14),IT_BAT);
 case IT_PISTOL : return new Weapon(9, p, sf::Vector2f(0,0), sf::Vector2f(32,8),IT_PISTOL);
 case IT_PISTOL_SUPER : return new Weapon(9, p, sf::Vector2f(0,0), sf::Vector2f(32,8),IT_PISTOL);
 case IT_THROW_AXE : return new Weapon(10, p, sf::Vector2f(0,0), sf::Vector2f(35,24),IT_THROW_AXE);
 case IT_THROW_AXE_SUPER : return new Weapon(10, p, sf::Vector2f(0,0), sf::Vector2f(35,24),IT_THROW_AXE);
-case IT_CHAINSAW : return new Weapon(11, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_CHAINSAW);
-case IT_CHAINSAW_SUPER : return new Weapon(11, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_CHAINSAW);
+case IT_CHAINSAW : return new Weapon(11, p, sf::Vector2f(0,0), sf::Vector2f(68,28),IT_CHAINSAW);
+case IT_CHAINSAW_SUPER : return new Weapon(11, p, sf::Vector2f(0,0), sf::Vector2f(68,28),IT_CHAINSAW);
 case IT_SHOTGUN : return new Weapon(12, p, sf::Vector2f(0,0), sf::Vector2f(49,14),IT_SHOTGUN);
 case IT_SHOTGUN_SUPER : return new Weapon(12, p, sf::Vector2f(0,0), sf::Vector2f(49,14),IT_SHOTGUN);
 case IT_SMG : return new Weapon(13, p, sf::Vector2f(0,0), sf::Vector2f(49,10),IT_SMG);
 case IT_SMG_SUPER : return new Weapon(13, p, sf::Vector2f(0,0), sf::Vector2f(49,10),IT_SMG);
-case IT_KATANA : return new Weapon(14, p, sf::Vector2f(0,0), sf::Vector2f(5,5),IT_KATANA);
-case IT_KATANA_SUPER : return new Weapon(14, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_KATANA);
+case IT_KATANA : return new Weapon(14, p, sf::Vector2f(0,0), sf::Vector2f(170,8),IT_KATANA); //90 8
+case IT_KATANA_SUPER : return new Weapon(14, p, sf::Vector2f(0,0), sf::Vector2f(170,8),IT_KATANA);
 case IT_PLASMA : return new Weapon(15, p, sf::Vector2f(0,0), sf::Vector2f(67,18),IT_PLASMA);
 case IT_PLASMA_SUPER : return new Weapon(15, p, sf::Vector2f(0,0), sf::Vector2f(67,18),IT_PLASMA);
 case IT_RPG : return new Weapon(16, p, sf::Vector2f(0,0), sf::Vector2f(115,19),IT_RPG);
