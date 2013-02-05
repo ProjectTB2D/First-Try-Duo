@@ -5,25 +5,30 @@
 #include "World.h"
 #include "Weapon.h"
 #include <math.h>
+#define PI 3.14159265359
 
 Actor::Actor()
 {
 
 }
 
-Actor::Actor(int a, sf::Vector2f b, sf::Vector2f c, sf::Vector2f d, int healthmax, float speedmax)
+Actor::Actor(int a, sf::Vector2f b, sf::Vector2f c, sf::Vector2f d, int healthmax, float speedmax, char tm)
 :   Entity(a,b,c,d),
     _healthMax(healthmax),
     _speedMax(speedmax),
-    _hand(NULL)
+    _hand(NULL),
+    _attacked(false),
+    _team(tm)
 {
 printf("Construction Actor \n");
     _health = _healthMax;
     _speed = _speedMax;
     _selectedItem = 0;
 
-   _hand = new Weapon(15, getPos(), sf::Vector2f(0,0), sf::Vector2f(67,18),
+    _hand = new Weapon(15, getPos(), sf::Vector2f(0,0), sf::Vector2f(67,18),
                         IT_PLASMA);
+
+    _leftAngle = 90 * PI / 180;
 }
 
 Actor::~Actor(){
@@ -40,6 +45,11 @@ int Actor::getHealth() const{
 
     return _health;
 
+}
+
+char Actor::getTeam() const{
+
+    return _team;
 }
 
 int Actor::getHealthMax() const{
@@ -94,6 +104,7 @@ void Actor::setSpeedMax(float s){
 void Actor::damage(int d){
 
     _health = _health - d;
+    _attacked = true;
 
     if(_health <= 0)
         _killed = true;

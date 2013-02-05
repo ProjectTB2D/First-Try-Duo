@@ -118,7 +118,7 @@ void Weapon::use(){
 
             ang = ang * PI / 180;
 
-            g_core->getWorld()->addBullet(_it , getPos() , ang, 1);
+            g_core->getWorld()->addBullet(_it , getPos() , ang, 1, _owner, _owner->getTeam());
             if(_it == IT_SHOTGUN || _it == IT_SHOTGUN_SUPER)
                 for(int i = 0; i < 7; i++){
 
@@ -129,7 +129,7 @@ void Weapon::use(){
                     else
                         ang -= sp;
                     ang = ang * PI / 180;
-                    g_core->getWorld()->addBullet(_it , getPos() , ang, 1);
+                    g_core->getWorld()->addBullet(_it , getPos() , ang, 1, _owner, _owner->getTeam());
                 }
         }
 

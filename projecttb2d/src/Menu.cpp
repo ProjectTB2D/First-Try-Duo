@@ -8,6 +8,8 @@
 
 #define NBSTART 1
 #define NBWEAPON 8
+#define POSDARTY 8
+#define POSDARTX 10
 
 Menu::Menu()
 {
@@ -25,7 +27,7 @@ Menu::Menu(int type, sf::Vector2f pos, int width = 100, int height = 20, float o
     _spr.setTexture(*(g_core->getImageManager()->getImage(5)));
     _spr.setPosition(0,0);
     _spr_dart.setTexture(*(g_core->getImageManager()->getImage(7)));
-    _spr_dart.setPosition(0,10);
+    _spr_dart.setPosition(POSDARTX,POSDARTY);
     _dart_position = 0;
     _etatMenu = CRAFTER_OFF;
 
@@ -35,7 +37,7 @@ void Menu::enable(){
 
     _etatMenu = CRAFTER_START;
     _dart_position = 0;
-    _spr_dart.setPosition(0,10);
+    _spr_dart.setPosition(POSDARTX,POSDARTY);
 }
 
 void Menu::disable(){
@@ -74,7 +76,7 @@ if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)){
     }
 
 
-    _spr_dart.setPosition(0, _dart_position * 20 + 10);
+    _spr_dart.setPosition(POSDARTX, _dart_position * 21 + POSDARTY);
 
 }
 
@@ -103,13 +105,13 @@ if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
     }
 
 
-    _spr_dart.setPosition(0, _dart_position * 20 + 10);
+    _spr_dart.setPosition(POSDARTX, _dart_position * 21 + POSDARTY);
 }
 
 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
 
     _dart_position = 0;
-    _spr_dart.setPosition(0,10);
+    _spr_dart.setPosition(POSDARTX,POSDARTY);
 
     if(_etatMenu != CRAFTER_START)
         _etatMenu = CRAFTER_START;
@@ -126,6 +128,7 @@ if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf
     if(_etatMenu == CRAFTER_START){
 
         _dart_position = 0;
+        _spr_dart.setPosition(POSDARTX,POSDARTY);
         switch(_dart_position){
 
             case 0 :    _etatMenu = CRAFTER_WEAPON;break;

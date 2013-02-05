@@ -14,8 +14,12 @@ World::World()
 : _nextUniqueID(0)
 {
 
+for(unsigned int i = 0; i < MAXNPC; i++){
 
+    _team1.ai[i] = NULL;
+    _team2.ai[i] = NULL;
 
+}
 
 }
 
@@ -63,7 +67,11 @@ void World::createPlayer() {
 
     _team1.p = new Player(Actor(17, sf::Vector2f(0, 0), sf::Vector2f(0,0), sf::Vector2f(50,50),
                                 100,
-                               200));
+                               200, '1'));
+
+    _team2.ai[0] = new NPC(Actor(17, sf::Vector2f(200, 200), sf::Vector2f(0,0), sf::Vector2f(50,50),
+                                100,
+                               200, '2'));
 
     _r_spawner[0] = new RessourceSpawner(23, sf::Vector2f(-200, -200), sf::Vector2f(0,0), sf::Vector2f(140,140), IT_IRON, 0);
 
@@ -80,7 +88,7 @@ printf("--- vector ----- \n");
 
 /////////////////////////////////// ADD ////////////////////////////////////////
 
-void World::addBullet(Item_t it,sf::Vector2f pos,  float angle, float dmgmult){
+void World::addBullet(Item_t it,sf::Vector2f pos,  float angle, float dmgmult, Actor* own, char c){
 
     int img_id;
     sf::Vector2f sizeB;
@@ -97,8 +105,10 @@ void World::addBullet(Item_t it,sf::Vector2f pos,  float angle, float dmgmult){
         default : img_id = 2;
     }
 
-    _team1.proj.push_back(Bullet(img_id, pos, sf::Vector2f(0,0), sizeB, it, angle, dmgmult));
-
+    if(c == '1')
+        _team1.proj.push_back(Bullet(img_id, pos, sf::Vector2f(0,0), sizeB, it, angle, dmgmult, own));
+    else
+        _team2.proj.push_back(Bullet(img_id, pos, sf::Vector2f(0,0), sizeB, it, angle, dmgmult, own));
 }
 
 Drop* World::addDrop(const sf::Vector2f& pos, const Item_t& it, bool s){
@@ -137,6 +147,10 @@ void World::update(){
 
     _team1.p->update();
 
+    for(NPC** np = _team2.ai; *np != NULL; np++){
+        (*np)->update();
+    }
+
     _r_spawner[0]->update();
 
     // UPDATE BULLET
@@ -148,7 +162,50 @@ void World::update(){
     for (list<Bullet>::iterator it = _team1.proj.begin(); it != _team1.proj.end(); ++it){
 
         it->update();
+        NPC** np;
+        for(np = _team2.ai; *np != NULL; np++){
 
+            if(g_core->dot_in_circle(it->getPos(), (*np)->getPos(), 25)){
+                printf("touche !\n");
+                (*np)->damage(it->getDamage());
+                (*np)->setTarget(it->getOwner());
+                it = _team1.proj.erase(it);
+                if((*np)->getKilled()){
+                    delete (*np);
+                    *np = NULL;
+                }
+            break;
+            }
+        }
+    }
+
+    for (list<Bullet>::iterator it = _team2.proj.begin(); it != _team2.proj.end(); ++it){
+
+        it->update();
+
+        if(g_core->dot_in_circle(it->getPos(), g_core->getWorld()->getTeam1()->p->getPos(), 25)){
+            printf("touche player\n");
+            g_core->getWorld()->getTeam1()->p->damage(it->getDamage());
+            it = _team2.proj.erase(it);
+            break;
+
+        }
+        else{
+            for(NPC** np = _team1.ai; *np != NULL; np++){
+
+                if(g_core->dot_in_circle(it->getPos(), (*np)->getPos(), 25)){
+                    printf("touche !\n");
+                    (*np)->damage(it->getDamage());
+                    (*np)->setTarget(it->getOwner());
+                    it = _team2.proj.erase(it);
+                    if((*np)->getKilled()){
+                        delete (*np);
+                        *np = NULL;
+                    }
+                break;
+                }
+            }
+        }
     }
 
 }
@@ -235,6 +292,9 @@ void World::render(){
     for (unsigned int i = 0; i < _drop.size(); i++)
         _drop[i]->render();
 
+    for(NPC** np = _team2.ai; *np != NULL; np++){
+    (*np)->render();
+    }
     _team1.p->render();
     centerCamera();
 
@@ -250,10 +310,12 @@ void World::render(){
     for (list<Bullet>::iterator it = _team1.proj.begin(); it != _team1.proj.end(); ++it){
 
         it->render();
-
     }
 
+    for (list<Bullet>::iterator it = _team2.proj.begin(); it != _team2.proj.end(); ++it){
 
+        it->render();
+    }
 
 
 }

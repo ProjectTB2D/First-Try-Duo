@@ -16,16 +16,11 @@ AI STATE
 
 Idle
 Collecting 
-Crafting
-Equipping  
-Defending
+Defending Player
+Defending HQ
 Attacking Enemy 
 Attacking Building
 Taking Drop 
-Covering Emperor
-Attacking Tank Enemy
-Attacking Tank Building
-Defending Tank
 
 ----------------------------------------
 AI STATE TRIGGER

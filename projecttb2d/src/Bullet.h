@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "Entity.h"
 #include "Item.h"
+#include "Actor.h"
 
 
 class Bullet : public Entity
@@ -10,7 +11,7 @@ class Bullet : public Entity
  public:
 
 	Bullet();
-	Bullet(int, sf::Vector2f, sf::Vector2f, sf::Vector2f, Item_t, float, float);
+	Bullet(int, sf::Vector2f, sf::Vector2f, sf::Vector2f, Item_t, float, float, Actor*);
 	~Bullet();
 
 	virtual void render();
@@ -28,6 +29,7 @@ class Bullet : public Entity
     float getAngle() const;
     float getSpeed() const;
     float getDamage() const;
+    Actor*getOwner() { return _owner;}
 
 
  protected:
@@ -36,6 +38,7 @@ class Bullet : public Entity
     float _speed;
     float _damage;
     float _rotation;
+    Actor*  _owner;
 
     bool bulletKilled() const;
 

@@ -19,8 +19,6 @@ Player::Player(const Actor& act)
     _menu(false)
 {
 
-    _leftAngle = 90 * PI / 180;
-
 
 }
 
@@ -126,7 +124,7 @@ if(!_menu){
 }
 
 if(_hand){
-    _hand->setInfo(_angle, getPos());
+    _hand->setInfo(_angle, getPos(), this);
     _hand->update();
 }
 

@@ -58,6 +58,7 @@ void                render();
 
 bool                dot_in_box(sf::Vector2f a, float b[4]);
 bool                bounding_box(float a[4], float b[4], bool = false);
+bool                dot_in_circle(sf::Vector2f a, sf::Vector2f b, float r);
 
 sf::Vector2f        rotate_vector(sf::Vector2f, float);
 

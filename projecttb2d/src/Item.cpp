@@ -14,9 +14,10 @@ Item::Item()
 
 }
 
-Item::Item(int a, sf::Vector2f b, sf::Vector2f c, sf::Vector2f d, Item_t type)
+Item::Item(int a, sf::Vector2f b, sf::Vector2f c, sf::Vector2f d, Item_t type, Actor* owner)
 :   Entity(a,b,c,d),
-    _it(type)
+    _it(type),
+    _owner(owner)
 {
 
 
@@ -29,10 +30,23 @@ Item_t Item::getItemType() const{
 
 }
 
-void Item::setInfo(float angle, sf::Vector2f pos){
+void Item::setInfo(float angle, sf::Vector2f pos, Actor* own){
 
     _carrier_angle = angle;
     _carrier_pos = pos;
+    _owner = own;
+
+}
+
+void Item::setOwner(Actor* o){
+
+    _owner = o;
+
+}
+
+Actor* Item::getOwner(){
+
+    return _owner;
 
 }
 

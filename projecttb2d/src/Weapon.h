@@ -1,6 +1,7 @@
 #ifndef _included_weap_h
 #define _included_weap_h
 #include "Item.h"
+#include "Actor.h"
 
 #include <SFML/Graphics.hpp>
 
