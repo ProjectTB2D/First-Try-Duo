@@ -70,6 +70,27 @@ float Actor::getSpeedMax() const{
 
 }
 
+bool Actor::collisionWithCrafter() {
+
+    Crafter* c;
+
+    if(_team == '1'){
+        c = g_core->getWorld()->getTeam1()->crafter;
+    }
+    else
+        c = g_core->getWorld()->getTeam2()->crafter;
+
+    if(getPos().x > c->getPos().x - 150 &&
+       getPos().x < c->getPos().x + 150 &&
+       getPos().y > c->getPos().y - 150 &&
+       getPos().y < c->getPos().y + 150)
+        return true;
+    else
+        return false;
+
+
+}
+
 //Item * Actor::getHand(){}
 
 //Item ** Actor::getBelt(){}
@@ -106,8 +127,10 @@ void Actor::damage(int d){
     _health = _health - d;
     _attacked = true;
 
-    if(_health <= 0)
+    if(_health <= 0){
         _killed = true;
+        drop();
+    }
 
 }
 
@@ -181,6 +204,8 @@ void Actor::putItemToCrafter(){}
 
 
 void Actor::setHandItem(Item * it){
+
+    printf("set hand Item\n");
 
     if(!it) return;
 

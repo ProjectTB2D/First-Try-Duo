@@ -51,8 +51,28 @@ void World::createWorld(const char* lvlname){
 
         }*/
 
-    printf("test1\n");
+//    printf("test1\n");
     parseMapTmx("map/Map1.tmx", &_matrice);
+
+    // generation area
+
+    _area[0].pos = sf::Vector2f(0,0);
+    _area[1].pos = sf::Vector2f(_mapSize.x / 3, 0);
+    _area[2].pos = sf::Vector2f(2 * _mapSize.x / 3, 0);
+    _area[3].pos = sf::Vector2f(0 , _mapSize.y / 3);
+    _area[4].pos = sf::Vector2f(_mapSize.x / 3, _mapSize.y / 3);
+    _area[5].pos = sf::Vector2f(2 * _mapSize.x / 3, _mapSize.y / 3);
+    _area[6].pos = sf::Vector2f(0 , 2 * _mapSize.y / 3);
+    _area[7].pos = sf::Vector2f(_mapSize.x / 3, 2 * _mapSize.y / 3);
+    _area[8].pos = sf::Vector2f(2 * _mapSize.x / 3, 2 * _mapSize.y / 3);
+
+    for(int i = 0; i < 9; i++){
+
+        _area[i].dim = sf::Vector2f(_mapSize.x / 3, _mapSize.y / 3);
+    }
+
+    _mapSize.x = _mapSize.x / 100;
+    _mapSize.y = _mapSize.y / 100;
 
 }
 
@@ -74,6 +94,8 @@ void World::createPlayer() {
                                200, '2'));
 
     _r_spawner[0] = new RessourceSpawner(23, sf::Vector2f(-200, -200), sf::Vector2f(0,0), sf::Vector2f(140,140), IT_IRON, 0);
+    _r_spawner[1] = NULL;
+    _r_spawner[2] = NULL;
 
 printf("--- vector ----- \n");
 
@@ -82,7 +104,8 @@ printf("--- vector ----- \n");
 
 
 
-    _team1.crafter = new Crafter(0, sf::Vector2f(200, 100), sf::Vector2f(0,0), sf::Vector2f(50,50));
+    _team1.crafter = new Crafter(24, sf::Vector2f(200, 100), sf::Vector2f(0,0), sf::Vector2f(50,50));
+    _team2.crafter = new Crafter(24, sf::Vector2f(-1200, -1100), sf::Vector2f(0,0), sf::Vector2f(50,50));
 
 }
 
@@ -135,9 +158,37 @@ Drop* World::addDrop(const sf::Vector2f& pos, const Item_t& it, bool s){
 
     }
 
-    Drop*   d = new Drop(id_img, pos, sf::Vector2f(0,0), sizeD, it, s);
 
-    _drop.push_back(d);
+    Drop* d = NULL;
+
+    if(!s){
+
+         Crafter* c,*c2;
+         c = g_core->getWorld()->getTeam1()->crafter;
+         c2 = g_core->getWorld()->getTeam2()->crafter;
+
+         if(pos.x > c->getPos().x - 150 &&
+            pos.x < c->getPos().x + 150 &&
+            pos.y > c->getPos().y - 150 &&
+            pos.y < c->getPos().y + 150)
+                c->putIn(it);
+        else
+        if(pos.x > c2->getPos().x - 150 &&
+                pos.x < c2->getPos().x + 150 &&
+                pos.y > c2->getPos().y - 150 &&
+                pos.y < c2->getPos().y + 150)
+                c2->putIn(it);
+        else{
+            d = new Drop(id_img, pos, sf::Vector2f(0,0), sizeD, it, s);
+            _drop.push_back(d);
+        }
+
+    }
+    else{
+        d = new Drop(id_img, pos, sf::Vector2f(0,0), sizeD, it, s);
+        _drop.push_back(d);
+    }
+
     return d;
 
 }
@@ -232,13 +283,19 @@ void World::disolve_dead_bullet(){
     for (list<Bullet>::iterator it = _team1.proj.begin(); it != _team1.proj.end();){
 
         if(it->getKilled()){
-
             it = _team1.proj.erase(it);
-
         }
         else
-        ++it;
+            ++it;
+    }
 
+    for (list<Bullet>::iterator it = _team2.proj.begin(); it != _team2.proj.end();){
+
+        if(it->getKilled()){
+            it = _team2.proj.erase(it);
+        }
+        else
+            ++it;
     }
 
 
@@ -288,6 +345,8 @@ void World::disolve_dead_drop(){
 void World::render(){
 
     renderWorld();
+    _team1.crafter->render();
+    _team2.crafter->render();
     _r_spawner[0]->render();
     for (unsigned int i = 0; i < _drop.size(); i++)
         _drop[i]->render();
@@ -315,6 +374,18 @@ void World::render(){
     for (list<Bullet>::iterator it = _team2.proj.begin(); it != _team2.proj.end(); ++it){
 
         it->render();
+    }
+
+    sf::RectangleShape rectangle;
+
+    for(int i =0; i < 9; i++){
+        rectangle.setSize(_area[i].dim);
+        rectangle.setFillColor(sf::Color::Transparent);
+        rectangle.setOutlineColor(sf::Color::Red);
+        rectangle.setOutlineThickness(2.0f);
+        rectangle.setPosition(_area[i].pos);
+
+        g_core->getApp()->draw(rectangle);
     }
 
 
@@ -345,14 +416,14 @@ void World::renderWorld() {
     if(idPImoins < 0)
         idPImoins = 0;
 
-    if(idPIplus > 20)
-        idPIplus = 20;
+    if(idPIplus > _mapSize.x)
+        idPIplus = _mapSize.x;
 
     if(idPJmoins < 0)
         idPJmoins = 0;
 
-    if(idPJplus > 20)
-        idPJplus = 20;
+    if(idPJplus > _mapSize.y)
+        idPJplus = _mapSize.y;
 
     for(int j=idPJmoins; j<idPJplus; j++)
             for(int i=idPImoins; i<idPIplus; i++)
@@ -406,7 +477,7 @@ bool World::insideScreenPoint(int x, int y, int mar) const{
  Player*         World::getPlayerTeam2(){return NULL;}
 
  team*   World::getTeam1(){return &_team1;}
- team*   World::getTeam2(){return NULL;}
+ team*   World::getTeam2(){return &_team2;}
 
  NPC*   World::getNPCTeam1(int a){return NULL;}
  NPC*   World::getNPCTeam2(int a){return NULL;}
@@ -490,6 +561,7 @@ void World::parseMapTmx(string map, tile*** Matrice){
             nbColonnes = atoi(colonnes.c_str());
             nbLignes = atoi(lignes.c_str());
 
+            _mapSize = sf::Vector2f(nbColonnes * 100, nbLignes * 100);
         }
         else if(elemName == "tileset"){
 
@@ -548,6 +620,7 @@ void World::parseMapTmx(string map, tile*** Matrice){
 
 
     for(int j=0; j<nbLignes; j++){
+            printf("\n");
 		for(int i=0; i<nbColonnes; i++){
 
 		    (*Matrice)[i][j].spr.setTexture(*(g_core->getImageManager()->getImage(4)));
@@ -555,14 +628,16 @@ void World::parseMapTmx(string map, tile*** Matrice){
 
 			if ((*Matrice)[i][j].num == 1){
 
+			    printf("1");
+
 				(*Matrice)[i][j].spr.setTextureRect(sf::IntRect(0,0,100,100));
 			}
 			else if ((*Matrice)[i][j].num == 2){
-
+                printf("2");
 				(*Matrice)[i][j].spr.setTextureRect(sf::IntRect(100,0,100,100));
 			}
 			else if ((*Matrice)[i][j].num == 3){
-
+                printf("3");
 				(*Matrice)[i][j].spr.setTextureRect(sf::IntRect(200,0,100,100));
 			}
 		}

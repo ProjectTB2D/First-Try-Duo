@@ -24,11 +24,11 @@
 	<fstream>
 	<sstream>
 
-1359309599 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\imagemanager.h
+1360851367 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\imagemanager.h
 	<SFML/Graphics.hpp>
 	<iostream>
 
-1359825648 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\world.h
+1360861041 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\world.h
 	<SFML/Graphics.hpp>
 	<stdio.h>
 	<string.h>
@@ -41,7 +41,7 @@
 	"HQ.h"
 	"Crafter.h"
 
-1359312019 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\imagemanager.cpp
+1360851368 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\imagemanager.cpp
 	"ImageManager.h"
 
 1351178965 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\global.cpp
@@ -58,7 +58,7 @@
 1358335131 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\entity.h
 	<SFML/Graphics.hpp>
 
-1359893021 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\actor.h
+1360852147 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\actor.h
 	<SFML/Graphics.hpp>
 	"Entity.h"
 
@@ -67,7 +67,7 @@
 	"Actor.h"
 	"Item.h"
 
-1359892359 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\world.cpp
+1360861972 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\world.cpp
 	<fstream>
 	"Core.h"
 	"global.h"
@@ -77,7 +77,7 @@
 	"Weapon.h"
 	"Menu.h"
 
-1359893056 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\actor.cpp
+1360868266 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\actor.cpp
 	"Actor.h"
 	"Core.h"
 	"global.h"
@@ -85,7 +85,7 @@
 	"Weapon.h"
 	<math.h>
 
-1359893035 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\player.cpp
+1360868873 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\player.cpp
 	"Player.h"
 	"global.h"
 	"Core.h"
@@ -167,7 +167,7 @@
 	"tinyxml.h"
 	<windows.h>
 
-1359309698 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\hq.h
+1360856764 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\hq.h
 	<SFML/Graphics.hpp>
 	"Entity.h"
 	"Item.h"
@@ -175,7 +175,7 @@
 1351523739 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\drop.h
 	<SFML/Graphics.hpp>
 
-1359310074 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\hq.cpp
+1360858881 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\hq.cpp
 	"HQ.h"
 	"Core.h"
 	"global.h"
@@ -183,14 +183,14 @@
 	<math.h>
 	<time.h>
 
-1359223681 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\crafter.cpp
+1360868398 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\crafter.cpp
 	"Crafter.h"
 	"Core.h"
 	"global.h"
 	"World.h"
 	<math.h>
 
-1359222878 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\crafter.h
+1360865701 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\crafter.h
 	<SFML/Graphics.hpp>
 	"Entity.h"
 	"Item.h"
@@ -208,12 +208,13 @@
 	<SFML/Graphics.hpp>
 	"Item.h"
 
-1359893401 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\npc.h
+1360866133 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\npc.h
 	<SFML/Graphics.hpp>
 	"Actor.h"
 	"Item.h"
+	"HQ.h"
 
-1359893578 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\npc.cpp
+1360868848 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\npc.cpp
 	"NPC.h"
 	"global.h"
 	"Core.h"

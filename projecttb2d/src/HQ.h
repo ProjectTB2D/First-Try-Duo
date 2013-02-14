@@ -47,6 +47,7 @@ class RessourceSpawner : public Entity
 
  void    restartTimer(){ _timer.restart();}
  Drop**  getMatrice();
+ Item_t getRSType() {return _it;}
 
  protected:
 

@@ -26,6 +26,7 @@ class Actor : public Entity
     float getSpeedMax() const;
     char  getTeam() const;
     Item * getHand() {return _hand;}
+    bool collisionWithCrafter();
     //Item ** getBelt();
 
     //setter

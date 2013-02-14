@@ -33,7 +33,7 @@ if(_hand != NULL){
 
 void Player::update(){
 
-if (sf::Keyboard::isKeyPressed(sf::Keyboard::C) && _clock_use.getElapsedTime().asSeconds() > 0.5)
+if (sf::Keyboard::isKeyPressed(sf::Keyboard::C) && collisionWithCrafter() &&_clock_use.getElapsedTime().asSeconds() > 0.5)
  {
     _clock_use.restart();
     if(!_menu){
@@ -92,7 +92,7 @@ if(!_menu){
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
      {
         drop();
-
+                           system("cls");
 
      }
      else

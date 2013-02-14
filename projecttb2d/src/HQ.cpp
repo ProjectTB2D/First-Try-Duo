@@ -54,7 +54,7 @@ RessourceSpawner::RessourceSpawner(int a, sf::Vector2f b, sf::Vector2f c, sf::Ve
 void RessourceSpawner::update(){
 
     if(_timer.getElapsedTime().asSeconds() > _spawnRate){
-        printf("SPAWN !\n");
+        //printf("SPAWN !\n");
         if(rand()%100 <= _spawnRand)
             addEmerald();
         else
