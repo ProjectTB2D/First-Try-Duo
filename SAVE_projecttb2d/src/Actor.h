@@ -3,7 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 #include "Entity.h"
-#include "Item.h"
+
+class Item;
 
 class Actor : public Entity
 {
@@ -11,7 +12,7 @@ class Actor : public Entity
  public:
 
     Actor();
-    Actor(int, sf::Vector2f, sf::Vector2f, sf::Vector2f, int, float);
+    Actor(int, sf::Vector2f, sf::Vector2f, sf::Vector2f, int, float, char);
     virtual ~Actor();
 
 	virtual void render();
@@ -23,8 +24,9 @@ class Actor : public Entity
     int getHealthMax() const;
     float getSpeed() const;
     float getSpeedMax() const;
-
+    char  getTeam() const;
     Item * getHand() {return _hand;}
+    bool collisionWithCrafter();
     //Item ** getBelt();
 
     //setter
@@ -61,19 +63,9 @@ class Actor : public Entity
     //Item *_belt[3];
 
     int _selectedItem;
-
-
-
-};
-
-
-
-class NPC : public Actor
-{
-
- public:
-
- protected:
+    bool    _attacked;
+    //char    _team;
+    float   _leftAngle;
 
 
 };

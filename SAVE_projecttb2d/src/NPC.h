@@ -24,7 +24,7 @@ class NPC : public Actor
 
  public:
 
-    NPC(const Actor&, npc_type = NPC_SOLDIER);
+    NPC(const Actor&, npc_type = NPC_SCOUT);
     ~NPC();
 
  	void render();
@@ -35,9 +35,6 @@ class NPC : public Actor
 
 	void      dotest();
 
-
-    bool      search();
-
 	// ORDERS ...
 
     RessourceSpawner* ai_get_spawner(const Item_t&);    // npc recherche spawner plus proche
@@ -47,7 +44,6 @@ class NPC : public Actor
     void ai_drop();                                     // npc drop item en main
     //Item_t ai_chose_craft();
     void ai_craft(Item_t);
-    void ai_alloc();
 
 
  protected:
@@ -66,8 +62,6 @@ class NPC : public Actor
     bool              _freeStyle;
     Item_t            _weap_craft;
     Item_t            _ress;
-
-    int               _alloc;
 
 };
 #endif

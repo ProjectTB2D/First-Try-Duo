@@ -30,7 +30,7 @@ Weapon::Weapon(int a, sf::Vector2f b, sf::Vector2f c, sf::Vector2f d, Item_t it,
 
         case IT_BAT :  _dmg = 10; _fireRate = 0.8; _cac = true; break;
         case IT_BAT_SUPER :  _dmg = 10; _fireRate = 0.8; _cac = true; break;
-        case IT_PISTOL : _dmg = 5; _fireRate = 1; _spread = 4; break;
+        case IT_PISTOL : _dmg = 45; _fireRate = 1; _spread = 4; break;
         case IT_PISTOL_SUPER : _dmg = 5; _fireRate = 1; _spread = 4; break;
         case IT_THROW_AXE : _dmg = 13; _fireRate = 2; _spread = 10; break;
         case IT_THROW_AXE_SUPER : _dmg = 13; _fireRate = 2; _spread = 10; break;

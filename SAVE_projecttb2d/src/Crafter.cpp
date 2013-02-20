@@ -11,7 +11,7 @@ Crafter::Crafter(){
 Crafter::Crafter(int a, sf::Vector2f b, sf::Vector2f c, sf::Vector2f d)
 :   Entity(a,b,c,d)
 {
-    _nbIron = 50;
+    _nbIron = 0;
     _nbGold = 50;
     _nbRuby = 50;
     _nbEmerald = 50;
@@ -21,11 +21,37 @@ Crafter::Crafter(int a, sf::Vector2f b, sf::Vector2f c, sf::Vector2f d)
 
 void Crafter::update(){}
 
-void Crafter::render(){}
+void Crafter::render(){
+
+    g_core->getApp()->draw(_spr);
+
+}
 
 void Crafter::putIn(Item* it) {
 
 _output.push_back(it->getItemType());
+
+}
+
+void Crafter::putIn(Item_t it) {
+
+switch(it){
+
+    case 0 : break;
+    case 1 : _nbIron++;break;
+    case 2 : _nbGold++;break;
+    case 3 : _nbRuby++;break;
+    case 4 : _nbEmerald++;break;
+    default : _output.push_back(it);
+
+}
+
+    printf("+--------put in-----\n");
+    printf("+ nbIron = %d\n", _nbIron);
+    printf("+ nbGold = %d\n", _nbGold);
+    printf("+ nbGold = %d\n", _nbRuby);
+    printf("+ nbEmerald = %d\n", _nbEmerald);
+    printf("+-------------------\n");
 
 }
 
@@ -37,22 +63,17 @@ Item*   Crafter::putOut(Item_t it){
 
 Item* Crafter::craft(Item_t it){
 
+    Item_t miss = IT_NONE;
+
+    printf("craft()\n");
+
     recipe rec = getRecipe(it);
 
-    printf("rec.i = %d | i = %d\n", rec.nbIron, _nbIron);
-    printf("rec.g = %d\n", rec.nbGold);
-    printf("rec.r = %d\n", rec.nbRuby);
 
-
-
-    if(rec.nbRuby > _nbRuby)
+    if(!craftable(it, &miss)){
+        printf("not enought ressources...\n");
         return NULL;
-
-    if(rec.nbGold > _nbGold)
-        return NULL;
-
-    if(rec.nbIron > _nbIron)
-        return NULL;
+    }
 
     printf("youp\n");
 
@@ -61,6 +82,55 @@ Item* Crafter::craft(Item_t it){
     _nbRuby -= rec.nbRuby;
 
     return putOut(it);
+}
+
+bool Crafter::craftAndPutIn(Item_t it){
+
+    Item_t miss = IT_NONE;
+
+    recipe rec = getRecipe(it);
+
+    if(!craftable(it, &miss))
+        return false;
+
+    printf("youp\n");
+
+    _nbIron -= rec.nbIron;
+    _nbGold -= rec.nbGold;
+    _nbRuby -= rec.nbRuby;
+
+    _output.push_back(it);
+
+    return true;
+
+}
+
+bool Crafter::craftable(const Item_t& it, Item_t* miss) const{
+
+    recipe rec = getRecipe(it);
+
+    /*printf("rec.i = %d | i = %d\n", rec.nbIron, _nbIron);
+    printf("rec.g = %d\n", rec.nbGold);
+    printf("rec.r = %d\n", rec.nbRuby);
+    */
+
+    if(rec.nbRuby > _nbRuby){
+        *miss = IT_RUBY;
+        return false;
+    }
+
+    if(rec.nbGold > _nbGold){
+        *miss = IT_GOLD;
+        return false;
+    }
+
+    if(rec.nbIron > _nbIron){
+        *miss = IT_IRON;
+        return false;
+    }
+
+    return true;
+
 }
 
 bool Crafter::craftSuper(Item_t it){

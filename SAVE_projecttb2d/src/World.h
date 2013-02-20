@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Item.h"
+#include "NPC.h"
 #include "HQ.h"
 #include "Crafter.h"
 
@@ -17,6 +18,14 @@
 class Bullet;
 class Drop;
 class Obstacle;
+
+struct area{
+
+    std::vector<Entity*> list;
+    sf::Vector2f pos;
+    sf::Vector2f dim;
+
+};
 
 struct tile{
 
@@ -54,7 +63,7 @@ void        createItem();
 
 // --------- ADD FUNCTIONS -------------
 
-void        addBullet(Item_t, sf::Vector2f, float, float);
+void        addBullet(Item_t, sf::Vector2f, float, float, Actor*, char = '1');
 Drop*        addDrop(const sf::Vector2f&, const Item_t&, bool = false);
 
 // -------- UPDATE FUNCTIONS -----------
@@ -99,6 +108,8 @@ void            disolve_dead_bullet();
  tile***            getMatrice(){ return &_matrice;}
  std::vector<Drop*>* getDrop() {return &_drop;}
 
+ RessourceSpawner** getRSpawn(){return _r_spawner;}
+
  Item*              getItemFromIT(const Item_t&);
 
 
@@ -111,9 +122,11 @@ team                _team1;
 team                _team2;
 vector<Drop*>       _drop;
 
+area                _area[9];
 RessourceSpawner*   _r_spawner[3];
 
 float               _b[4];
+sf::Vector2f        _mapSize;
 
 vector<NPC*>      _NPC_reduced;
 //vector<Bullet*>   _bullet_reduced;

@@ -20,7 +20,7 @@ Entity::Entity(int idImage, sf::Vector2f pos, sf::Vector2f ipos, sf::Vector2f id
 	_id = g_core->getWorld()->generateUniqueID();
 	_spr.setTexture(*(g_core->getImageManager()->getImage(idImage)));
 	_spr.setPosition(pos);
-	_spr.setTextureRect(sf::IntRect(ipos.x, ipos.y, ipos.x + _frameW, ipos.y + _frameH));
+	_spr.setTextureRect(sf::IntRect(ipos.x, ipos.y, _frameW, _frameH));
 	_spr.setOrigin(idim.x / 2, idim.y / 2);
 
 }

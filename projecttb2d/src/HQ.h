@@ -41,6 +41,7 @@ class RessourceSpawner : public Entity
 
  RessourceSpawner();
  RessourceSpawner(int, sf::Vector2f, sf::Vector2f, sf::Vector2f, Item_t, int);
+ ~RessourceSpawner();
 
  void update();
  void render();

@@ -12,23 +12,30 @@ Actor::Actor()
 
 }
 
-Actor::Actor(int a, sf::Vector2f b, sf::Vector2f c, sf::Vector2f d, int healthmax, float speedmax, char tm)
+Actor::Actor(int a, sf::Vector2f b, sf::Vector2f c, sf::Vector2f d, int healthmax, float speedmax, team* tm)
 :   Entity(a,b,c,d),
     _healthMax(healthmax),
     _speedMax(speedmax),
     _hand(NULL),
     _attacked(false),
-    _team(tm)
+    _team(tm),
+    _colorRed(0),
+    _colorGreen(255)
 {
-printf("Construction Actor \n");
+printf("Construction Actor : %p\n", this);
     _health = _healthMax;
     _speed = _speedMax;
     _selectedItem = 0;
 
-    _hand = new Weapon(15, getPos(), sf::Vector2f(0,0), sf::Vector2f(67,18),
-                        IT_PLASMA);
+    //_hand = new Weapon(15, getPos(), sf::Vector2f(0,0), sf::Vector2f(67,18),IT_PLASMA);
 
     _leftAngle = 90 * PI / 180;
+
+
+    _circleLife.setRadius(5);
+    _circleLife.setFillColor(sf::Color(0,255,0));
+    _circleLife.setPosition(getPos());
+
 }
 
 Actor::~Actor(){
@@ -37,9 +44,24 @@ Actor::~Actor(){
 
 }
 
+void Actor::dump(){
+
+    printf("-------------------------\n");
+    printf("pos : %f; %f\n", getPos().x, getPos().y);
+    printf("health = %d\n", _health);
+    printf("address : %p\n", this);
+    printf("+++++++++++++++++++++++++\n");
+
+}
+
+
 void Actor::update(){}
 
-void Actor::render(){}
+void Actor::render(){
+
+    _circleLife.setPosition(getPos().x - 5, getPos().y - 5);
+    g_core->getApp()->draw(_circleLife);
+}
 
 int Actor::getHealth() const{
 
@@ -47,7 +69,7 @@ int Actor::getHealth() const{
 
 }
 
-char Actor::getTeam() const{
+team* Actor::getTeam() const{
 
     return _team;
 }
@@ -74,11 +96,8 @@ bool Actor::collisionWithCrafter() {
 
     Crafter* c;
 
-    if(_team == '1'){
-        c = g_core->getWorld()->getTeam1()->crafter;
-    }
-    else
-        c = g_core->getWorld()->getTeam2()->crafter;
+    c = _team->crafter;
+
 
     if(getPos().x > c->getPos().x - 150 &&
        getPos().x < c->getPos().x + 150 &&
@@ -124,6 +143,11 @@ void Actor::setSpeedMax(float s){
 
 void Actor::damage(int d){
 
+    _colorRed = 255 - _health * 2.55;
+    _colorGreen = _health * 2.55;
+
+
+    _circleLife.setFillColor(sf::Color(_colorRed, _colorGreen, 0));
     _health = _health - d;
     _attacked = true;
 

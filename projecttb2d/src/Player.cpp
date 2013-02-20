@@ -92,7 +92,9 @@ if(!_menu){
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
      {
         drop();
-                           system("cls");
+        //system("cls");
+        //g_core->getWorld()->getTeam1()->ai[0]->getTarget()->dump();
+        //g_core->getWorld()->getTeam1()->ai[0]->getTarget()->render();
 
      }
      else
@@ -136,7 +138,7 @@ void Player::render(){
     if(_hand)
         _hand->render();
     g_core->getApp()->draw(_spr);
-
+    Actor::render();
 }
 
 

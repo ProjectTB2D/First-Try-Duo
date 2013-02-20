@@ -63,10 +63,17 @@ Item*   Crafter::putOut(Item_t it){
 
 Item* Crafter::craft(Item_t it){
 
+    Item_t miss = IT_NONE;
+
+    printf("craft()\n");
+
     recipe rec = getRecipe(it);
 
-    if(!craftable(it))
+
+    if(!craftable(it, &miss)){
+        printf("not enought ressources...\n");
         return NULL;
+    }
 
     printf("youp\n");
 
@@ -79,9 +86,11 @@ Item* Crafter::craft(Item_t it){
 
 bool Crafter::craftAndPutIn(Item_t it){
 
+    Item_t miss = IT_NONE;
+
     recipe rec = getRecipe(it);
 
-    if(!craftable(it))
+    if(!craftable(it, &miss))
         return false;
 
     printf("youp\n");

@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <list>
+#include "team.h"
 #include "Actor.h"
 #include "Player.h"
 #include "Bullet.h"
@@ -13,11 +14,10 @@
 #include "HQ.h"
 #include "Crafter.h"
 
-#define MAXNPC 10
-
 class Bullet;
 class Drop;
 class Obstacle;
+
 
 struct area{
 
@@ -34,16 +34,7 @@ struct tile{
 
 };
 
-struct team{
 
-    int id;
-    Player * p;
-    NPC * ai[MAXNPC];
-    std::list<Bullet> proj;
-    //HQ base;
-    Crafter* crafter;
-
-};
 
 class World
 {
@@ -63,8 +54,8 @@ void        createItem();
 
 // --------- ADD FUNCTIONS -------------
 
-void        addBullet(Item_t, sf::Vector2f, float, float, Actor*, char = '1');
-Drop*        addDrop(const sf::Vector2f&, const Item_t&, bool = false);
+void        addBullet(Item_t, sf::Vector2f, float, float, Actor*, team*);
+Drop*       addDrop(const sf::Vector2f&, const Item_t&, bool = false);
 
 // -------- UPDATE FUNCTIONS -----------
 

@@ -9,6 +9,8 @@
 
 #define zoneAffichable 5
 
+#define DEBUG_PRINT 0
+
 
 World::World()
 : _nextUniqueID(0)
@@ -87,11 +89,14 @@ void World::createPlayer() {
 
     _team1.p = new Player(Actor(17, sf::Vector2f(0, 0), sf::Vector2f(0,0), sf::Vector2f(50,50),
                                 100,
-                               200, '1'));
+                               200, &_team1));
 
-    _team2.ai[0] = new NPC(Actor(17, sf::Vector2f(200, 200), sf::Vector2f(0,0), sf::Vector2f(50,50),
-                                100,
-                               200, '2'));
+    //_team1.ai[0] = new NPC(Actor(17, sf::Vector2f(200, 200), sf::Vector2f(0,0), sf::Vector2f(50,50),100,200, &_team1));
+
+    //_team1.ai[1] = new NPC(Actor(17, sf::Vector2f(300, 200), sf::Vector2f(0,0), sf::Vector2f(50,50),100,200, &_team1));
+
+    _team2.ai[0] = new NPC(Actor(17, sf::Vector2f(200, 100), sf::Vector2f(0,0), sf::Vector2f(50,50),100,200, &_team2));
+    _team2.ai[1] = new NPC(Actor(17, sf::Vector2f(100, 100), sf::Vector2f(50,0), sf::Vector2f(50,50),100, 200, &_team2));
 
     _r_spawner[0] = new RessourceSpawner(23, sf::Vector2f(-200, -200), sf::Vector2f(0,0), sf::Vector2f(140,140), IT_IRON, 0);
     _r_spawner[1] = NULL;
@@ -105,13 +110,13 @@ printf("--- vector ----- \n");
 
 
     _team1.crafter = new Crafter(24, sf::Vector2f(200, 100), sf::Vector2f(0,0), sf::Vector2f(50,50));
-    _team2.crafter = new Crafter(24, sf::Vector2f(-1200, -1100), sf::Vector2f(0,0), sf::Vector2f(50,50));
+    _team2.crafter = new Crafter(24, sf::Vector2f(200, 700), sf::Vector2f(0,0), sf::Vector2f(50,50));
 
 }
 
 /////////////////////////////////// ADD ////////////////////////////////////////
 
-void World::addBullet(Item_t it,sf::Vector2f pos,  float angle, float dmgmult, Actor* own, char c){
+void World::addBullet(Item_t it,sf::Vector2f pos,  float angle, float dmgmult, Actor* own, team* tm){
 
     int img_id;
     sf::Vector2f sizeB;
@@ -128,10 +133,8 @@ void World::addBullet(Item_t it,sf::Vector2f pos,  float angle, float dmgmult, A
         default : img_id = 2;
     }
 
-    if(c == '1')
-        _team1.proj.push_back(Bullet(img_id, pos, sf::Vector2f(0,0), sizeB, it, angle, dmgmult, own));
-    else
-        _team2.proj.push_back(Bullet(img_id, pos, sf::Vector2f(0,0), sizeB, it, angle, dmgmult, own));
+    tm->proj.push_back(Bullet(img_id, pos, sf::Vector2f(0,0), sizeB, it, angle, dmgmult, own));
+
 }
 
 Drop* World::addDrop(const sf::Vector2f& pos, const Item_t& it, bool s){
@@ -196,12 +199,13 @@ Drop* World::addDrop(const sf::Vector2f& pos, const Item_t& it, bool s){
 
 void World::update(){
 
+    #if DEBUG_PRINT == 1
+
+    printf("T1\n");
+
+    #endif
+
     _team1.p->update();
-
-    for(NPC** np = _team2.ai; *np != NULL; np++){
-        (*np)->update();
-    }
-
     _r_spawner[0]->update();
 
     // UPDATE BULLET
@@ -209,6 +213,9 @@ void World::update(){
     for (unsigned int i = 0; i < _drop.size(); i++)
         _drop[i]->update();
 
+#if DEBUG_PRINT == 1
+    printf("T2\n");
+    #endif
 
     for (list<Bullet>::iterator it = _team1.proj.begin(); it != _team1.proj.end(); ++it){
 
@@ -217,25 +224,25 @@ void World::update(){
         for(np = _team2.ai; *np != NULL; np++){
 
             if(g_core->dot_in_circle(it->getPos(), (*np)->getPos(), 25)){
-                printf("touche !\n");
+                //printf("touche !\n");
                 (*np)->damage(it->getDamage());
                 (*np)->setTarget(it->getOwner());
                 it = _team1.proj.erase(it);
-                if((*np)->getKilled()){
-                    delete (*np);
-                    *np = NULL;
-                }
             break;
             }
         }
     }
+
+#if DEBUG_PRINT == 1
+    printf("T3\n");
+    #endif
 
     for (list<Bullet>::iterator it = _team2.proj.begin(); it != _team2.proj.end(); ++it){
 
         it->update();
 
         if(g_core->dot_in_circle(it->getPos(), g_core->getWorld()->getTeam1()->p->getPos(), 25)){
-            printf("touche player\n");
+            //printf("touche player\n");
             g_core->getWorld()->getTeam1()->p->damage(it->getDamage());
             it = _team2.proj.erase(it);
             break;
@@ -245,20 +252,34 @@ void World::update(){
             for(NPC** np = _team1.ai; *np != NULL; np++){
 
                 if(g_core->dot_in_circle(it->getPos(), (*np)->getPos(), 25)){
-                    printf("touche !\n");
+                    //printf("touche !\n");
                     (*np)->damage(it->getDamage());
                     (*np)->setTarget(it->getOwner());
                     it = _team2.proj.erase(it);
-                    if((*np)->getKilled()){
-                        delete (*np);
-                        *np = NULL;
-                    }
                 break;
                 }
             }
         }
     }
 
+#if DEBUG_PRINT == 1
+    printf("T4\n");
+#endif
+
+    for(NPC** np = _team2.ai; *np != NULL; np++){
+        (*np)->update();
+    }
+
+#if DEBUG_PRINT == 1
+    printf("T5\n");
+#endif
+    for(NPC** np = _team1.ai; *np != NULL; np++){
+        (*np)->update();
+    }
+
+#if DEBUG_PRINT == 1
+    printf("T6\n");
+#endif
 }
 
 //////////////////////////////////////////////////////////////// PURGE THE UNDEAD //////////////////////////////////////////////////////////////////////////:
@@ -303,6 +324,30 @@ void World::disolve_dead_bullet(){
 
 void World::disolve_dead_NPC(){
 
+#if DEBUG_PRINT == 1
+printf("T9b\n");
+#endif
+for(NPC** np = _team1.ai; *np != NULL; np++){
+    if((*np)->getKilled()){
+        delete (*np);
+        *np = NULL;
+    }
+}
+
+#if DEBUG_PRINT == 1
+printf("T9b.5\n");
+#endif
+
+for(NPC** np = _team2.ai; *np != NULL; np++){
+    if((*np)->getKilled()){
+        delete (*np);
+        *np = NULL;
+    }
+}
+
+#if DEBUG_PRINT == 1
+printf("T10\n");
+#endif
 
 }
 
@@ -317,7 +362,7 @@ void World::disolve_dead_drop(){
                 for(int j = 0; j < 9; j++){
 
                     if((_r_spawner[0]->getMatrice())[j] == _drop[i]){
-                        printf("match address detected : \n");
+                        //printf("match address detected : \n");
                         _r_spawner[0]->getMatrice()[j] = NULL;
                         //_r_spawner[0]->restartTimer();
                     }
@@ -351,9 +396,26 @@ void World::render(){
     for (unsigned int i = 0; i < _drop.size(); i++)
         _drop[i]->render();
 
-    for(NPC** np = _team2.ai; *np != NULL; np++){
-    (*np)->render();
+#if DEBUG_PRINT == 1
+    printf("T8\n");
+#endif
+
+    for(NPC** np = _team1.ai; *np != NULL; np++){
+        (*np)->render();
     }
+
+#if DEBUG_PRINT == 1
+    printf("T8.5\n");
+#endif
+
+    for(NPC** np = _team2.ai; *np != NULL; np++){
+        (*np)->render();
+    }
+
+#if DEBUG_PRINT == 1
+    printf("T9\n");
+#endif
+
     _team1.p->render();
     centerCamera();
 
@@ -436,6 +498,7 @@ void World::centerCamera() {
 
 g_core->getView()->setCenter(getTeam1()->p->getPos());
 
+//g_core->getView()->setCenter(getTeam1()->ai[0]->getPos());
 }
 
 
@@ -620,7 +683,7 @@ void World::parseMapTmx(string map, tile*** Matrice){
 
 
     for(int j=0; j<nbLignes; j++){
-            printf("\n");
+            //printf("\n");
 		for(int i=0; i<nbColonnes; i++){
 
 		    (*Matrice)[i][j].spr.setTexture(*(g_core->getImageManager()->getImage(4)));
@@ -628,16 +691,16 @@ void World::parseMapTmx(string map, tile*** Matrice){
 
 			if ((*Matrice)[i][j].num == 1){
 
-			    printf("1");
+			    //printf("1");
 
 				(*Matrice)[i][j].spr.setTextureRect(sf::IntRect(0,0,100,100));
 			}
 			else if ((*Matrice)[i][j].num == 2){
-                printf("2");
+                //printf("2");
 				(*Matrice)[i][j].spr.setTextureRect(sf::IntRect(100,0,100,100));
 			}
 			else if ((*Matrice)[i][j].num == 3){
-                printf("3");
+                //printf("3");
 				(*Matrice)[i][j].spr.setTextureRect(sf::IntRect(200,0,100,100));
 			}
 		}
@@ -650,7 +713,22 @@ World::~World(){
     printf("current drop number : %d\n", _drop.size());
 
     delete _team1.p;
-    delete _r_spawner;
+
+    for(NPC** n = _team1.ai; (*n) != NULL; n++){
+
+        delete (*n);
+
+    }
+
+    for(NPC** n = _team2.ai; (*n) != NULL; n++){
+
+        delete (*n);
+
+    }
+
+    for(int i=0; i<3; i++)
+        if(_r_spawner[i] != NULL) delete _r_spawner[i];
+
 
     for (unsigned int i = 0; i < _drop.size();){
 

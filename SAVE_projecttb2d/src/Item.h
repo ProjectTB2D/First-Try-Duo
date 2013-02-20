@@ -2,6 +2,7 @@
 #define _included_Item_h
 #include <SFML/Graphics.hpp>
 #include "Entity.h"
+#include "Actor.h"
 
 enum Item_category {IC_WEAPON = 0,
                     IC_RESSOURCE = 1,
@@ -39,7 +40,7 @@ class Item : public Entity
  public:
 
     Item();
-    Item(int, sf::Vector2f, sf::Vector2f, sf::Vector2f, Item_t);
+    Item(int, sf::Vector2f, sf::Vector2f, sf::Vector2f, Item_t, Actor* = NULL);
     virtual ~Item() = 0;
 
     virtual void render() = 0;
@@ -50,12 +51,15 @@ class Item : public Entity
 	Item_category   getItemCategory() const;
 
 
-    void    setInfo(float, sf::Vector2f);
+    void    setInfo(float, sf::Vector2f, Actor*);
+    void    setOwner(Actor*);
+    Actor*  getOwner();
 
  protected:
 
     Item_t          _it;
     Item_category   _icat;
+    Actor*  _owner;
 
     float           _carrier_angle;
     sf::Vector2f    _carrier_pos;

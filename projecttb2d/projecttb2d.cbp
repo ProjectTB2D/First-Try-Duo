@@ -81,6 +81,7 @@
 		<Unit filename="src\World.h" />
 		<Unit filename="src\global.cpp" />
 		<Unit filename="src\global.h" />
+		<Unit filename="src\team.h" />
 		<Unit filename="src\tinystr.cpp" />
 		<Unit filename="src\tinystr.h" />
 		<Unit filename="src\tinyxml.cpp" />

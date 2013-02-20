@@ -13,10 +13,11 @@ Bullet::Bullet()
 
 }
 
-Bullet::Bullet(int a, sf::Vector2f b, sf::Vector2f c, sf::Vector2f d, Item_t it, float angle, float damage)
+Bullet::Bullet(int a, sf::Vector2f b, sf::Vector2f c, sf::Vector2f d, Item_t it, float angle, float damage, Actor* own)
 :   Entity(a,b,c,d),
     _tb(it),
-    _damage(damage)
+    _damage(damage),
+    _owner(own)
 {
 
     //printf("init get pos x = %f, pos y = %f\n", getPos().x, getPos().y);

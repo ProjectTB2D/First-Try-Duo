@@ -51,6 +51,12 @@ RessourceSpawner::RessourceSpawner(int a, sf::Vector2f b, sf::Vector2f c, sf::Ve
 
 }
 
+RessourceSpawner::~RessourceSpawner(){
+
+    printf("RessourceSpawner deleted\n");
+
+}
+
 void RessourceSpawner::update(){
 
     if(_timer.getElapsedTime().asSeconds() > _spawnRate){

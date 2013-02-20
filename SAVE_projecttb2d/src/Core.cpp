@@ -222,6 +222,12 @@ bool Core::bounding_box(float a[4], float b[4], bool debug){
 
 }
 
+bool Core::dot_in_circle(sf::Vector2f a, sf::Vector2f b, float r){
+
+    float dist = sqrt(pow((a.x - b.x),2) + pow((a.y - b.y),2));
+    return(dist <= r);
+
+}
 
 sf::Vector2f Core::rotate_vector(sf::Vector2f v, float ang){
 

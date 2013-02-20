@@ -145,7 +145,7 @@ if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf
 
             case CRAFTER_WEAPON : {
 
-
+            printf("craft...\n");
 
             if(!(aux = g_core->getWorld()->getTeam1()->crafter->craft(getItemFromId()))){
 

@@ -185,14 +185,25 @@ bool Core::bounding_box(float a[4], float b[4], bool debug){
 
     if(debug){
 
+     /*
+        rectangle.setSize(_area[i].dim);
+        rectangle.setFillColor(sf::Color::Transparent);
+        rectangle.setOutlineColor(sf::Color::Red);
+        rectangle.setOutlineThickness(2.0f);
+        rectangle.setPosition(_area[i].pos);
+*/
     sf::RectangleShape r1;
     r1.setSize(sf::Vector2f(a[2] - a[0], a[3] - a[1]));
+    r1.setFillColor(sf::Color::Transparent);
     r1.setOutlineColor(sf::Color::Blue);
+    r1.setOutlineThickness(2.0f);
     r1.setPosition(a[0], a[1]);
 
     sf::RectangleShape r2;
     r2.setSize(sf::Vector2f(b[2] - b[0], b[3] - b[1]));
+    r2.setFillColor(sf::Color::Transparent);
     r2.setOutlineColor(sf::Color::Green);
+    r2.setOutlineThickness(2.0f);
     r2.setPosition(b[0], b[1]);
 
     getApp()->draw(r1);

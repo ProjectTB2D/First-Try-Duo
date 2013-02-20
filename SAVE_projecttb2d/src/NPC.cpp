@@ -10,7 +10,6 @@
 
 #define PI 3.14159265359
 
-
 NPC::NPC(const Actor& act, npc_type nt)
 :   Actor(act),
     _type(nt),
@@ -19,30 +18,16 @@ NPC::NPC(const Actor& act, npc_type nt)
     _strafLeft(true)
 {
 
-printf("Construction NPC : %p\n", this);
     //_target = g_core->getWorld()->getTeam1()->p;
     _rs = NULL;
     _freeStyle = true;
     _weap_craft = IT_NONE;
     _ress = IT_IRON;
 
-    switch(_type){
-
-        case NPC_SCOUT : _alloc = 0;break;
-        case NPC_SOLDIER : _alloc = 2;break;
-        case NPC_MEDIC : _alloc = 1;break;
-        case NPC_CYBORG : _alloc = 4;break;
-
-    }
-
 }
 
 NPC::~NPC(){
 
-printf("npc deleted !\n");
-if(_hand != NULL){
-    delete _hand;
-}
 
 }
 
@@ -52,27 +37,21 @@ void NPC::render(){
     if(_hand)
         _hand->render();
     g_core->getApp()->draw(_spr);
-    Actor::render();
+
 }
 
 void NPC::update(){
 
+    if(_attacked){
 
-    if(_action != ACT_ATK_ENEMY && (_attacked || (_type == NPC_SOLDIER && search()))){
-
-        printf("action 2\n");
         _attacked = false;
-        if(_hand != NULL && _hand->getItemCategory() == IC_WEAPON)
         _action = ACT_ATK_ENEMY;
-        else
-        _action = ACT_CRAFT;
-        //printf("???????????????????????????????????\n");
+        printf("???????????????????????????????????\n");
     }
 
     if( _action == ACT_CRAFT){
 
-        printf("ACT_CRAFT\n");
-        ai_alloc();
+        _weap_craft = IT_PISTOL;
         ai_craft(_weap_craft);
 
     }
@@ -83,13 +62,14 @@ void NPC::update(){
 
         if(_hand){
             if(_hand->getItemType() > 0 && _hand->getItemType() < 5){
-
-                    _destination = _team->crafter->getPos();
-
+                if(_team == '1')
+                    _destination = g_core->getWorld()->getTeam1()->crafter->getPos();
+                else
+                    _destination = g_core->getWorld()->getTeam2()->crafter->getPos();
 
                 if(ai_move()){
 
-                    //printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+                    printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
                     drop();
                     _rs = NULL;
                     if(_weap_craft != IT_NONE)
@@ -115,7 +95,7 @@ void NPC::update(){
 
 
         if(_hand == NULL && ai_move()){
-            //printf("je suis arrive\n");
+            printf("je suis arrive\n");
             Drop* d;
             d = ai_chose_spawner_drop();
             if(d != NULL){
@@ -126,46 +106,36 @@ void NPC::update(){
 
     if(_action == ACT_ATK_ENEMY){
 
-        printf("ACTION 3\n");
-
-        if(_target == NULL || (_target != NULL && _target->getKilled())){
-            printf("target detruite...\n");
-            _target = NULL;
-            _action = ACT_IDLE;
+        if(_hand == NULL || (_hand != NULL && _hand->getItemCategory() != IC_WEAPON)){
+            _action = ACT_CRAFT;
+            printf("j'ai pas d'arme, je fuis\n");
         }
         else{
 
-            if(_hand == NULL || (_hand != NULL && _hand->getItemCategory() != IC_WEAPON)){
-                _action = ACT_CRAFT;
-                //printf("j'ai pas d'arme, je fuis\n");
+            if(_strafTimer.getElapsedTime().asSeconds() > 5.0f){
+                _strafTimer.restart();
+
+                if(_strafLeft)
+                    _strafLeft = false;
+                else
+                    _strafLeft = true;
             }
-            else{
 
-                if(_strafTimer.getElapsedTime().asSeconds() > 5.0f){
-                    _strafTimer.restart();
+            float distance_x = getPos().x - _target->getPos().x;
+            float distance_y = getPos().y - _target->getPos().y;
+            float ft = g_core->getFrameTime();
 
-                    if(_strafLeft)
-                        _strafLeft = false;
-                    else
-                        _strafLeft = true;
-                }
+            _angle = atan2(distance_y, distance_x);
 
-                float distance_x = getPos().x - _target->getPos().x;
-                float distance_y = getPos().y - _target->getPos().y;
-                float ft = g_core->getFrameTime();
+            _hand->use();
 
-                _angle = atan2(distance_y, distance_x);
+            if(fabs(distance_x) > 200.0f || fabs(distance_y) > 200.f)
+                _spr.move(-_speed*ft*cos(_angle), -_speed*ft*sin(_angle));
+            else if(_strafLeft)
+                _spr.move(_speed*ft*cos(_angle + _leftAngle), _speed*ft*sin(_angle + _leftAngle));
+            else if(!_strafLeft)
+                _spr.move(_speed*ft*cos(_angle - _leftAngle), _speed*ft*sin(_angle - _leftAngle));
 
-                _hand->use();
-
-                if(fabs(distance_x) > 200.0f || fabs(distance_y) > 200.f)
-                    _spr.move(-_speed*ft*cos(_angle), -_speed*ft*sin(_angle));
-                else if(_strafLeft)
-                    _spr.move(_speed*ft*cos(_angle + _leftAngle), _speed*ft*sin(_angle + _leftAngle));
-                else if(!_strafLeft)
-                    _spr.move(_speed*ft*cos(_angle - _leftAngle), _speed*ft*sin(_angle - _leftAngle));
-
-            }
         }
     }
 
@@ -186,44 +156,6 @@ Actor* NPC::getTarget(){
 void NPC::setTarget(Actor* a){
 
     _target = a;
-
-}
-
-bool NPC::search(){
-
-    World* w = g_core->getWorld();
-    team* t = (_team == w->getTeam1()) ? w->getTeam2() : w->getTeam1();
-
-    NPC** ai;
-
-    // TEST PLAYER
-
-    float b[4] = {  getPos().x - g_core->getWinSize().x/2,
-                    getPos().y - g_core->getWinSize().y/2,
-                    getPos().x + g_core->getWinSize().x/2,
-                    getPos().y + g_core->getWinSize().y/2};
-
-
-
-    for(ai = t->ai; (*ai) != NULL; ai++){
-
-        if(!(*ai)->getKilled()){
-
-            float a[4] = {  (*ai)->getPos().x,
-                            (*ai)->getPos().y,
-                            (*ai)->getFrameW(),
-                            (*ai)->getFrameH()};
-
-            if(g_core->bounding_box(a,b,false)){
-                _target = *ai;
-                printf("target found\n");
-                return true;
-            }
-        }
-
-    }
-
-    return false;
 
 }
 
@@ -279,7 +211,7 @@ Drop* NPC::ai_chose_spawner_drop(){
 
 bool NPC::ai_get_drop(Drop* d){
 
-    //printf("je prend un truc par terre\n");
+    printf("je prend un truc par terre\n");
     setHandItem(g_core->getWorld()->getItemFromIT(d->getItemType()));
     d->kill();
 
@@ -308,19 +240,20 @@ void NPC::ai_drop(){}
 
 void NPC::ai_craft(Item_t it){
 
-    printf("1\n");
 
     Crafter* c;
     Item_t miss = IT_NONE;
 
-    c = _team->crafter;
+    if(_team == '1')
+        c = g_core->getWorld()->getTeam1()->crafter;
+    else
+        c = g_core->getWorld()->getTeam2()->crafter;
 
     if(c->craftable(it, &miss)){
         _destination = c->getPos();
         if(ai_move()){
             setHandItem(c->craft(it));
-            _action = ACT_IDLE;
-            _weap_craft = IT_NONE;
+            _action = ACT_ATK_ENEMY;
 
         }
     }
@@ -333,27 +266,11 @@ void NPC::ai_craft(Item_t it){
 
 }
 
-void NPC::ai_alloc(){
-
-    int a = 13;
-    Item_t i = IT_NONE;
-
-    while(a > 4 && !_team->crafter->craftable((Item_t)a, &i)){a--;}
-
-
-    if(_hand != NULL && _hand->getItemType() < a)
-       _weap_craft = (Item_t)a;
-    else
-        _weap_craft = IT_PISTOL;
-
-    printf("Item : %d\n", _weap_craft);
-
-}
-
 void NPC::dotest(){
 
 
 
 }
+
 
 

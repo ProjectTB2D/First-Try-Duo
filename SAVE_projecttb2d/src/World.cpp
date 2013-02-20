@@ -14,8 +14,12 @@ World::World()
 : _nextUniqueID(0)
 {
 
+for(unsigned int i = 0; i < MAXNPC; i++){
 
+    _team1.ai[i] = NULL;
+    _team2.ai[i] = NULL;
 
+}
 
 }
 
@@ -47,8 +51,28 @@ void World::createWorld(const char* lvlname){
 
         }*/
 
-    printf("test1\n");
+//    printf("test1\n");
     parseMapTmx("map/Map1.tmx", &_matrice);
+
+    // generation area
+
+    _area[0].pos = sf::Vector2f(0,0);
+    _area[1].pos = sf::Vector2f(_mapSize.x / 3, 0);
+    _area[2].pos = sf::Vector2f(2 * _mapSize.x / 3, 0);
+    _area[3].pos = sf::Vector2f(0 , _mapSize.y / 3);
+    _area[4].pos = sf::Vector2f(_mapSize.x / 3, _mapSize.y / 3);
+    _area[5].pos = sf::Vector2f(2 * _mapSize.x / 3, _mapSize.y / 3);
+    _area[6].pos = sf::Vector2f(0 , 2 * _mapSize.y / 3);
+    _area[7].pos = sf::Vector2f(_mapSize.x / 3, 2 * _mapSize.y / 3);
+    _area[8].pos = sf::Vector2f(2 * _mapSize.x / 3, 2 * _mapSize.y / 3);
+
+    for(int i = 0; i < 9; i++){
+
+        _area[i].dim = sf::Vector2f(_mapSize.x / 3, _mapSize.y / 3);
+    }
+
+    _mapSize.x = _mapSize.x / 100;
+    _mapSize.y = _mapSize.y / 100;
 
 }
 
@@ -63,9 +87,15 @@ void World::createPlayer() {
 
     _team1.p = new Player(Actor(17, sf::Vector2f(0, 0), sf::Vector2f(0,0), sf::Vector2f(50,50),
                                 100,
-                               200));
+                               200, '1'));
 
-    _r_spawner[0] = new RessourceSpawner(19, sf::Vector2f(-200, -200), sf::Vector2f(0,0), sf::Vector2f(32,13), IT_IRON, 0);
+    _team2.ai[0] = new NPC(Actor(17, sf::Vector2f(200, 200), sf::Vector2f(0,0), sf::Vector2f(50,50),
+                                100,
+                               200, '2'));
+
+    _r_spawner[0] = new RessourceSpawner(23, sf::Vector2f(-200, -200), sf::Vector2f(0,0), sf::Vector2f(140,140), IT_IRON, 0);
+    _r_spawner[1] = NULL;
+    _r_spawner[2] = NULL;
 
 printf("--- vector ----- \n");
 
@@ -74,13 +104,14 @@ printf("--- vector ----- \n");
 
 
 
-    _team1.crafter = new Crafter(0, sf::Vector2f(200, 100), sf::Vector2f(0,0), sf::Vector2f(50,50));
+    _team1.crafter = new Crafter(24, sf::Vector2f(200, 100), sf::Vector2f(0,0), sf::Vector2f(50,50));
+    _team2.crafter = new Crafter(24, sf::Vector2f(-1200, -1100), sf::Vector2f(0,0), sf::Vector2f(50,50));
 
 }
 
 /////////////////////////////////// ADD ////////////////////////////////////////
 
-void World::addBullet(Item_t it,sf::Vector2f pos,  float angle, float dmgmult){
+void World::addBullet(Item_t it,sf::Vector2f pos,  float angle, float dmgmult, Actor* own, char c){
 
     int img_id;
     sf::Vector2f sizeB;
@@ -97,8 +128,10 @@ void World::addBullet(Item_t it,sf::Vector2f pos,  float angle, float dmgmult){
         default : img_id = 2;
     }
 
-    _team1.proj.push_back(Bullet(img_id, pos, sf::Vector2f(0,0), sizeB, it, angle, dmgmult));
-
+    if(c == '1')
+        _team1.proj.push_back(Bullet(img_id, pos, sf::Vector2f(0,0), sizeB, it, angle, dmgmult, own));
+    else
+        _team2.proj.push_back(Bullet(img_id, pos, sf::Vector2f(0,0), sizeB, it, angle, dmgmult, own));
 }
 
 Drop* World::addDrop(const sf::Vector2f& pos, const Item_t& it, bool s){
@@ -125,9 +158,37 @@ Drop* World::addDrop(const sf::Vector2f& pos, const Item_t& it, bool s){
 
     }
 
-    Drop*   d = new Drop(id_img, pos, sf::Vector2f(0,0), sizeD, it, s);
 
-    _drop.push_back(d);
+    Drop* d = NULL;
+
+    if(!s){
+
+         Crafter* c,*c2;
+         c = g_core->getWorld()->getTeam1()->crafter;
+         c2 = g_core->getWorld()->getTeam2()->crafter;
+
+         if(pos.x > c->getPos().x - 150 &&
+            pos.x < c->getPos().x + 150 &&
+            pos.y > c->getPos().y - 150 &&
+            pos.y < c->getPos().y + 150)
+                c->putIn(it);
+        else
+        if(pos.x > c2->getPos().x - 150 &&
+                pos.x < c2->getPos().x + 150 &&
+                pos.y > c2->getPos().y - 150 &&
+                pos.y < c2->getPos().y + 150)
+                c2->putIn(it);
+        else{
+            d = new Drop(id_img, pos, sf::Vector2f(0,0), sizeD, it, s);
+            _drop.push_back(d);
+        }
+
+    }
+    else{
+        d = new Drop(id_img, pos, sf::Vector2f(0,0), sizeD, it, s);
+        _drop.push_back(d);
+    }
+
     return d;
 
 }
@@ -136,6 +197,10 @@ Drop* World::addDrop(const sf::Vector2f& pos, const Item_t& it, bool s){
 void World::update(){
 
     _team1.p->update();
+
+    for(NPC** np = _team2.ai; *np != NULL; np++){
+        (*np)->update();
+    }
 
     _r_spawner[0]->update();
 
@@ -148,7 +213,50 @@ void World::update(){
     for (list<Bullet>::iterator it = _team1.proj.begin(); it != _team1.proj.end(); ++it){
 
         it->update();
+        NPC** np;
+        for(np = _team2.ai; *np != NULL; np++){
 
+            if(g_core->dot_in_circle(it->getPos(), (*np)->getPos(), 25)){
+                printf("touche !\n");
+                (*np)->damage(it->getDamage());
+                (*np)->setTarget(it->getOwner());
+                it = _team1.proj.erase(it);
+                if((*np)->getKilled()){
+                    delete (*np);
+                    *np = NULL;
+                }
+            break;
+            }
+        }
+    }
+
+    for (list<Bullet>::iterator it = _team2.proj.begin(); it != _team2.proj.end(); ++it){
+
+        it->update();
+
+        if(g_core->dot_in_circle(it->getPos(), g_core->getWorld()->getTeam1()->p->getPos(), 25)){
+            printf("touche player\n");
+            g_core->getWorld()->getTeam1()->p->damage(it->getDamage());
+            it = _team2.proj.erase(it);
+            break;
+
+        }
+        else{
+            for(NPC** np = _team1.ai; *np != NULL; np++){
+
+                if(g_core->dot_in_circle(it->getPos(), (*np)->getPos(), 25)){
+                    printf("touche !\n");
+                    (*np)->damage(it->getDamage());
+                    (*np)->setTarget(it->getOwner());
+                    it = _team2.proj.erase(it);
+                    if((*np)->getKilled()){
+                        delete (*np);
+                        *np = NULL;
+                    }
+                break;
+                }
+            }
+        }
     }
 
 }
@@ -175,13 +283,19 @@ void World::disolve_dead_bullet(){
     for (list<Bullet>::iterator it = _team1.proj.begin(); it != _team1.proj.end();){
 
         if(it->getKilled()){
-
             it = _team1.proj.erase(it);
-
         }
         else
-        ++it;
+            ++it;
+    }
 
+    for (list<Bullet>::iterator it = _team2.proj.begin(); it != _team2.proj.end();){
+
+        if(it->getKilled()){
+            it = _team2.proj.erase(it);
+        }
+        else
+            ++it;
     }
 
 
@@ -231,9 +345,15 @@ void World::disolve_dead_drop(){
 void World::render(){
 
     renderWorld();
+    _team1.crafter->render();
+    _team2.crafter->render();
+    _r_spawner[0]->render();
     for (unsigned int i = 0; i < _drop.size(); i++)
         _drop[i]->render();
 
+    for(NPC** np = _team2.ai; *np != NULL; np++){
+    (*np)->render();
+    }
     _team1.p->render();
     centerCamera();
 
@@ -249,10 +369,24 @@ void World::render(){
     for (list<Bullet>::iterator it = _team1.proj.begin(); it != _team1.proj.end(); ++it){
 
         it->render();
-
     }
 
+    for (list<Bullet>::iterator it = _team2.proj.begin(); it != _team2.proj.end(); ++it){
 
+        it->render();
+    }
+
+    sf::RectangleShape rectangle;
+
+    for(int i =0; i < 9; i++){
+        rectangle.setSize(_area[i].dim);
+        rectangle.setFillColor(sf::Color::Transparent);
+        rectangle.setOutlineColor(sf::Color::Red);
+        rectangle.setOutlineThickness(2.0f);
+        rectangle.setPosition(_area[i].pos);
+
+        g_core->getApp()->draw(rectangle);
+    }
 
 
 }
@@ -282,14 +416,14 @@ void World::renderWorld() {
     if(idPImoins < 0)
         idPImoins = 0;
 
-    if(idPIplus > 20)
-        idPIplus = 20;
+    if(idPIplus > _mapSize.x)
+        idPIplus = _mapSize.x;
 
     if(idPJmoins < 0)
         idPJmoins = 0;
 
-    if(idPJplus > 20)
-        idPJplus = 20;
+    if(idPJplus > _mapSize.y)
+        idPJplus = _mapSize.y;
 
     for(int j=idPJmoins; j<idPJplus; j++)
             for(int i=idPImoins; i<idPIplus; i++)
@@ -343,7 +477,7 @@ bool World::insideScreenPoint(int x, int y, int mar) const{
  Player*         World::getPlayerTeam2(){return NULL;}
 
  team*   World::getTeam1(){return &_team1;}
- team*   World::getTeam2(){return NULL;}
+ team*   World::getTeam2(){return &_team2;}
 
  NPC*   World::getNPCTeam1(int a){return NULL;}
  NPC*   World::getNPCTeam2(int a){return NULL;}
@@ -358,20 +492,20 @@ case IT_IRON : return new Ressource(19, p, sf::Vector2f(0,0), sf::Vector2f(32,13
 case IT_GOLD : return new Ressource(20, p, sf::Vector2f(0,0), sf::Vector2f(32,13),IT_GOLD);
 case IT_RUBY : return new Ressource(21, p, sf::Vector2f(0,0), sf::Vector2f(32,13),IT_RUBY);
 case IT_EMERALD : return new Ressource(22, p, sf::Vector2f(0,0), sf::Vector2f(32,13),IT_EMERALD);
-case IT_BAT : return new Weapon(8, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_BAT);
-case IT_BAT_SUPER : return new Weapon(8, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_BAT);
+case IT_BAT : return new Weapon(8, p, sf::Vector2f(0,0), sf::Vector2f(97,14),IT_BAT);
+case IT_BAT_SUPER : return new Weapon(8, p, sf::Vector2f(0,0), sf::Vector2f(97,14),IT_BAT);
 case IT_PISTOL : return new Weapon(9, p, sf::Vector2f(0,0), sf::Vector2f(32,8),IT_PISTOL);
 case IT_PISTOL_SUPER : return new Weapon(9, p, sf::Vector2f(0,0), sf::Vector2f(32,8),IT_PISTOL);
 case IT_THROW_AXE : return new Weapon(10, p, sf::Vector2f(0,0), sf::Vector2f(35,24),IT_THROW_AXE);
 case IT_THROW_AXE_SUPER : return new Weapon(10, p, sf::Vector2f(0,0), sf::Vector2f(35,24),IT_THROW_AXE);
-case IT_CHAINSAW : return new Weapon(11, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_CHAINSAW);
-case IT_CHAINSAW_SUPER : return new Weapon(11, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_CHAINSAW);
+case IT_CHAINSAW : return new Weapon(11, p, sf::Vector2f(0,0), sf::Vector2f(68,28),IT_CHAINSAW);
+case IT_CHAINSAW_SUPER : return new Weapon(11, p, sf::Vector2f(0,0), sf::Vector2f(68,28),IT_CHAINSAW);
 case IT_SHOTGUN : return new Weapon(12, p, sf::Vector2f(0,0), sf::Vector2f(49,14),IT_SHOTGUN);
 case IT_SHOTGUN_SUPER : return new Weapon(12, p, sf::Vector2f(0,0), sf::Vector2f(49,14),IT_SHOTGUN);
 case IT_SMG : return new Weapon(13, p, sf::Vector2f(0,0), sf::Vector2f(49,10),IT_SMG);
 case IT_SMG_SUPER : return new Weapon(13, p, sf::Vector2f(0,0), sf::Vector2f(49,10),IT_SMG);
-case IT_KATANA : return new Weapon(14, p, sf::Vector2f(0,0), sf::Vector2f(5,5),IT_KATANA);
-case IT_KATANA_SUPER : return new Weapon(14, p, sf::Vector2f(0,0), sf::Vector2f(30,10),IT_KATANA);
+case IT_KATANA : return new Weapon(14, p, sf::Vector2f(0,0), sf::Vector2f(170,8),IT_KATANA); //90 8
+case IT_KATANA_SUPER : return new Weapon(14, p, sf::Vector2f(0,0), sf::Vector2f(170,8),IT_KATANA);
 case IT_PLASMA : return new Weapon(15, p, sf::Vector2f(0,0), sf::Vector2f(67,18),IT_PLASMA);
 case IT_PLASMA_SUPER : return new Weapon(15, p, sf::Vector2f(0,0), sf::Vector2f(67,18),IT_PLASMA);
 case IT_RPG : return new Weapon(16, p, sf::Vector2f(0,0), sf::Vector2f(115,19),IT_RPG);
@@ -427,6 +561,7 @@ void World::parseMapTmx(string map, tile*** Matrice){
             nbColonnes = atoi(colonnes.c_str());
             nbLignes = atoi(lignes.c_str());
 
+            _mapSize = sf::Vector2f(nbColonnes * 100, nbLignes * 100);
         }
         else if(elemName == "tileset"){
 
@@ -485,6 +620,7 @@ void World::parseMapTmx(string map, tile*** Matrice){
 
 
     for(int j=0; j<nbLignes; j++){
+            printf("\n");
 		for(int i=0; i<nbColonnes; i++){
 
 		    (*Matrice)[i][j].spr.setTexture(*(g_core->getImageManager()->getImage(4)));
@@ -492,14 +628,16 @@ void World::parseMapTmx(string map, tile*** Matrice){
 
 			if ((*Matrice)[i][j].num == 1){
 
+			    printf("1");
+
 				(*Matrice)[i][j].spr.setTextureRect(sf::IntRect(0,0,100,100));
 			}
 			else if ((*Matrice)[i][j].num == 2){
-
+                printf("2");
 				(*Matrice)[i][j].spr.setTextureRect(sf::IntRect(100,0,100,100));
 			}
 			else if ((*Matrice)[i][j].num == 3){
-
+                printf("3");
 				(*Matrice)[i][j].spr.setTextureRect(sf::IntRect(200,0,100,100));
 			}
 		}
@@ -512,7 +650,10 @@ World::~World(){
     printf("current drop number : %d\n", _drop.size());
 
     delete _team1.p;
-    delete _r_spawner;
+
+    for(int i=0; i<3; i++)
+        if(_r_spawner[i] != NULL) delete _r_spawner[i];
+
 
     for (unsigned int i = 0; i < _drop.size();){
 

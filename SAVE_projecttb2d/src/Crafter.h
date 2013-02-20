@@ -37,9 +37,12 @@ class Crafter : public Entity
 	virtual void    update();
 
     void            putIn(Item*); // SUREMENT a faire dans Actor
-    Item*            putOut(Item_t);
-    Item*            craft(Item_t); // true si le craft a réussi
+    void            putIn(Item_t);
+    Item*           putOut(Item_t);
+    Item*           craft(Item_t); // NULL si le craft a échoyué
+    bool            craftAndPutIn(Item_t);
     bool            craftSuper(Item_t); // DEBATTRE si on ne fait pas que les emerald ne sont plus des blocs JOKER mais seulement un bloc supplémentaire pr créer un super objet
+    bool            craftable(const Item_t&, Item_t*) const;
 
     //sf::Vector3i&    getRessources() const;
     sf::Vector3i    getRessources() const;

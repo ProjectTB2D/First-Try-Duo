@@ -27,7 +27,7 @@ Bullet::Bullet(int a, sf::Vector2f b, sf::Vector2f c, sf::Vector2f d, Item_t it,
 
     switch(it){
 
-        case IT_PISTOL : _damage = 5; _speed = 1000; break;
+        case IT_PISTOL : _damage = 10; _speed = 1000; break;
         case IT_PISTOL_SUPER : _damage = 5; _speed = 1000; break;
         case IT_THROW_AXE : _damage = 13; _speed = 800; break;
         case IT_THROW_AXE_SUPER : _damage = 13; _speed = 800; break;
@@ -44,7 +44,7 @@ Bullet::Bullet(int a, sf::Vector2f b, sf::Vector2f c, sf::Vector2f d, Item_t it,
     }
 
     _lifeTime.restart();
-    printf("balle\n");
+    //printf("balle\n");
 }
 
 Bullet::~Bullet(){

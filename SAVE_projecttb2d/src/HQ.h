@@ -4,7 +4,7 @@
 #include "Entity.h"
 #include "Item.h"
 
-#define IRON_SPAWN_RATE 5
+#define IRON_SPAWN_RATE 2
 #define GOLD_SPAWN_RATE 30
 #define RUBY_SPAWN_RATE 60
 #define EMRLD_SPAWN_RAND_I 5
@@ -41,12 +41,14 @@ class RessourceSpawner : public Entity
 
  RessourceSpawner();
  RessourceSpawner(int, sf::Vector2f, sf::Vector2f, sf::Vector2f, Item_t, int);
+ ~RessourceSpawner();
 
  void update();
  void render();
 
  void    restartTimer(){ _timer.restart();}
  Drop**  getMatrice();
+ Item_t getRSType() {return _it;}
 
  protected:
 
@@ -54,6 +56,7 @@ class RessourceSpawner : public Entity
  int    _spawn;  // 0 : iron | 1 : gold | 2 : ruby
  Drop*  _matrice[9];
  sf::Clock _timer;
+ int _spawnRate, _spawnRand;
 
  void   addRessource();
  void   addEmerald();

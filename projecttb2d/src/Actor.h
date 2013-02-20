@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Entity.h"
+#include "team.h"
 
 class Item;
 
@@ -12,7 +13,7 @@ class Actor : public Entity
  public:
 
     Actor();
-    Actor(int, sf::Vector2f, sf::Vector2f, sf::Vector2f, int, float, char);
+    Actor(int, sf::Vector2f, sf::Vector2f, sf::Vector2f, int, float, team*);
     virtual ~Actor();
 
 	virtual void render();
@@ -24,9 +25,10 @@ class Actor : public Entity
     int getHealthMax() const;
     float getSpeed() const;
     float getSpeedMax() const;
-    char  getTeam() const;
+    team*  getTeam() const;
     Item * getHand() {return _hand;}
     bool collisionWithCrafter();
+    void      dump();
     //Item ** getBelt();
 
     //setter
@@ -64,9 +66,13 @@ class Actor : public Entity
 
     int _selectedItem;
     bool    _attacked;
-    char    _team;
+    //char    _team;
+    team*   _team;
     float   _leftAngle;
 
+    sf::CircleShape _circleLife;
+    int _colorRed;
+    int _colorGreen;
 
 };
 

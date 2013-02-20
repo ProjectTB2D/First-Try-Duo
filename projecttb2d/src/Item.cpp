@@ -30,6 +30,12 @@ Item_t Item::getItemType() const{
 
 }
 
+Item_category Item::getItemCategory() const{
+
+    return _icat;
+
+}
+
 void Item::setInfo(float angle, sf::Vector2f pos, Actor* own){
 
     _carrier_angle = angle;
@@ -63,6 +69,7 @@ Ressource::Ressource(){}
 Ressource::Ressource(int a, sf::Vector2f b, sf::Vector2f c, sf::Vector2f d, Item_t it)
 :Item(a, b, c, d, it)
 {
+    _icat = IC_RESSOURCE;
 
 }
 
