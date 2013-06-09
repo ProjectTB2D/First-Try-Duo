@@ -1,0 +1,20 @@
+
+ ==== PLANNING ====  Creation le 09/01/2013
+ 
+ - Probleme d'image pour le tileset (Jordan)
+ - Segfault lors du kill d'un ennemi (Fabien)
+ 
+ - MAJ du fonctionnement de l'IA : (Surement Non)
+		Rajouter des sous-actions aux actions dans les comportements
+		
+ - Bug de comportements des IA (Jordan)
+		Ne prend pas son arme quand il est attaqué et qu'il ramène une ressource, il y a des bugs par la suite
+		
+ - Attribution d'un ID (ou name) a chaque entité (Fabien)
+ - Un système de dégugage d'IA (Fabien)
+ - Refaire un schema Plus précis pour savoir quand une IA doit faire quoi (Jordan)
+ 
+ - Update renvoi un Booléen pour pouvoir supprimer l'entité (Jordan)
+ 
+ 
+ 
