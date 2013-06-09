@@ -53,6 +53,10 @@ class Actor : public Entity
     //void testCollisionWorld(Obstacle*);
     //void testCollisionBullet(Bullet*);
 
+    // -- BELT --
+
+    void switchWeapon();
+
 
  protected:
 
@@ -62,7 +66,9 @@ class Actor : public Entity
     float _speedMax;
 
     Item *_hand;
-    //Item *_belt[3];
+    Item * _slot_weap;
+
+    Item *_best_weap;
 
     int _selectedItem;
     bool    _attacked;

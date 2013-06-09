@@ -16,13 +16,6 @@ World::World()
 : _nextUniqueID(0)
 {
 
-for(unsigned int i = 0; i < MAXNPC; i++){
-
-    _team1.ai[i] = NULL;
-    _team2.ai[i] = NULL;
-
-}
-
 }
 
 int World::generateUniqueID() {
@@ -91,12 +84,12 @@ void World::createPlayer() {
                                 100,
                                200, &_team1));
 
-    //_team1.ai[0] = new NPC(Actor(17, sf::Vector2f(200, 200), sf::Vector2f(0,0), sf::Vector2f(50,50),100,200, &_team1));
+    //_team1.ai.push_back(new NPC(Actor(17, sf::Vector2f(200, 200), sf::Vector2f(0,0), sf::Vector2f(50,50),100,200, &_team1)));
+    //_team1.ai.push_back(new NPC(Actor(17, sf::Vector2f(300, 200), sf::Vector2f(0,0), sf::Vector2f(50,50),100,200, &_team1)));
 
-    //_team1.ai[1] = new NPC(Actor(17, sf::Vector2f(300, 200), sf::Vector2f(0,0), sf::Vector2f(50,50),100,200, &_team1));
-
-    _team2.ai[0] = new NPC(Actor(17, sf::Vector2f(200, 100), sf::Vector2f(0,0), sf::Vector2f(50,50),100,200, &_team2));
-    _team2.ai[1] = new NPC(Actor(17, sf::Vector2f(100, 100), sf::Vector2f(50,0), sf::Vector2f(50,50),100, 200, &_team2));
+    _team2.ai.push_back(new NPC(Actor(17, sf::Vector2f(200, 100), sf::Vector2f(50,0), sf::Vector2f(50,50),100,200, &_team2)));
+    _team2.ai.push_back(new NPC(Actor(17, sf::Vector2f(100, 100), sf::Vector2f(50,0), sf::Vector2f(50,50),100, 200, &_team2)));
+    //_team2.ai.push_back(new NPC(Actor(17, sf::Vector2f(300, 100), sf::Vector2f(50,0), sf::Vector2f(50,50),100, 200, &_team2)));
 
     _r_spawner[0] = new RessourceSpawner(23, sf::Vector2f(-200, -200), sf::Vector2f(0,0), sf::Vector2f(140,140), IT_IRON, 0);
     _r_spawner[1] = NULL;
@@ -112,9 +105,19 @@ printf("--- vector ----- \n");
     _team1.crafter = new Crafter(24, sf::Vector2f(200, 100), sf::Vector2f(0,0), sf::Vector2f(50,50));
     _team2.crafter = new Crafter(24, sf::Vector2f(200, 700), sf::Vector2f(0,0), sf::Vector2f(50,50));
 
+    _team1.base = new HQ(25, sf::Vector2f(400, 100), sf::Vector2f(0,0), sf::Vector2f(100,100), 100, &_team1);
+_team2.base = new HQ(25, sf::Vector2f(400, 700), sf::Vector2f(0,0), sf::Vector2f(100,100), 100, &_team2);
 }
 
 /////////////////////////////////// ADD ////////////////////////////////////////
+
+void World::addNPC(sf::Vector2f pos, team* tm, npc_type nt){
+
+
+    tm->ai.push_back(new NPC(Actor(17, pos, sf::Vector2f(50,0), sf::Vector2f(50,50),100,200, tm), nt));
+
+
+}
 
 void World::addBullet(Item_t it,sf::Vector2f pos,  float angle, float dmgmult, Actor* own, team* tm){
 
@@ -170,13 +173,15 @@ Drop* World::addDrop(const sf::Vector2f& pos, const Item_t& it, bool s){
          c = g_core->getWorld()->getTeam1()->crafter;
          c2 = g_core->getWorld()->getTeam2()->crafter;
 
-         if(pos.x > c->getPos().x - 150 &&
+         if((it > 0 && it < 5) &&
+            pos.x > c->getPos().x - 150 &&
             pos.x < c->getPos().x + 150 &&
             pos.y > c->getPos().y - 150 &&
             pos.y < c->getPos().y + 150)
                 c->putIn(it);
         else
-        if(pos.x > c2->getPos().x - 150 &&
+        if((it > 0 && it < 5) &&
+                pos.x > c2->getPos().x - 150 &&
                 pos.x < c2->getPos().x + 150 &&
                 pos.y > c2->getPos().y - 150 &&
                 pos.y < c2->getPos().y + 150)
@@ -220,13 +225,12 @@ void World::update(){
     for (list<Bullet>::iterator it = _team1.proj.begin(); it != _team1.proj.end(); ++it){
 
         it->update();
-        NPC** np;
-        for(np = _team2.ai; *np != NULL; np++){
+        for(vector<NPC*>::iterator it2 = _team2.ai.begin(); it2 != _team2.ai.end(); ++it2){
 
-            if(g_core->dot_in_circle(it->getPos(), (*np)->getPos(), 25)){
+            if(g_core->dot_in_circle(it->getPos(), (*it2)->getPos(), 25)){
                 //printf("touche !\n");
-                (*np)->damage(it->getDamage());
-                (*np)->setTarget(it->getOwner());
+                (*it2)->damage(it->getDamage());
+                (*it2)->setTarget(it->getOwner());
                 it = _team1.proj.erase(it);
             break;
             }
@@ -249,12 +253,12 @@ void World::update(){
 
         }
         else{
-            for(NPC** np = _team1.ai; *np != NULL; np++){
+            for(vector<NPC*>::iterator it1 = _team1.ai.begin(); it1 != _team1.ai.end(); ++it1){
 
-                if(g_core->dot_in_circle(it->getPos(), (*np)->getPos(), 25)){
+                if(g_core->dot_in_circle(it->getPos(), (*it1)->getPos(), 25)){
                     //printf("touche !\n");
-                    (*np)->damage(it->getDamage());
-                    (*np)->setTarget(it->getOwner());
+                    (*it1)->damage(it->getDamage());
+                    (*it1)->setTarget(it->getOwner());
                     it = _team2.proj.erase(it);
                 break;
                 }
@@ -266,15 +270,15 @@ void World::update(){
     printf("T4\n");
 #endif
 
-    for(NPC** np = _team2.ai; *np != NULL; np++){
-        (*np)->update();
+    for(vector<NPC*>::iterator it2 = _team2.ai.begin(); it2 != _team2.ai.end(); ++it2){
+        (*it2)->update();
     }
 
 #if DEBUG_PRINT == 1
     printf("T5\n");
 #endif
-    for(NPC** np = _team1.ai; *np != NULL; np++){
-        (*np)->update();
+    for(vector<NPC*>::iterator it1 = _team1.ai.begin(); it1 != _team1.ai.end(); ++it1){
+        (*it1)->update();
     }
 
 #if DEBUG_PRINT == 1
@@ -327,22 +331,30 @@ void World::disolve_dead_NPC(){
 #if DEBUG_PRINT == 1
 printf("T9b\n");
 #endif
-for(NPC** np = _team1.ai; *np != NULL; np++){
-    if((*np)->getKilled()){
-        delete (*np);
-        *np = NULL;
+
+for(vector<NPC*>::iterator it1 = _team1.ai.begin(); it1 != _team1.ai.end();){
+    if((*it1)->getKilled()){
+        delete (*it1);
+        *it1 = NULL;
+        it1 = _team1.ai.erase(it1);
     }
+    else
+        ++it1;
 }
+
 
 #if DEBUG_PRINT == 1
 printf("T9b.5\n");
 #endif
 
-for(NPC** np = _team2.ai; *np != NULL; np++){
-    if((*np)->getKilled()){
-        delete (*np);
-        *np = NULL;
+for(vector<NPC*>::iterator it2 = _team2.ai.begin(); it2 != _team2.ai.end();){
+    if((*it2)->getKilled()){
+        delete (*it2);
+        *it2 = NULL;
+        it2 = _team2.ai.erase(it2);
     }
+    else
+        ++it2;
 }
 
 #if DEBUG_PRINT == 1
@@ -389,7 +401,9 @@ void World::disolve_dead_drop(){
 
 void World::render(){
 
-    renderWorld();
+    //renderWorld();
+    _team1.base->render();
+    _team2.base->render();
     _team1.crafter->render();
     _team2.crafter->render();
     _r_spawner[0]->render();
@@ -400,16 +414,16 @@ void World::render(){
     printf("T8\n");
 #endif
 
-    for(NPC** np = _team1.ai; *np != NULL; np++){
-        (*np)->render();
+    for(vector<NPC*>::iterator it1 = _team1.ai.begin(); it1 != _team1.ai.end(); ++it1){
+        (*it1)->render();
     }
 
 #if DEBUG_PRINT == 1
     printf("T8.5\n");
 #endif
 
-    for(NPC** np = _team2.ai; *np != NULL; np++){
-        (*np)->render();
+    for(vector<NPC*>::iterator it2 = _team2.ai.begin(); it2 != _team2.ai.end(); ++it2){
+        (*it2)->render();
     }
 
 #if DEBUG_PRINT == 1
@@ -714,16 +728,18 @@ World::~World(){
 
     delete _team1.p;
 
-    for(NPC** n = _team1.ai; (*n) != NULL; n++){
+    for (unsigned int i = 0; i < _team1.ai.size();){
 
-        delete (*n);
-
+        delete (_team1.ai[i]);
+        _team1.ai[i] = NULL;
+        _team1.ai.erase(_team1.ai.begin() + i);
     }
 
-    for(NPC** n = _team2.ai; (*n) != NULL; n++){
+    for (unsigned int i = 0; i < _team2.ai.size();){
 
-        delete (*n);
-
+        delete (_team2.ai[i]);
+        _team2.ai[i] = NULL;
+        _team2.ai.erase(_team2.ai.begin() + i);
     }
 
     for(int i=0; i<3; i++)
@@ -738,5 +754,7 @@ World::~World(){
         _drop.erase(_drop.begin() + i);
     }
 
+    delete _team1.base;
+    delete _team2.base;
 
 }

@@ -9,14 +9,17 @@ class Player;
 class NPC;
 class Bullet;
 class Crafter;
+class HQ;
+
 
 struct team{
 
     int id;
     Player * p;
-    NPC * ai[MAXNPC];
+    //NPC * ai[MAXNPC];
+    std::vector<NPC*> ai;
     std::list<Bullet> proj;
-    //HQ base;
+    HQ* base;
     Crafter* crafter;
 
 };

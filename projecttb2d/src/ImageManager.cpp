@@ -41,6 +41,7 @@ ImageManager::ImageManager()
     _storage[22]->loadFromFile("images/emerald.png");
     _storage[23]->loadFromFile("images/R_Spawner.png");
     _storage[24]->loadFromFile("images/crafter.png");
+    _storage[25]->loadFromFile("images/HQ.png");
     //_storage[0]->createMaskFromColor(sf::Color(255,255,255));
 
 

@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-#define NBIMAGE 25
+#define NBIMAGE 26
 
 using namespace std;
 

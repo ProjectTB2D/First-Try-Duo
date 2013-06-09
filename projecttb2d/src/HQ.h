@@ -4,7 +4,7 @@
 #include "Entity.h"
 #include "Item.h"
 
-#define IRON_SPAWN_RATE 2
+#define IRON_SPAWN_RATE 1
 #define GOLD_SPAWN_RATE 30
 #define RUBY_SPAWN_RATE 60
 #define EMRLD_SPAWN_RAND_I 5
@@ -17,7 +17,7 @@ class HQ : public Entity
  public:
 
 	HQ();
-	HQ(int, sf::Vector2f, sf::Vector2f, sf::Vector2f, float = 100);
+	HQ(int, sf::Vector2f, sf::Vector2f, sf::Vector2f, float, team*);
 
 	virtual void render();
 	virtual void update();
@@ -30,6 +30,7 @@ class HQ : public Entity
  protected:
 
     float     _health;
+    team*     _tm;
 
 
 };

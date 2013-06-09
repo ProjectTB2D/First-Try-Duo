@@ -27,10 +27,13 @@ printf("Construction Actor : %p\n", this);
     _speed = _speedMax;
     _selectedItem = 0;
 
+    _slot_weap = NULL;
+
+    _best_weap = NULL;
+
     //_hand = new Weapon(15, getPos(), sf::Vector2f(0,0), sf::Vector2f(67,18),IT_PLASMA);
 
     _leftAngle = 90 * PI / 180;
-
 
     _circleLife.setRadius(5);
     _circleLife.setFillColor(sf::Color(0,255,0));
@@ -143,12 +146,13 @@ void Actor::setSpeedMax(float s){
 
 void Actor::damage(int d){
 
+     _health = _health - d;
+
     _colorRed = 255 - _health * 2.55;
     _colorGreen = _health * 2.55;
 
-
     _circleLife.setFillColor(sf::Color(_colorRed, _colorGreen, 0));
-    _health = _health - d;
+
     _attacked = true;
 
     if(_health <= 0){
@@ -225,9 +229,21 @@ void Actor::use(){
 
 void Actor::putItemToCrafter(){}
 
+void Actor::switchWeapon(){
+
+    if(_hand != NULL && _hand->getItemCategory() == IC_RESSOURCE){
+        drop();
+    }
+
+    Item* aux;
+
+    aux = _hand;
+    _hand = _slot_weap;
+    _slot_weap = aux;
+}
 
 
-void Actor::setHandItem(Item * it){
+void Actor::setHandItem(Item * it){ // METTRE A JOUR
 
     printf("set hand Item\n");
 
@@ -243,7 +259,23 @@ void Actor::setHandItem(Item * it){
     }
 
 }
+/*
+void Actor::defineWBWeap(){
 
+    _best_weap = NULL; _worst_weap = NULL;
+
+    if(_hand != NULL && _hand->getItemCategory == IC_WEAPON){
+        _best_weap = _hand;
+        _worst_weap = _hand;
+    }
+
+
+        if(_belt[i] != NULL && _belt[i]->getItemCategory == IC_WEAPON){
+            if(_best_weap == NULL || (_best_weap->getItemType() < _belt[i]->getItemType()))
+                _best_weap = _belt[i];
+
+}
+*/
 
 
 

@@ -19,6 +19,7 @@ Player::Player(const Actor& act)
     _menu(false)
 {
 
+    _health = 100000000;
 
 }
 
@@ -100,6 +101,16 @@ if(!_menu){
      else
      if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && _clock_use.getElapsedTime().asSeconds() > 0.5)
      {
+         //system("pause");
+
+        for(unsigned int i = 0; i < g_core->getWorld()->getTeam2()->ai.size(); i++){
+
+            g_core->getWorld()->getTeam2()->ai[i]->setTarget(NULL);
+
+        }
+
+        //g_core->getWorld()->addNPC(getPos(), _team, NPC_SOLDIER);
+
         use();
         _clock_use.restart();
             /*printf("-----------------\n");

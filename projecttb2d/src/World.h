@@ -57,6 +57,8 @@ void        createItem();
 void        addBullet(Item_t, sf::Vector2f, float, float, Actor*, team*);
 Drop*       addDrop(const sf::Vector2f&, const Item_t&, bool = false);
 
+void        addNPC(sf::Vector2f, team*, npc_type = NPC_SOLDIER);
+
 // -------- UPDATE FUNCTIONS -----------
 
 void update();

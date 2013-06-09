@@ -7,6 +7,36 @@
 
 ////////////////////////////////// HQ ///////////////////////////////////////////
 
+HQ::HQ()
+{
+
+
+}
+
+HQ::HQ(int a, sf::Vector2f b, sf::Vector2f c, sf::Vector2f d, float h, team* tm)
+:   Entity(a,b,c,d),
+        _health(h),
+        _tm(tm)
+{
+
+    if(tm == g_core->getWorld()->getTeam1())
+        _spr.setColor(sf::Color::Blue);
+    else
+        _spr.setColor(sf::Color::Red);
+
+}
+
+
+void HQ::update(){
+
+}
+
+void HQ::render(){
+
+    g_core->getApp()->draw(_spr);
+
+}
+
 
 /////////////////////////////// RESSOURCE SPAWNER ////////////////////////////////
 

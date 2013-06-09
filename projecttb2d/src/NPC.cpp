@@ -25,10 +25,17 @@ printf("Construction NPC : %p\n", this);
     _freeStyle = true;
     _weap_craft = IT_NONE;
     _ress = IT_IRON;
+    _straf_time = 0.1;
+
+
+    if(_team == g_core->getWorld()->getTeam1())
+        _spr.setTextureRect(sf::IntRect(0, 0, 50, 50));
+    else
+        _spr.setTextureRect(sf::IntRect(50, 0, 50, 50));
 
     switch(_type){
 
-        case NPC_SCOUT : _alloc = 0;break;
+        case NPC_SCOUT : _alloc = 0;_action=ACT_COLLECTING;break;
         case NPC_SOLDIER : _alloc = 2;break;
         case NPC_MEDIC : _alloc = 1;break;
         case NPC_CYBORG : _alloc = 4;break;
@@ -39,7 +46,7 @@ printf("Construction NPC : %p\n", this);
 
 NPC::~NPC(){
 
-printf("npc deleted !\n");
+printf("NPC :: Deleted !\n");
 if(_hand != NULL){
     delete _hand;
 }
@@ -48,22 +55,58 @@ if(_hand != NULL){
 
 void NPC::render(){
 
+  sf::Text fpsMessage;
+    int FPS;
+    ostringstream oss;
+
+    FPS = _action;
+    oss << "id : " << this << " | Act : " << FPS << " | t = " << _target << " w : " << ((_slot_weap)?_slot_weap->getItemType() : -1);
+
+    fpsMessage.setPosition(getPos().x - 25, getPos().y + 25);
+    fpsMessage.setColor(sf::Color(255,0,0,255));
+    fpsMessage.setString(oss.str());
+    fpsMessage.setCharacterSize(14);
+
+
+
     _spr.setRotation(_angle*180/PI);
     if(_hand)
         _hand->render();
     g_core->getApp()->draw(_spr);
     Actor::render();
+     g_core->getApp()->draw(fpsMessage);
 }
 
 void NPC::update(){
 
+    if(_action == ACT_IDLE){
+
+        if(_checkWeapon.getElapsedTime().asSeconds() > 5){
+
+            printf("check weapon\n");
+            _checkWeapon.restart();
+            if(ai_alloc())
+                _action = ACT_CRAFT;
+            else
+                _action = ACT_COLLECTING;
+
+
+        }
+
+    }
 
     if(_action != ACT_ATK_ENEMY && (_attacked || (_type == NPC_SOLDIER && search()))){
 
-        printf("action 2\n");
+        //printf("action 2\n");
         _attacked = false;
-        if(_hand != NULL && _hand->getItemCategory() == IC_WEAPON)
-        _action = ACT_ATK_ENEMY;
+        _best_weap = getBestWeapon();
+        if(_best_weap != NULL && _best_weap->getItemCategory() == IC_WEAPON){
+            _action = ACT_ATK_ENEMY;
+            if(_best_weap != _hand){
+                switchWeapon();
+            }
+
+        }
         else
         _action = ACT_CRAFT;
         //printf("???????????????????????????????????\n");
@@ -71,8 +114,8 @@ void NPC::update(){
 
     if( _action == ACT_CRAFT){
 
-        printf("ACT_CRAFT\n");
-        ai_alloc();
+        //printf("ACT_CRAFT\n");
+        //ai_alloc();
         ai_craft(_weap_craft);
 
     }
@@ -82,7 +125,7 @@ void NPC::update(){
         //printf("ACT_COLLECTING_____________________________\n");
 
         if(_hand){
-            if(_hand->getItemType() > 0 && _hand->getItemType() < 5){
+            if(_hand->getItemCategory() == IC_RESSOURCE){
 
                     _destination = _team->crafter->getPos();
 
@@ -92,12 +135,28 @@ void NPC::update(){
                     //printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
                     drop();
                     _rs = NULL;
-                    if(_weap_craft != IT_NONE)
+
+                    if(ai_alloc())
                         _action = ACT_CRAFT;
+
+                    //if(_weap_craft != IT_NONE)
+                    //    _action = ACT_CRAFT;
+
                 }
             }
             else{
-                drop();
+                //drop();
+                Item* aux = getWeakestWeapon();
+                if(_slot_weap == NULL)
+                    switchWeapon();
+                else{
+                    if(_hand == aux)
+                        drop();
+                    else{
+                        switchWeapon();
+                        drop();
+                    }
+                }
                 _rs = NULL;
             }
         }
@@ -126,23 +185,24 @@ void NPC::update(){
 
     if(_action == ACT_ATK_ENEMY){
 
-        printf("ACTION 3\n");
+        //printf("ACTION 3\n");
 
         if(_target == NULL || (_target != NULL && _target->getKilled())){
-            printf("target detruite...\n");
+            printf("%p : target detruite... : %p\n", this, _target);
             _target = NULL;
             _action = ACT_IDLE;
         }
         else{
 
-            if(_hand == NULL || (_hand != NULL && _hand->getItemCategory() != IC_WEAPON)){
+            if(_best_weap == NULL){
                 _action = ACT_CRAFT;
                 //printf("j'ai pas d'arme, je fuis\n");
             }
             else{
 
-                if(_strafTimer.getElapsedTime().asSeconds() > 5.0f){
+                if(_strafTimer.getElapsedTime().asSeconds() > _straf_time){
                     _strafTimer.restart();
+                    _straf_time = rand()%5 + 1;
 
                     if(_strafLeft)
                         _strafLeft = false;
@@ -194,7 +254,6 @@ bool NPC::search(){
     World* w = g_core->getWorld();
     team* t = (_team == w->getTeam1()) ? w->getTeam2() : w->getTeam1();
 
-    NPC** ai;
 
     // TEST PLAYER
 
@@ -205,25 +264,74 @@ bool NPC::search(){
 
 
 
-    for(ai = t->ai; (*ai) != NULL; ai++){
+    for(vector<NPC*>::iterator it = t->ai.begin(); it != t->ai.end(); it++){
 
-        if(!(*ai)->getKilled()){
+        //printf("je cherche\n");
+        if(!(*it)->getKilled()){
 
-            float a[4] = {  (*ai)->getPos().x,
-                            (*ai)->getPos().y,
-                            (*ai)->getFrameW(),
-                            (*ai)->getFrameH()};
+            float a[4] = {  (*it)->getPos().x - 25,
+                            (*it)->getPos().y - 25,
+                            (*it)->getPos().x + 25,
+                            (*it)->getPos().y + 25};
 
             if(g_core->bounding_box(a,b,false)){
-                _target = *ai;
-                printf("target found\n");
+                _target = *it;
+                //printf("target found\n");
                 return true;
             }
         }
 
     }
-
+    _target = NULL;
     return false;
+
+}
+
+Item* NPC::getBestWeapon(){
+
+    if(_hand == NULL && _slot_weap == NULL)
+        return NULL;
+
+    if(_hand == NULL && _slot_weap != NULL)
+        return _slot_weap;
+
+    if(_hand != NULL && _slot_weap == NULL)
+        return _hand;
+
+    if(!_hand && !_slot_weap){
+
+        if(_hand->getItemType() > _slot_weap->getItemType())
+            return _hand;
+        else
+            return _slot_weap;
+
+    }
+
+    return NULL;
+
+}
+
+Item* NPC::getWeakestWeapon(){
+
+    if(_hand == NULL && _slot_weap == NULL)
+        return NULL;
+
+    if(_hand == NULL && _slot_weap != NULL)
+        return _slot_weap;
+
+    if(_hand != NULL && _slot_weap == NULL)
+        return _hand;
+
+    if(!_hand && !_slot_weap){
+
+        if(_hand->getItemType() < _slot_weap->getItemType())
+            return _hand;
+        else
+            return _slot_weap;
+
+    }
+
+    return NULL;
 
 }
 
@@ -282,6 +390,7 @@ bool NPC::ai_get_drop(Drop* d){
     //printf("je prend un truc par terre\n");
     setHandItem(g_core->getWorld()->getItemFromIT(d->getItemType()));
     d->kill();
+    g_core->getWorld()->disolve_dead_drop();
 
     return true;
 }
@@ -308,7 +417,7 @@ void NPC::ai_drop(){}
 
 void NPC::ai_craft(Item_t it){
 
-    printf("1\n");
+    //printf("1\n");
 
     Crafter* c;
     Item_t miss = IT_NONE;
@@ -326,27 +435,36 @@ void NPC::ai_craft(Item_t it){
     }
     else{
 
-        printf("je suis pauvre (ptit merde)\n");
+        //printf("je suis pauvre (ptit merde)\n");
         _ress = miss;
         _action = ACT_COLLECTING;
     }
 
 }
 
-void NPC::ai_alloc(){
+bool NPC::ai_alloc(){
 
     int a = 13;
     Item_t i = IT_NONE;
 
-    while(a > 4 && !_team->crafter->craftable((Item_t)a, &i)){a--;}
+    while(a > 6 && !_team->crafter->craftable((Item_t)a, &i)){a--;}
 
+    Item* aux = getBestWeapon();
 
-    if(_hand != NULL && _hand->getItemType() < a)
+    if((aux == NULL) || (aux != NULL && aux->getItemType() < a)){
        _weap_craft = (Item_t)a;
-    else
-        _weap_craft = IT_PISTOL;
+       printf("arme possible = %d\n", a);
+       return true;
+    }
+    return false;
 
-    printf("Item : %d\n", _weap_craft);
+    //printf("Item : %d\n", _weap_craft);
+
+}
+
+bool NPC::ai_take_drop(){
+
+return 0;
 
 }
 

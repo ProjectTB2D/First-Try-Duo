@@ -35,6 +35,8 @@ class NPC : public Actor
 
 	void      dotest();
 
+    Item*     getBestWeapon();
+    Item*     getWeakestWeapon();
 
     bool      search();
 
@@ -47,7 +49,8 @@ class NPC : public Actor
     void ai_drop();                                     // npc drop item en main
     //Item_t ai_chose_craft();
     void ai_craft(Item_t);
-    void ai_alloc();
+    bool ai_alloc();
+    bool ai_take_drop();
 
 
  protected:
@@ -60,6 +63,8 @@ class NPC : public Actor
     bool        _strafLeft;
     sf::Clock   _LOSTimer;
     sf::Clock   _strafTimer;
+    sf::Clock   _checkWeapon;
+    float       _straf_time;
 
     sf::Vector2f _destination;
     RessourceSpawner* _rs;
