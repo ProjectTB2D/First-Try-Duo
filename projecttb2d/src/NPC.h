@@ -11,7 +11,10 @@
 enum npc_type{NPC_SCOUT, NPC_SOLDIER, NPC_MEDIC, NPC_CYBORG};
 
 enum npc_action{ACT_IDLE,
+
                 ACT_COLLECTING,
+
+
                 ACT_CRAFT,
                 ACT_DEF_PLAYER,
                 ACT_DEF_HQ,
@@ -73,6 +76,7 @@ class NPC : public Actor
     Item_t            _ress;
 
     int               _alloc;
+
 
 };
 #endif

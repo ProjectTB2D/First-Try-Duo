@@ -43,6 +43,11 @@ _win_W = x;
 
 _imgMan = new ImageManager();
 
+//fonts/Champagne_Limousines.ttf
+ if (!_font.loadFromFile("fonts/arial.ttf"))
+      {
+	printf("error de police\n");
+      }
 
 }
 
@@ -137,8 +142,10 @@ while(_app->isOpen()){
     FPS = 1 / _frameTime;
     oss << "FPS : " << FPS;
 
+
     fpsMessage.setPosition(50.0f, 100.0f);
     fpsMessage.setColor(sf::Color(255,0,0,255));
+    fpsMessage.setFont(_font);
     fpsMessage.setString(oss.str());
     fpsMessage.setCharacterSize(14);
 
@@ -305,6 +312,12 @@ sf::Vector2i Core::getWinSize() const{
 float Core::getFrameTime() const{
 
     return _frameTime;
+
+}
+
+sf::Font* Core::getFont(){
+
+  return &_font;
 
 }
 

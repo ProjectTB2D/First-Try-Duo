@@ -66,6 +66,7 @@ void NPC::render(){
     fpsMessage.setColor(sf::Color(255,0,0,255));
     fpsMessage.setString(oss.str());
     fpsMessage.setCharacterSize(14);
+    fpsMessage.setFont(*g_core->getFont());
 
 
 
