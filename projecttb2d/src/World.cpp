@@ -550,8 +550,8 @@ bool World::insideScreenPoint(int x, int y, int mar) const{
 
 }
 
- Player*         World::getPlayerTeam1(){return NULL;}
- Player*         World::getPlayerTeam2(){return NULL;}
+Player*         World::getPlayerTeam1(){return _team1.p;}
+Player*         World::getPlayerTeam2(){return NULL;}
 
  team*   World::getTeam1(){return &_team1;}
  team*   World::getTeam2(){return &_team2;}

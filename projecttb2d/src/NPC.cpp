@@ -60,7 +60,7 @@ void NPC::render(){
     ostringstream oss;
 
     FPS = _action;
-    oss << "id : " << this << " | Act : " << FPS << " | t = " << _target << " w : " << ((_slot_weap)?_slot_weap->getItemType() : -1);
+    oss << "id : " << _id << " | Act : " << FPS << " | t = " << ((_target) ? _target->getID() : -1) << " w : " << ((_slot_weap)?_slot_weap->getItemType() : -1);
 
     fpsMessage.setPosition(getPos().x - 25, getPos().y + 25);
     fpsMessage.setColor(sf::Color(255,0,0,255));
@@ -80,6 +80,18 @@ void NPC::render(){
 
 void NPC::update(){
 
+
+  if(getKilled())
+    return;
+
+  //printf("ID : %d\n", _id);
+
+    // --------------------- CHANGEMENT DE REACTION IA ---------------------------
+
+    search();
+
+    // ----------------------------- END ----------------------------------------
+
     if(_action == ACT_IDLE){
 
         if(_checkWeapon.getElapsedTime().asSeconds() > 5){
@@ -96,19 +108,28 @@ void NPC::update(){
 
     }
 
-    if(_action != ACT_ATK_ENEMY && (_attacked || (_type == NPC_SOLDIER && search()))){
+
+    if(_action != ACT_ATK_ENEMY && _attacked){
 
         //printf("action 2\n");
         _attacked = false;
-        _best_weap = getBestWeapon();
+	/* _best_weap = getBestWeapon();
         if(_best_weap != NULL && _best_weap->getItemCategory() == IC_WEAPON){
             _action = ACT_ATK_ENEMY;
             if(_best_weap != _hand){
                 switchWeapon();
             }
-
+	*/
+	if(_hand && _hand->getItemCategory() == IC_WEAPON){
+	  _action = ACT_ATK_ENEMY;
+	  _best_weap = _hand;
         }
-        else
+        else if(_slot_weap && _slot_weap->getItemCategory() == IC_WEAPON){
+	  _action = ACT_ATK_ENEMY;
+	  _best_weap = _slot_weap;
+	  switchWeapon();
+	}
+	else
         _action = ACT_CRAFT;
         //printf("???????????????????????????????????\n");
     }
@@ -188,9 +209,7 @@ void NPC::update(){
 
         //printf("ACTION 3\n");
 
-        if(_target == NULL || (_target != NULL && _target->getKilled())){
-            printf("%p : target detruite... : %p\n", this, _target);
-            _target = NULL;
+        if(_target == NULL){
             _action = ACT_IDLE;
         }
         else{
@@ -265,25 +284,66 @@ bool NPC::search(){
 
 
 
-    for(vector<NPC*>::iterator it = t->ai.begin(); it != t->ai.end(); it++){
+    // Pas de cible, j'en cherche une si je suis soldat et je passe en attanque
+
+    if(!_target && _type == NPC_SOLDIER){
+
+      for(vector<NPC*>::iterator it = t->ai.begin(); it != t->ai.end(); it++){
 
         //printf("je cherche\n");
         if(!(*it)->getKilled()){
 
-            float a[4] = {  (*it)->getPos().x - 25,
-                            (*it)->getPos().y - 25,
-                            (*it)->getPos().x + 25,
-                            (*it)->getPos().y + 25};
+	  float a[4] = {  (*it)->getPos().x - 25,
+			  (*it)->getPos().y - 25,
+			  (*it)->getPos().x + 25,
+			  (*it)->getPos().y + 25};
 
-            if(g_core->bounding_box(a,b,false)){
-                _target = *it;
-                //printf("target found\n");
-                return true;
-            }
+
+	  if(g_core->bounding_box(a,b,false)){
+	    _target = *it;
+	    //printf("target found\n");
+	    _action = ACT_ATK_ENEMY;
+	    return true;
+	  }
+
         }
 
+      }
+
     }
+    else{ // J'ai une cible, je vérifie qu'elle existe toujours
+
+      for(vector<NPC*>::iterator it = t->ai.begin(); it != t->ai.end(); it++){
+
+        //printf("je cherche\n");
+        if(!(*it)->getKilled()){
+
+	  float a[4] = {  (*it)->getPos().x - 25,
+			  (*it)->getPos().y - 25,
+			  (*it)->getPos().x + 25,
+			  (*it)->getPos().y + 25};
+
+
+	  if(_target == *it){
+
+	    return true;
+	  }
+
+        }
+
+      }
+
+      if(_target == g_core->getWorld()->getPlayerTeam1())
+	return true;
+
+      printf("t_id : %p | p_id : %p\n", _target, g_core->getWorld()->getPlayerTeam1());
+
+      printf("NPC %d : Target lost or Destroy\n", _id);
+
+    }
+
     _target = NULL;
+    //_action = ACT_IDLE;
     return false;
 
 }

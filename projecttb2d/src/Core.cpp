@@ -26,42 +26,44 @@ Core::Core()
 
 void Core::initApp(int x, int y){
 
-//sf::VideoMode DesktopMode = sf::VideoMode::getDesktopMode();
+  //sf::VideoMode DesktopMode = sf::VideoMode::getDesktopMode();
 
-//_app = new sf::RenderWindow(DesktopMode, "jorbienEngine", sf::Style::Fullscreen);
+  //_app = new sf::RenderWindow(DesktopMode, "jorbienEngine", sf::Style::Fullscreen);
 
-_app = new sf::RenderWindow(sf::VideoMode(x,y,32), "jorbienEngine");
+  _app = new sf::RenderWindow(sf::VideoMode(x,y,32), "jorbienEngine");
 
-_app->setFramerateLimit(FPSLIMIT);
+  _app->setFramerateLimit(FPSLIMIT);
 
-_win_H = y;
-_win_W = x;
+  _win_H = y;
+  _win_W = x;
 
 
 
-// ------------- INIT MANAGERS -------------------
+  // ------------- INIT MANAGERS -------------------
 
-_imgMan = new ImageManager();
+  _imgMan = new ImageManager();
 
-//fonts/Champagne_Limousines.ttf
- if (!_font.loadFromFile("fonts/arial.ttf"))
-      {
-	printf("error de police\n");
-      }
+  //fonts/Champagne_Limousines.ttf
+  if (!_font.loadFromFile("fonts/arial.ttf"))
+    {
+      printf("error de police\n");
+    }
 
 }
 
 void Core::initWorld(const char* worldname){
 
-cout << worldname << " loaded ... " << endl;
+  cout << worldname << " loaded ... " << endl;
 
-_world = new World();
+  _world = new World();
 
-_world->createWorld(worldname);
+  _world->createWorld(worldname);
 
-_world->createPlayer();
+  _world->createPlayer();
 
- _menu = new Menu(1, sf::Vector2f(50,50), 100, 20, 0.5f);
+  _menu = new Menu(1, sf::Vector2f(50,50), 100, 20, 0.5f);
+
+  _next_id = 0;
 
 }
 
@@ -318,6 +320,12 @@ float Core::getFrameTime() const{
 sf::Font* Core::getFont(){
 
   return &_font;
+
+}
+
+int Core::getUniqueID(){
+
+  return _next_id++;
 
 }
 

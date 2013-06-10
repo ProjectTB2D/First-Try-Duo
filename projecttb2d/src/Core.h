@@ -26,6 +26,7 @@ class Core
   sf::Clock           _clockFrame;
   float               _frameTime;
   Menu*               _menu;
+  int		      _next_id;
 
   // ----------------------------------
 
@@ -62,6 +63,10 @@ class Core
   bool                dot_in_circle(sf::Vector2f a, sf::Vector2f b, float r);
 
   sf::Vector2f        rotate_vector(sf::Vector2f, float);
+
+  // ---------- ID MANAGER-------------
+
+  int		      getUniqueID();
 
   // ---------- SETTER ------------------
 

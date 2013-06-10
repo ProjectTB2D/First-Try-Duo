@@ -21,6 +21,7 @@ Player::Player(const Actor& act)
 
     _health = 100000000;
 
+    _hand = g_core->getWorld()->getItemFromIT(IT_SHOTGUN);
 }
 
 Player::~Player(){
