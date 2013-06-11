@@ -6,7 +6,7 @@
 	"src/global.h"
 	"src/Core.h"
 
-1370797202 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\core.cpp
+1370984648 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\core.cpp
 	<math.h>
 	"global.h"
 	"Core.h"
@@ -16,7 +16,7 @@
 
 1351182565 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\global.h
 
-1370797202 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\core.h
+1370984648 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\core.h
 	<SFML/Graphics.hpp>
 	"ImageManager.h"
 	"Menu.h"
@@ -42,7 +42,7 @@
 	"HQ.h"
 	"Crafter.h"
 
-1370785431 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\imagemanager.cpp
+1370985095 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\imagemanager.cpp
 	"ImageManager.h"
 
 1351182565 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\global.cpp
@@ -59,7 +59,7 @@
 1358338731 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\entity.h
 	<SFML/Graphics.hpp>
 
-1370785431 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\actor.h
+1370984648 c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\actor.h
 	<SFML/Graphics.hpp>
 	"Entity.h"
 	"team.h"
@@ -69,7 +69,7 @@
 	"Actor.h"
 	"Item.h"
 
-1370785431 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\world.cpp
+1370984648 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\world.cpp
 	<fstream>
 	"Core.h"
 	"global.h"
@@ -79,7 +79,7 @@
 	"Weapon.h"
 	"Menu.h"
 
-1370785431 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\actor.cpp
+1370984648 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\actor.cpp
 	"Actor.h"
 	"Core.h"
 	"global.h"
@@ -87,7 +87,7 @@
 	"Weapon.h"
 	<math.h>
 
-1370785431 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\player.cpp
+1370984653 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\player.cpp
 	"Player.h"
 	"global.h"
 	"Core.h"
@@ -216,7 +216,7 @@
 	"Item.h"
 	"HQ.h"
 
-1370797202 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\npc.cpp
+1370984648 source:c:\users\jordan-titan\documents\github\first-try-duo\projecttb2d\src\npc.cpp
 	"NPC.h"
 	"global.h"
 	"Core.h"

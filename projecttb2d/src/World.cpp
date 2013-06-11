@@ -27,8 +27,8 @@ int World::generateUniqueID() {
 }
 
 void World::createWorld(const char* lvlname){
-
-   /* int nbColonnes = 20;
+/*
+    int nbColonnes = 20;
     int nbLignes = 20;
 
     _matrice = new tile*[nbColonnes];
@@ -44,9 +44,11 @@ void World::createWorld(const char* lvlname){
             //spr.setTextureRect(sf::IntRect(ipos.x, ipos.y, ipos.x + _frameW, ipos.y + _frameH));
             //spr.setOrigin(idim.x / 2, idim.y / 2);
 
-        }*/
+        }
 
-//    printf("test1\n");
+    printf("test1\n");*/
+
+
     parseMapTmx("map/Map1.tmx", &_matrice);
 
     // generation area
@@ -401,7 +403,7 @@ void World::disolve_dead_drop(){
 
 void World::render(){
 
-    //renderWorld();
+    renderWorld();
     _team1.base->render();
     _team2.base->render();
     _team1.crafter->render();

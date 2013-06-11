@@ -4,10 +4,10 @@
 	<File name="main.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="131" topLine="0" />
 	</File>
-	<File name="src\Actor.cpp" open="1" top="0" tabpos="3">
+	<File name="src\Actor.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="633" topLine="8" />
 	</File>
-	<File name="src\Actor.h" open="1" top="0" tabpos="2">
+	<File name="src\Actor.h" open="0" top="0" tabpos="2">
 		<Cursor position="1565" topLine="47" />
 	</File>
 	<File name="src\Bullet.cpp" open="0" top="0" tabpos="8">
@@ -16,11 +16,11 @@
 	<File name="src\Bullet.h" open="0" top="0" tabpos="9">
 		<Cursor position="246" topLine="0" />
 	</File>
-	<File name="src\Core.cpp" open="1" top="0" tabpos="12">
+	<File name="src\Core.cpp" open="0" top="0" tabpos="12">
 		<Cursor position="3534" topLine="161" />
 	</File>
 	<File name="src\Core.h" open="0" top="0" tabpos="16">
-		<Cursor position="1082" topLine="3" />
+		<Cursor position="247" topLine="30" />
 	</File>
 	<File name="src\Crafter.cpp" open="0" top="0" tabpos="25">
 		<Cursor position="129" topLine="0" />
@@ -41,7 +41,7 @@
 		<Cursor position="423" topLine="8" />
 	</File>
 	<File name="src\ImageManager.cpp" open="0" top="0" tabpos="13">
-		<Cursor position="1702" topLine="24" />
+		<Cursor position="1030" topLine="52" />
 	</File>
 	<File name="src\ImageManager.h" open="0" top="0" tabpos="7">
 		<Cursor position="135" topLine="0" />
@@ -49,22 +49,22 @@
 	<File name="src\Item.cpp" open="0" top="0" tabpos="20">
 		<Cursor position="755" topLine="52" />
 	</File>
-	<File name="src\Item.h" open="1" top="0" tabpos="5">
+	<File name="src\Item.h" open="0" top="0" tabpos="5">
 		<Cursor position="101" topLine="12" />
 	</File>
-	<File name="src\Menu.cpp" open="1" top="0" tabpos="11">
+	<File name="src\Menu.cpp" open="0" top="0" tabpos="11">
 		<Cursor position="4224" topLine="193" />
 	</File>
 	<File name="src\Menu.h" open="0" top="0" tabpos="11">
 		<Cursor position="671" topLine="23" />
 	</File>
-	<File name="src\NPC.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="10548" topLine="428" />
+	<File name="src\NPC.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="4923" topLine="189" />
 	</File>
-	<File name="src\NPC.h" open="1" top="0" tabpos="4">
-		<Cursor position="772" topLine="17" />
+	<File name="src\NPC.h" open="1" top="0" tabpos="2">
+		<Cursor position="576" topLine="42" />
 	</File>
-	<File name="src\Player.cpp" open="1" top="1" tabpos="9">
+	<File name="src\Player.cpp" open="0" top="0" tabpos="9">
 		<Cursor position="921" topLine="41" />
 	</File>
 	<File name="src\Player.h" open="0" top="0" tabpos="3">
@@ -73,14 +73,14 @@
 	<File name="src\Weapon.cpp" open="0" top="0" tabpos="11">
 		<Cursor position="2025" topLine="28" />
 	</File>
-	<File name="src\Weapon.h" open="1" top="0" tabpos="7">
+	<File name="src\Weapon.h" open="0" top="0" tabpos="7">
 		<Cursor position="52" topLine="0" />
 	</File>
-	<File name="src\World.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="1115" topLine="243" />
+	<File name="src\World.cpp" open="0" top="0" tabpos="8">
+		<Cursor position="11203" topLine="390" />
 	</File>
-	<File name="src\World.h" open="1" top="0" tabpos="1">
-		<Cursor position="567" topLine="48" />
+	<File name="src\World.h" open="0" top="0" tabpos="1">
+		<Cursor position="1095" topLine="27" />
 	</File>
 	<File name="src\global.cpp" open="0" top="0" tabpos="5">
 		<Cursor position="61" topLine="0" />
@@ -88,7 +88,7 @@
 	<File name="src\global.h" open="0" top="0" tabpos="4">
 		<Cursor position="57" topLine="0" />
 	</File>
-	<File name="src\team.h" open="1" top="0" tabpos="10">
+	<File name="src\team.h" open="0" top="0" tabpos="10">
 		<Cursor position="305" topLine="0" />
 	</File>
 	<File name="src\tinystr.cpp" open="0" top="0" tabpos="0">

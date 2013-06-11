@@ -1,7 +1,7 @@
 
  ==== PLANNING ====  Creation le 09/01/2013
  
- - Probleme d'image pour le tileset (Jordan)
+ - Probleme d'image pour le tileset (Jordan) ===> DONE <===
  - Segfault lors du kill d'un ennemi (Fabien)
  
  - MAJ du fonctionnement de l'IA : (Surement Non)
