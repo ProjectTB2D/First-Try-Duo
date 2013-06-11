@@ -5,10 +5,10 @@
 		<Cursor position="131" topLine="0" />
 	</File>
 	<File name="src\Actor.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="633" topLine="21" />
+		<Cursor position="633" topLine="8" />
 	</File>
 	<File name="src\Actor.h" open="1" top="0" tabpos="2">
-		<Cursor position="1565" topLine="63" />
+		<Cursor position="1565" topLine="47" />
 	</File>
 	<File name="src\Bullet.cpp" open="0" top="0" tabpos="8">
 		<Cursor position="559" topLine="21" />
@@ -16,8 +16,8 @@
 	<File name="src\Bullet.h" open="0" top="0" tabpos="9">
 		<Cursor position="246" topLine="0" />
 	</File>
-	<File name="src\Core.cpp" open="0" top="0" tabpos="27">
-		<Cursor position="4225" topLine="187" />
+	<File name="src\Core.cpp" open="1" top="0" tabpos="12">
+		<Cursor position="3534" topLine="161" />
 	</File>
 	<File name="src\Core.h" open="0" top="0" tabpos="16">
 		<Cursor position="1082" topLine="3" />
@@ -59,13 +59,13 @@
 		<Cursor position="671" topLine="23" />
 	</File>
 	<File name="src\NPC.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="10548" topLine="200" />
+		<Cursor position="10548" topLine="428" />
 	</File>
 	<File name="src\NPC.h" open="1" top="0" tabpos="4">
-		<Cursor position="772" topLine="29" />
+		<Cursor position="772" topLine="17" />
 	</File>
-	<File name="src\Player.cpp" open="1" top="0" tabpos="9">
-		<Cursor position="2629" topLine="25" />
+	<File name="src\Player.cpp" open="1" top="1" tabpos="9">
+		<Cursor position="921" topLine="41" />
 	</File>
 	<File name="src\Player.h" open="0" top="0" tabpos="3">
 		<Cursor position="173" topLine="0" />
@@ -76,11 +76,11 @@
 	<File name="src\Weapon.h" open="1" top="0" tabpos="7">
 		<Cursor position="52" topLine="0" />
 	</File>
-	<File name="src\World.cpp" open="1" top="1" tabpos="8">
-		<Cursor position="2758" topLine="54" />
+	<File name="src\World.cpp" open="1" top="0" tabpos="8">
+		<Cursor position="1115" topLine="243" />
 	</File>
 	<File name="src\World.h" open="1" top="0" tabpos="1">
-		<Cursor position="983" topLine="48" />
+		<Cursor position="567" topLine="48" />
 	</File>
 	<File name="src\global.cpp" open="0" top="0" tabpos="5">
 		<Cursor position="61" topLine="0" />
@@ -89,7 +89,7 @@
 		<Cursor position="57" topLine="0" />
 	</File>
 	<File name="src\team.h" open="1" top="0" tabpos="10">
-		<Cursor position="305" topLine="3" />
+		<Cursor position="305" topLine="0" />
 	</File>
 	<File name="src\tinystr.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="887" topLine="15" />
