@@ -21,6 +21,9 @@ Player::Player(const Actor& act)
 
     _health = 100000000;
 
+    _ID = g_core->getUniqueID();
+    printf("player has ID : %d\n", _ID);
+
     _hand = g_core->getWorld()->getItemFromIT(IT_SHOTGUN);
 }
 

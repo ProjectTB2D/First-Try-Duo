@@ -84,7 +84,7 @@ void World::createPlayer() {
                                 100,
                                200, &_team1));
 
-    //_team1.ai.push_back(new NPC(Actor(17, sf::Vector2f(200, 200), sf::Vector2f(0,0), sf::Vector2f(50,50),100,200, &_team1)));
+    _team1.ai.push_back(new NPC(Actor(17, sf::Vector2f(200, 200), sf::Vector2f(0,0), sf::Vector2f(50,50),100,200, &_team1)));
     //_team1.ai.push_back(new NPC(Actor(17, sf::Vector2f(300, 200), sf::Vector2f(0,0), sf::Vector2f(50,50),100,200, &_team1)));
 
     _team2.ai.push_back(new NPC(Actor(17, sf::Vector2f(200, 100), sf::Vector2f(50,0), sf::Vector2f(50,50),100,200, &_team2)));

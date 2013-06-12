@@ -7,6 +7,7 @@
 #include "World.h"
 #include "Item.h"
 #include <math.h>
+#include <time.h>
 
 #define PI 3.14159265359
 
@@ -26,6 +27,10 @@ printf("Construction NPC : %p\n", this);
     _weap_craft = IT_NONE;
     _ress = IT_IRON;
     _straf_time = 0.1;
+    _best_weap = NULL;
+
+    _ID = g_core->getUniqueID();
+    printf("NPC has ID : %d\n", _ID);
 
 
     if(_team == g_core->getWorld()->getTeam1())
@@ -60,7 +65,7 @@ void NPC::render(){
     ostringstream oss;
 
     FPS = _action;
-    oss << "id : " << _id << " | Act : " << FPS << " | t = " << ((_target) ? _target->getID() : -1) << " w : " << ((_slot_weap)?_slot_weap->getItemType() : -1);
+    oss << "ID : " << _ID << " | Act : " << FPS << " | t = " << ((_target) ? _target->getID() : -1) << " w : " << ((_slot_weap)?_slot_weap->getItemType() : -1);
 
     fpsMessage.setPosition(getPos().x - 25, getPos().y + 25);
     fpsMessage.setColor(sf::Color(255,0,0,255));
@@ -88,13 +93,15 @@ void NPC::update(){
 
     // --------------------- CHANGEMENT DE REACTION IA ---------------------------
 
+  printf("sf begin\n");
     search();
+ printf("sf end\n");
 
     // ----------------------------- END ----------------------------------------
 
     if(_action == ACT_IDLE){
 
-        if(_checkWeapon.getElapsedTime().asSeconds() > 5){
+        if(_checkWeapon.getElapsedTime().asSeconds() > 1){
 
             printf("check weapon\n");
             _checkWeapon.restart();
@@ -113,25 +120,16 @@ void NPC::update(){
 
         //printf("action 2\n");
         _attacked = false;
-	/* _best_weap = getBestWeapon();
         if(_best_weap != NULL && _best_weap->getItemCategory() == IC_WEAPON){
-            _action = ACT_ATK_ENEMY;
-            if(_best_weap != _hand){
-                switchWeapon();
-            }
-	*/
-	if(_hand && _hand->getItemCategory() == IC_WEAPON){
 	  _action = ACT_ATK_ENEMY;
-	  _best_weap = _hand;
-        }
-        else if(_slot_weap && _slot_weap->getItemCategory() == IC_WEAPON){
-	  _action = ACT_ATK_ENEMY;
-	  _best_weap = _slot_weap;
-	  switchWeapon();
+	  if(_best_weap != _hand){
+	      switchWeapon();
+	  }
 	}
-	else
-        _action = ACT_CRAFT;
-        //printf("???????????????????????????????????\n");
+	else{
+	  _target = NULL;
+	  _action = ACT_CRAFT;
+	}
     }
 
     if( _action == ACT_CRAFT){
@@ -214,38 +212,44 @@ void NPC::update(){
         }
         else{
 
-            if(_best_weap == NULL){
-                _action = ACT_CRAFT;
-                //printf("j'ai pas d'arme, je fuis\n");
-            }
-            else{
+	  if(_best_weap == NULL){ ////////////////////////////////////////////////////////////// A CHANGER POUR QUE L'IA ATTAQUE LES AUTRES IA
+	    _action = ACT_CRAFT;
+	    //printf("j'ai pas d'arme, je fuis\n");
+	  }
+	  else{
 
-                if(_strafTimer.getElapsedTime().asSeconds() > _straf_time){
-                    _strafTimer.restart();
-                    _straf_time = rand()%5 + 1;
+	    if(!_hand){
+	      printf("ERREUR ATTAQUE SANS ARME DANS LA MAIN !\n");
+	      exit(-1);
+	    }
 
-                    if(_strafLeft)
-                        _strafLeft = false;
-                    else
-                        _strafLeft = true;
-                }
+	    printf("je peux attaquer\n");
+	    if(_strafTimer.getElapsedTime().asSeconds() > _straf_time){
+	      _strafTimer.restart();
+	      _straf_time = rand()%5 + 1;
 
-                float distance_x = getPos().x - _target->getPos().x;
-                float distance_y = getPos().y - _target->getPos().y;
-                float ft = g_core->getFrameTime();
+	      if(_strafLeft)
+		_strafLeft = false;
+	      else
+		_strafLeft = true;
+	    }
 
-                _angle = atan2(distance_y, distance_x);
+	    float distance_x = getPos().x - _target->getPos().x;
+	    float distance_y = getPos().y - _target->getPos().y;
+	    float ft = g_core->getFrameTime();
 
-                _hand->use();
+	    _angle = atan2(distance_y, distance_x);
 
-                if(fabs(distance_x) > 200.0f || fabs(distance_y) > 200.f)
-                    _spr.move(-_speed*ft*cos(_angle), -_speed*ft*sin(_angle));
-                else if(_strafLeft)
-                    _spr.move(_speed*ft*cos(_angle + _leftAngle), _speed*ft*sin(_angle + _leftAngle));
-                else if(!_strafLeft)
-                    _spr.move(_speed*ft*cos(_angle - _leftAngle), _speed*ft*sin(_angle - _leftAngle));
+	    _hand->use();
 
-            }
+	    if(fabs(distance_x) > 200.0f || fabs(distance_y) > 200.f)
+	      _spr.move(-_speed*ft*cos(_angle), -_speed*ft*sin(_angle));
+	    else if(_strafLeft)
+	      _spr.move(_speed*ft*cos(_angle + _leftAngle), _speed*ft*sin(_angle + _leftAngle));
+	    else if(!_strafLeft)
+	      _spr.move(_speed*ft*cos(_angle - _leftAngle), _speed*ft*sin(_angle - _leftAngle));
+
+	  }
         }
     }
 
@@ -271,6 +275,8 @@ void NPC::setTarget(Actor* a){
 
 bool NPC::search(){
 
+
+
     World* w = g_core->getWorld();
     team* t = (_team == w->getTeam1()) ? w->getTeam2() : w->getTeam1();
 
@@ -286,7 +292,7 @@ bool NPC::search(){
 
     // Pas de cible, j'en cherche une si je suis soldat et je passe en attanque
 
-    if(!_target && _type == NPC_SOLDIER){
+    if(!_target && _best_weap != NULL && _type == NPC_SOLDIER){
 
       for(vector<NPC*>::iterator it = t->ai.begin(); it != t->ai.end(); it++){
 
@@ -299,10 +305,15 @@ bool NPC::search(){
 			  (*it)->getPos().y + 25};
 
 
-	  if(g_core->bounding_box(a,b,false)){
+	  if(g_core->bounding_box(a,b,true)){
 	    _target = *it;
 	    //printf("target found\n");
 	    _action = ACT_ATK_ENEMY;
+        
+            if(_best_weap != _hand){
+                switchWeapon();
+            }
+     
 	    return true;
 	  }
 
@@ -336,15 +347,16 @@ bool NPC::search(){
       if(_target == g_core->getWorld()->getPlayerTeam1())
 	return true;
 
-      printf("t_id : %p | p_id : %p\n", _target, g_core->getWorld()->getPlayerTeam1());
+      //printf("t_id : %p | p_id : %p\n", _target, g_core->getWorld()->getPlayerTeam1());
 
-      printf("NPC %d : Target lost or Destroy\n", _id);
+      //printf("NPC %d : Target lost or Destroy\n", _id);
 
     }
 
     _target = NULL;
     //_action = ACT_IDLE;
     return false;
+
 
 }
 
@@ -492,6 +504,13 @@ void NPC::ai_craft(Item_t it){
             _action = ACT_IDLE;
             _weap_craft = IT_NONE;
 
+	    if(_hand && _hand->getItemCategory() == IC_WEAPON){
+	      _best_weap = _hand;
+	    }
+	    else if(_slot_weap && _slot_weap->getItemCategory() == IC_WEAPON){
+	      _best_weap = _slot_weap;
+	    }
+
         }
     }
     else{
@@ -511,6 +530,7 @@ bool NPC::ai_alloc(){
     while(a > 6 && !_team->crafter->craftable((Item_t)a, &i)){a--;}
 
     Item* aux = getBestWeapon();
+    a = ((rand() % 2) == 0) ? a : a - 1;
 
     if((aux == NULL) || (aux != NULL && aux->getItemType() < a)){
        _weap_craft = (Item_t)a;
@@ -524,6 +544,8 @@ bool NPC::ai_alloc(){
 }
 
 bool NPC::ai_take_drop(){
+
+  // penser à mettre à jour la meilleurs arme du NPC lorsqu'il ramasse une arme.
 
 return 0;
 
