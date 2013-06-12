@@ -93,9 +93,9 @@ void NPC::update(){
 
     // --------------------- CHANGEMENT DE REACTION IA ---------------------------
 
-  printf("sf begin\n");
+
     search();
- printf("sf end\n");
+
 
     // ----------------------------- END ----------------------------------------
 
@@ -223,7 +223,7 @@ void NPC::update(){
 	      exit(-1);
 	    }
 
-	    printf("je peux attaquer\n");
+	    //printf("je peux attaquer\n");
 	    if(_strafTimer.getElapsedTime().asSeconds() > _straf_time){
 	      _strafTimer.restart();
 	      _straf_time = rand()%5 + 1;
