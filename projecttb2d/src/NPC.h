@@ -41,7 +41,7 @@ class NPC : public Actor
     Item*     getBestWeapon();
     Item*     getWeakestWeapon();
 
-    bool      search();
+    bool      search();      
 
 	// ORDERS ...
 

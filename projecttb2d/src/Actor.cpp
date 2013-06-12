@@ -39,7 +39,7 @@ printf("Construction Actor : %p\n", this);
     _circleLife.setFillColor(sf::Color(0,255,0));
     _circleLife.setPosition(getPos());
 
-    _ID = g_core->getUniqueID();
+
 
 }
 

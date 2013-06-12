@@ -2,7 +2,7 @@
 #include "global.h"
 #include "Core.h"
 #include "World.h"
-
+#include <time.h>
 #include <string>
 #include <iostream>
 
@@ -78,6 +78,8 @@ void Core::run() {
     initApp(640,480);
     initWorld("map/bbb.map");
     initView();
+
+    srand (time(NULL));
 
 
 while(_app->isOpen()){
