@@ -1,8 +1,8 @@
 <root>
-    <LastMap lastMap="2" />
+    <LastMap lastMap="3" />
     <Maps>
-        <Map num="1" temps="236" score="1500" />
-        <Map num="2" temps="0" score="0" />
+        <Map num="1" temps="14" score="1500" />
+        <Map num="2" temps="5" score="0" />
         <Map num="3" temps="0" score="0" />
         <Map num="4" temps="0" score="0" />
         <Map num="5" temps="0" score="0" />

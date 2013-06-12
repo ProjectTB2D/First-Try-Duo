@@ -55,7 +55,9 @@ if (sf::Keyboard::isKeyPressed(sf::Keyboard::C) && collisionWithCrafter() &&_clo
 
 if(!_menu){
 
-    sf::Vector2f position = g_core->getApp()->mapPixelToCoords(sf::Mouse::getPosition(), (*g_core->getView()));
+    sf::Vector2f position = g_core->getApp()->convertCoords(sf::Mouse::getPosition(), (*g_core->getView()));
+
+    // convertCoords  &&  mapPixelToCoords
 
     float distance_x = getPos().x - position.x;
     float distance_y = getPos().y - position.y;
