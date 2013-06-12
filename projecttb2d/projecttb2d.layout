@@ -58,14 +58,14 @@
 	<File name="src\Menu.h" open="0" top="0" tabpos="11">
 		<Cursor position="671" topLine="23" />
 	</File>
-	<File name="src\NPC.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="4923" topLine="189" />
+	<File name="src\NPC.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="7523" topLine="314" />
 	</File>
 	<File name="src\NPC.h" open="1" top="0" tabpos="2">
 		<Cursor position="576" topLine="42" />
 	</File>
-	<File name="src\Player.cpp" open="0" top="0" tabpos="9">
-		<Cursor position="921" topLine="41" />
+	<File name="src\Player.cpp" open="1" top="1" tabpos="3">
+		<Cursor position="945" topLine="46" />
 	</File>
 	<File name="src\Player.h" open="0" top="0" tabpos="3">
 		<Cursor position="173" topLine="0" />
