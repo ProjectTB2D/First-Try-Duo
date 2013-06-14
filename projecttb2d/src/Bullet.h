@@ -15,7 +15,7 @@ class Bullet : public Entity
 	~Bullet();
 
 	virtual void render();
-	virtual void update();
+	virtual bool update();
 
     // SETTER
 

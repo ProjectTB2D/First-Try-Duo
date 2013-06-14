@@ -59,7 +59,7 @@ srand ( time(NULL) );
 
 }
 
-void Weapon::update(){
+bool Weapon::update(){
 
     // 0.78539;
     if(!_cac){

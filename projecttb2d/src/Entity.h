@@ -13,7 +13,7 @@ class Entity
 	// ???
 
 	virtual void render() = 0;
-	virtual void update() = 0;
+	virtual bool update() = 0;
 
 	// getter
 

@@ -81,13 +81,14 @@ void NPC::render(){
     g_core->getApp()->draw(_spr);
     Actor::render();
      g_core->getApp()->draw(fpsMessage);
+
 }
 
-void NPC::update(){
+bool NPC::update(){
 
 
   if(getKilled())
-    return;
+    return false;
 
   //printf("ID : %d\n", _id);
 
@@ -258,6 +259,7 @@ void NPC::update(){
         _hand->update();
     }
 
+    return true;
 }
 
 
@@ -309,11 +311,11 @@ bool NPC::search(){
 	    _target = *it;
 	    //printf("target found\n");
 	    _action = ACT_ATK_ENEMY;
-        
+
             if(_best_weap != _hand){
                 switchWeapon();
             }
-     
+
 	    return true;
 	  }
 

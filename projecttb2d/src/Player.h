@@ -15,7 +15,7 @@ class Player : public Actor
     ~Player();
 
 	virtual void render();
-	virtual void update();
+	virtual bool update();
 
 
     // action

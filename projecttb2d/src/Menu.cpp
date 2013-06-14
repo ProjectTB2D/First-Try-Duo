@@ -46,7 +46,7 @@ void Menu::disable(){
 
 }
 
-void Menu::update(){
+bool Menu::update(){
 
 if(_timer.getElapsedTime().asSeconds() > 0.1){
 
@@ -170,6 +170,8 @@ if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf
 
 }
 }
+
+    return true;
 }
 
 void Menu::render(){

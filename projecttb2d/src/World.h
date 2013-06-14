@@ -61,7 +61,7 @@ void        addNPC(sf::Vector2f, team*, npc_type = NPC_SOLDIER);
 
 // -------- UPDATE FUNCTIONS -----------
 
-void update();
+bool update();
 
 
 // -------- RENDER FUNCTIONS -----------

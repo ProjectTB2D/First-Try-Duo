@@ -14,7 +14,7 @@ class Actor : public Entity
     virtual ~Actor();
 
 	virtual void render();
-	virtual void update();
+	virtual bool update();
 
     //getter
 

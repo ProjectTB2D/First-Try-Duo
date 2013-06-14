@@ -19,7 +19,7 @@ Crafter::Crafter(int a, sf::Vector2f b, sf::Vector2f c, sf::Vector2f d)
     printf("init iron : %d\n", _nbIron);
 }
 
-void Crafter::update(){}
+bool Crafter::update(){return true;}
 
 void Crafter::render(){
 

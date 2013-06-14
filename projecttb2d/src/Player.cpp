@@ -36,7 +36,7 @@ if(_hand != NULL){
 
 }
 
-void Player::update(){
+bool Player::update(){
 
 if (sf::Keyboard::isKeyPressed(sf::Keyboard::C) && collisionWithCrafter() &&_clock_use.getElapsedTime().asSeconds() > 0.5)
  {

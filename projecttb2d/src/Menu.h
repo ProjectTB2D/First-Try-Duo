@@ -18,7 +18,7 @@ class Menu
 
 	void render();
 
-    void update();
+    bool update();
 
     void enable();
     void disable();

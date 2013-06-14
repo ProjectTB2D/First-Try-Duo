@@ -20,7 +20,7 @@ class HQ : public Entity
 	HQ(int, sf::Vector2f, sf::Vector2f, sf::Vector2f, float, team*);
 
 	virtual void render();
-	virtual void update();
+	virtual bool update();
 
 	void    setHealth(float);
 	float   getHealth() const;
@@ -44,7 +44,7 @@ class RessourceSpawner : public Entity
  RessourceSpawner(int, sf::Vector2f, sf::Vector2f, sf::Vector2f, Item_t, int);
  ~RessourceSpawner();
 
- void update();
+ bool update();
  void render();
 
  void    restartTimer(){ _timer.restart();}

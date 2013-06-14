@@ -16,7 +16,7 @@ class Weapon : public Item
 
 
     virtual void use();
-    virtual void update();
+    virtual bool update();
     virtual void render();
 
 

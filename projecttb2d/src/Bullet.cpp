@@ -53,7 +53,7 @@ Bullet::~Bullet(){
 
 }
 
-void Bullet::update(){
+bool Bullet::update(){
 
     if(bulletKilled()){
         _killed = true;
@@ -61,6 +61,8 @@ void Bullet::update(){
     else{
         _spr.move(-_speed*g_core->getFrameTime()*cos(_angle), -_speed*g_core->getFrameTime()*sin(_angle));
     }
+
+    return true;
 }
 
 void Bullet::render(){

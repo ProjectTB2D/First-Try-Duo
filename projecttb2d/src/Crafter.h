@@ -34,7 +34,7 @@ class Crafter : public Entity
 	Crafter(int, sf::Vector2f, sf::Vector2f, sf::Vector2f);
 
 	virtual void    render();
-	virtual void    update();
+	virtual bool    update();
 
     void            putIn(Item*); // SUREMENT a faire dans Actor
     void            putIn(Item_t);

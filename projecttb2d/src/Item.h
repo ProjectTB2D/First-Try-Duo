@@ -46,7 +46,7 @@ class Item : public Entity
     virtual ~Item() = 0;
 
     virtual void render() = 0;
-	virtual void update() = 0;
+	virtual bool update() = 0;
 	virtual void use() = 0;
 
 	Item_t          getItemType() const;
@@ -80,7 +80,7 @@ class Ressource : public Item
     Ressource(int, sf::Vector2f, sf::Vector2f, sf::Vector2f, Item_t);
     ~Ressource();
 
-    void update();
+    bool update();
     void render();
     void use();
 
@@ -122,7 +122,7 @@ class Drop : public Entity
  ~Drop();
 
  void render();
- void update();
+ bool update();
 
  Item_t getItemType() const;
  bool   getGenerated() const;

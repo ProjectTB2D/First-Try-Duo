@@ -202,7 +202,7 @@ Drop* World::addDrop(const sf::Vector2f& pos, const Item_t& it, bool s){
 }
 
 
-void World::update(){
+bool World::update(){
 
     #if DEBUG_PRINT == 1
 

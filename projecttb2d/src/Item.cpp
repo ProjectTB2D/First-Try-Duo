@@ -78,12 +78,14 @@ Ressource::~Ressource()
 
 }
 
-void Ressource::update(){
+bool Ressource::update(){
 
     float ang = _carrier_angle + 0.58539;
 
     _spr.setPosition(_carrier_pos.x - 30*cos(ang), _carrier_pos.y - 30*sin(ang));
     _spr.setRotation(_carrier_angle);
+
+    return true;
 }
 
 void Ressource::render(){
@@ -118,11 +120,12 @@ Drop::~Drop(){
 
 }
 
-void Drop::update(){
+bool Drop::update(){
 
     if(!_generated && _timer.getElapsedTime().asSeconds() > LIFETIME)
         _killed = true;
 
+    return true;
 }
 
 void Drop::render(){

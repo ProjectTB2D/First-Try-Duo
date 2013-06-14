@@ -27,8 +27,8 @@ HQ::HQ(int a, sf::Vector2f b, sf::Vector2f c, sf::Vector2f d, float h, team* tm)
 }
 
 
-void HQ::update(){
-
+bool HQ::update(){
+    return true;
 }
 
 void HQ::render(){
@@ -87,7 +87,7 @@ RessourceSpawner::~RessourceSpawner(){
 
 }
 
-void RessourceSpawner::update(){
+bool RessourceSpawner::update(){
 
     if(_timer.getElapsedTime().asSeconds() > _spawnRate){
         //printf("SPAWN !\n");
@@ -97,6 +97,7 @@ void RessourceSpawner::update(){
             addRessource();
     }
 
+    return true;
 }
 
 void RessourceSpawner::render(){

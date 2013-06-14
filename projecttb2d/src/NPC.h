@@ -31,7 +31,7 @@ class NPC : public Actor
     ~NPC();
 
  	void render();
-	void update();
+	bool update();
 
 	Actor*    getTarget();
 	void      setTarget(Actor*);
@@ -41,7 +41,7 @@ class NPC : public Actor
     Item*     getBestWeapon();
     Item*     getWeakestWeapon();
 
-    bool      search();      
+    bool      search();
 
 	// ORDERS ...
 

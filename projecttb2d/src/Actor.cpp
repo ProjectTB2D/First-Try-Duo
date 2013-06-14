@@ -60,7 +60,7 @@ void Actor::dump(){
 }
 
 
-void Actor::update(){}
+bool Actor::update(){return true;}
 
 void Actor::render(){
 
